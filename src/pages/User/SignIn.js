@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from "react";
 import {
-    createUserWithEmailAndPassword,
     onAuthStateChanged,
     signInWithEmailAndPassword,
     signOut,
+    GoogleAuthProvider,
+    signInWithPopup,
 } from "firebase/auth";
 import { auth } from "./firebase";
+//페이지 이동
+import Link from "next/link";
 
-const App = () => {
-    const [registerEmail, setRegisterEmail] = useState("");
-    const [registerPassword, setRegisterPassword] = useState("");
+const SignIn = () => {
+    //컴포넌트 상태 초기화
 
     const [loginEmail, setLoginEmail] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
     const [user, setUser] = useState({});
 
+    //onAuthStateChanged: 인증 상태 변경될때마다 호출되는 리스너 등록
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
@@ -24,18 +27,17 @@ const App = () => {
         };
     }, []);
 
-    const register = async () => {
-        try {
-            const user = await createUserWithEmailAndPassword(
-                auth,
-                registerEmail,
-                registerPassword
-            );
-            console.log(user);
-        } catch (error) {
-            console.log(error.message);
-        }
-    };
+    function handleGoogleLogin() {
+        const provider = new GoogleAuthProvider(); // provider를 구글로 설정
+        signInWithPopup(auth, provider) // popup을 이용한 signup
+            .then((data) => {
+                setUserData(data.user); // user data 설정
+                console.log(data) // console로 들어온 데이터 표시
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
 
     const login = async () => {
         try {
@@ -50,17 +52,12 @@ const App = () => {
         }
     };
 
+
     const logout = async () => {
         await signOut(auth);
     };
 
-    const handleRegisterEmailChange = (e) => {
-        setRegisterEmail(e.target.value);
-    };
-
-    const handleRegisterPasswordChange = (e) => {
-        setRegisterPassword(e.target.value);
-    };
+    //onChange 이벤트 처리
 
     const handleLoginEmailChange = (e) => {
         setLoginEmail(e.target.value);
@@ -73,17 +70,6 @@ const App = () => {
     return (
         <div style={{ textAlign: "center", margin: 10 }}>
             <div>
-                <input
-                    placeholder="Email"
-                    onChange={handleRegisterEmailChange}
-                />
-                <input
-                    placeholder="Password"
-                    onChange={handleRegisterPasswordChange}
-                />
-                <button onClick={register}>Create User</button>
-            </div>
-            <div>
                 <h3>Login</h3>
                 <input placeholder="Email" onChange={handleLoginEmailChange} />
                 <input
@@ -91,12 +77,19 @@ const App = () => {
                     onChange={handleLoginPasswordChange}
                 />
                 <button onClick={login}>Login</button>
+                </div>
+                <div>
                 <div>User Logged In:</div>
                 <div>{user?.email}</div>
                 <button onClick={logout}>Logout</button>
+                <div><button><Link href={'/User/SignUp'}>회원가입</Link></button></div>
+                <div>
+                    <button onClick={handleGoogleLogin}>구글로그인</button>
+                    {user ? user.displayName : null}
+                </div>
             </div>
         </div>
     );
 };
 
-export default App;
+export default SignIn;
