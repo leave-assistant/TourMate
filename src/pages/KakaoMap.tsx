@@ -16,21 +16,21 @@ const KakaoMap = () => {
           // style={{ width: '800px', height: '600px' }} // 지도 크기
           level={level}                                  // 지도 확대 레벨
         >
-          <button onClick={() => setLevel(level + 1)}>-</button>
-          <button onClick={() => setLevel(level - 1)}>+</button>
+          {/* <button onClick={() => setLevel(level + 1)}>-</button>
+          <button onClick={() => setLevel(level - 1)}>+</button> */}
       </StyledMap>
     </KakaoMapContainer>
   );
 };
 
 const KakaoMapContainer = styled.div`
-  width: 75vw;
+  width: 100%;
   height: 100%;
 `; 
 
 const StyledMap = styled(Map)`
-  width: 80vw;
-  height: 90vh;
+  width: 100%;
+  height: 100%;
 `;
 
 export default KakaoMap;
