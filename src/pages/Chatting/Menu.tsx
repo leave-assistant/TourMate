@@ -27,19 +27,19 @@ const Page = styled.div`
     position : relative;
     maring : 0;
     background-color : white;
-`
+`;
 const MenuExtend = styled.div`
     width : 433px;
     height : 1080px;
     background-color :white;
     border-left: 0.5px solid black;
 
-`
+`;
 const ChattingTitle = styled.p`
     margin-left : 21px;
     font-size : 21px;
     font-weight : bold;
-`
+`;
 const ChattingBox = styled.div`
     width : 100%;
     height : 70px;
@@ -47,7 +47,7 @@ const ChattingBox = styled.div`
     padding-top: 21px;
     margin-bottom : 10px;
     border-bottom : 1px solid black;
-`
+`;
  
 
 
