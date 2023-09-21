@@ -1,21 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, ChangeEvent } from "react";
 import {
     onAuthStateChanged,
     signInWithEmailAndPassword,
     signOut,
     GoogleAuthProvider,
     signInWithPopup,
+    UserCredential,
 } from "firebase/auth";
-import { auth } from "./firebase";
+import { auth } from "../firebase";
 //페이지 이동
 import Link from "next/link";
 
-const SignIn = () => {
+const SignIn: React.FC = (): JSX.Element => {
     //컴포넌트 상태 초기화
+    const [loginEmail, setLoginEmail] = useState<string>("");
+    const [loginPassword, setLoginPassword] = useState<string>("");
+    const [user, setUser] = useState<UserCredential | null>(null as UserCredential | null);
 
-    const [loginEmail, setLoginEmail] = useState("");
-    const [loginPassword, setLoginPassword] = useState("");
-    const [user, setUser] = useState({});
 
     //onAuthStateChanged: 인증 상태 변경될때마다 호출되는 리스너 등록
     useEffect(() => {
