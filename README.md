@@ -62,3 +62,6 @@ Key값을 다루는 코드는 아래와 같습니다.
     strategy="beforeInteractive"                
 />
 ```
+
+## 카카오 지도 API 가이드
+* http://localhost:3000 을 사용하셔야 지도가 렌더링 됩니다.
