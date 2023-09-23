@@ -3,24 +3,24 @@ import {
     signInWithEmailAndPassword,
     signOut
 } from "@firebase/auth";
-import React, { MouseEventHandler, useContext, useState } from "react";
+import React, { useContext, useState, ChangeEvent } from "react";
 import { AuthContext } from "./authContext";
 import { auth } from "./firebase";
 
     function App() {
         const userInfo = useContext(AuthContext);
-        const [email, setEmail] = useState("");
-        const [pwd, setPwd] = useState("");
+        const [email, setLoginEmail] = useState("");
+        const [pwd, setLoginPassword] = useState("");
         const [isCreate, setIsCreate] = useState(false);
     
         const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
-        setEmail(e.target.value);
+        setLoginEmail(e.target.value);
         };
     
         const handlePwd = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
-        setPwd(e.target.value);
+        setLoginPassword(e.target.value);
         };
     
         const handleClickCreate = (e: React.MouseEvent<HTMLButtonElement>) => {
