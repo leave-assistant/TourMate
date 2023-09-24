@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 const MyPage = () => {
   return (
@@ -7,6 +7,7 @@ const MyPage = () => {
       <MenuBar></MenuBar>
       <MyPageContent>
         <Title>MY 투어메이트</Title>
+        <Edit><img src="/MyPage_Image/edit.png"/></Edit>
         <Image><img src="/MyPage_Image/people.png"/></Image>
         <Profile>홍길동<br/>20대/남성</Profile>
         <Introduce>
@@ -16,8 +17,8 @@ const MyPage = () => {
         </Introduce>
         <History>
           <UseHistory>이용 기록</UseHistory>
-          <Button>이전 코스 내역</Button>
-          <Button>내가 작성한 리뷰</Button>
+          <Button><a href="./Course">이전 코스 내역</a></Button>
+          <Button><a href="./Review">내가 작성한 리뷰</a></Button>
         </History>
       </MyPageContent>
     </MyPageWrapper>
@@ -32,7 +33,7 @@ const MyPageWrapper = styled.div`
 `;
 
 const MenuBar = styled.div`
-  width: 66px;
+  width: 62px;
   height: 100%;
   background-color: #ffffff;
   padding: 20px;
@@ -40,28 +41,32 @@ const MenuBar = styled.div`
 `;
 
 const MyPageContent = styled.div`
-  width: 433px;
+  width: 390px;
   height: 100%;
   background-color: #ffffff;
-  padding: 20px;
 `;
 
 const Title = styled.div`
-  width: 100%;
+  width: 350px;
   height: 50px;
-  margin-top: 20px;
+  margin: 15px auto;
   font-size: 28px;
   font-weight: bold; 
   border-bottom: 1px solid #0160D6
 `;
 
+const Edit = styled.div`
+  width: 30px;
+  height: 30px;
+  display: flex;
+  margin-left: 340px;
+`;
+
 const Image = styled.div`
   width: 130px;
   height: 130px;
-  margin-top: 40px;
   display: flex;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0px auto;
 `;
 
 const Profile = styled.div`
@@ -74,16 +79,15 @@ const Profile = styled.div`
 `;
 
 const Introduce = styled.div`
-  width: 100%;
-  height: 300px;
-  margin-top: 35px;
+  width: 350px;
+  height: 290px;
+  margin: 35px 0px 0px 10px;
   border-bottom: 1px solid #000000
 `;
 
 const Question = styled.div`
   width: 100%;
-  margin-top: 25px;
-  margin-left: 30px;
+  margin: 25px 0px 0px 30px;
   font-size: 24px;
   font-weight: bold; 
   color: #000000
@@ -91,11 +95,10 @@ const Question = styled.div`
 
 const Answer = styled.div`
   width: 100%;
-  margin: 5px;
+  margin: 5px 0px 0px 50px;
   font-size: 22px;
-  font-weight: naomal; 
-  text-align: center;
-  color: #D3D3D3
+  font-weight: normal; 
+  color: #D3D3D3;
 `;
 
 const History = styled.div`
@@ -111,12 +114,12 @@ const UseHistory = styled.div`
 `;
 
 const Button = styled.div`
-  width: 400px;
+  width: 360px;
   height: 50px;
-  margin-top: 10px;
-  margin-left: auto;
-  margin-right: auto;
-  line-height: 50px;
+  margin: 10px auto;
+  display:flex;
+  justify-content: center;
+  align-items: center;
   font-size: 24px;
   font-weight: normal; 
   text-align: center;
