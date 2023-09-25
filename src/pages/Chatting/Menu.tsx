@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import UserProfile from "./UserProfile";
+import Chatting from "./ChattingRoom";
 const Menu = () => {
     return (
         <Page>
@@ -16,6 +17,7 @@ const Menu = () => {
                 <UserProfile />
 
             </MenuExtend>
+            <Chatting></Chatting>
         </Page>
     );
 }
@@ -25,11 +27,11 @@ const Page = styled.div`
     width : 1920px;
     height : 1080px;
     position : relative;
-    maring : 0;
+    margin : 0;
     background-color : white;
 `;
 const MenuExtend = styled.div`
-    width : 433px;
+    width : 390px;
     height : 1080px;
     background-color :white;
     border-left: 0.5px solid black;
