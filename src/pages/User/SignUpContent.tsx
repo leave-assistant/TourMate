@@ -4,12 +4,16 @@ import { auth } from "./firebase";
 import { createUserWithEmailAndPassword } from "@firebase/auth"; // Firebase의 createUserWithEmailAndPassword 함수를 import
 import { getFirestore, collection, doc, setDoc } from "firebase/firestore"; // firestore 추가
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const SignUp = () => {
     const [email, setEmail] = useState(""); // 이메일 상태
     const [password, setPassword] = useState(""); // 비밀번호 상태
     const [year, setYear] = useState(""); // 년도 상태
     const [age, setAge] = useState(""); // 나이 상태
+
+    // 라우터 초기화(로그인성공시 자동으로 페이지 이동)
+    const router = useRouter();
 
     // 이메일 입력값 변경 핸들러
     const handleEmailChange = (e: any) => {
@@ -52,6 +56,7 @@ const SignUp = () => {
                 setDoc(doc(db, "users", userId), userData)
                     .then(() => {
                         alert("회원가입 성공");
+                        router.push("./SignIn");
                     })
                     .catch((error) => {
                         alert("Firestore에 사용자 정보 저장 중 오류 발생: " + error);
