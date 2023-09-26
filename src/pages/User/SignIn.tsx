@@ -1,116 +1,61 @@
-import React from 'react';
-import styled from 'styled-components';
-import Link from 'next/link';
+import React, {useState} from "react";
+import KakaoMap from "../KakaoMap";
+import styled from "styled-components";
+import MenuBar from "../Home/MenuBar";
+import SignInContent from "./SignInContent";
 
-const MyPage = () => {
-return (
-    <Background>
-        <MyPageContent>
-        <Title>MY 투어메이트</Title>
-        <Image><img src="/MyPage_Image/people.png"/></Image>
-        <Profile><br/>투어메이트를 더 안전하고<br/> 편리하게 이용하세요</Profile>
-        <Introduce>
-        </Introduce>
-        <History>
-            <Button><Link href='./SignIn'>로그인</Link></Button>
-            <Button><Link href="./SignUp">회원가입</Link></Button>
-        </History>
-        </MyPageContent>
-    </Background>
-);
+const Main = () => {
+    // MenuBar와 MenuContent의 보이기/숨기기 상태를 관리하는 상태 변수
+    const [isMenuVisible, setMenuVisible] = useState(true);
+
+    // MenuBar를 클릭할 때 MenuContent의 상태를 토글하는 함수
+    const toggleMenu = () => {
+        setMenuVisible(!isMenuVisible);
+    };
+    return (
+        <MainPage>
+            <Sidebar>
+                <MenuBar onClick={toggleMenu} /> {/* MenuBar 클릭 이벤트 연결 */}
+                <MenuContentWrapper isVisible={isMenuVisible}>
+                    <SignInContent />
+                </MenuContentWrapper>
+            </Sidebar>
+
+            <MapContainer>
+                <KakaoMap />
+            </MapContainer>
+        </MainPage>
+    );
 };
 
+const MainPage = styled.div`
+    display: flex;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+`;
 
-const Background = styled.div`
-    width: 440px;
+const Sidebar = styled.div`
+    display: flex;
+    width: 510px; /* 원하는 사이드바 너비로 조정 */
     height: 100%;
-    background-color: skyblue;
+    position: absolute;
+    z-index: 2;
+    background-color: #ffffff;
+    
+`;
+const MenuContentWrapper = styled.div<{ isVisible: boolean }>`
+    width: ${(props) => (props.isVisible ? "86.5%" : "0%")};
+    overflow: hidden;
+    transition: width 0.3s ease-in-out;
 `;
 
-const MyPageContent = styled.div`
-width: 440px;
-height: 100%;
-background-color: #ffffff;
-padding: 20px;
+const MapContainer = styled.div`
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
 `;
 
-const Title = styled.div`
-width: 100%;
-height: 50px;
-margin-top: 20px;
-font-size: 28px;
-font-weight: bold; 
-border-bottom: 1px solid #0160D6
-`;
-
-const Image = styled.div`
-width: 130px;
-height: 130px;
-margin-top: 40px;
-display: flex;
-margin-left: auto;
-margin-right: auto;
-`;
-
-const Profile = styled.div`
-width: 100%;
-height: 70px;
-margin-top: 10px;
-font-size: 24px;
-font-weight: normal; 
-text-align: center;
-`;
-
-const Introduce = styled.div`
-width: 100%;
-height: 300px;
-margin-top: 35px;
-border-bottom: 1px solid #000000
-`;
-
-const Question = styled.div`
-width: 100%;
-margin-top: 25px;
-margin-left: 30px;
-font-size: 24px;
-font-weight: bold; 
-color: #000000
-`;
-
-const Answer = styled.div`
-width: 100%;
-margin: 5px;
-font-size: 22px;
-font-weight: naomal; 
-text-align: center;
-color: #D3D3D3
-`;
-
-const History = styled.div`
-width: 100%;
-margin-top: 35px;
-`;
-
-const UseHistory = styled.div`
-width: 100%;
-margin-left: 25px;
-font-size: 26px;
-font-weight: bold; 
-`;
-
-const Button = styled.div`
-width: 300px;
-height: 50px;
-margin-top: 10px;
-margin-left: auto;
-margin-right: auto;
-line-height: 50px;
-font-size: 24px;
-font-weight: normal; 
-text-align: center;
-background-color: #ffffff;
-border: 1px solid #0160D6;
-border-radius: 10px;
-`;
-
-export default MyPage;
+export default Main;

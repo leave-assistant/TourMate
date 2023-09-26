@@ -8,8 +8,6 @@ import Link from "next/link";
 const SignUp = () => {
     const [email, setEmail] = useState(""); // 이메일 상태
     const [password, setPassword] = useState(""); // 비밀번호 상태
-    const [year, setYear] = useState(""); // 년도 상태
-    const [age, setAge] = useState(""); // 나이 상태
 
     // 이메일 입력값 변경 핸들러
     const handleEmailChange = (e: any) => {
@@ -19,17 +17,6 @@ const SignUp = () => {
     // 비밀번호 입력값 변경 핸들러
     const handlePasswordChange = (e: any) => {
         setPassword(e.target.value);
-    };
-
-    // age 입력값 변경 핸들러
-    const handleAgeChange = (e: any) => {
-        const inputYear = parseInt(e.target.value);
-        setYear(inputYear.toString()); // 년도 값을 문자열로 설정
-
-        // 나이 계산 (현재 년도 - 입력된 년도)
-        const currentYear = new Date().getFullYear();
-        const calculatedAge = currentYear - inputYear;
-        setAge(calculatedAge.toString()); // 나이를 문자열로 설정
     };
 
     // 회원 가입 버튼 클릭 핸들러
@@ -83,16 +70,10 @@ const SignUp = () => {
                             value={password}
                             onChange={handlePasswordChange}
                         />
-                        <Input
-                            type="number"
-                            placeholder="년도"
-                            value={year}
-                            onChange={handleAgeChange}
-                        />
                         <br/>
-                        <SignUpButton type="submit">회원가입</SignUpButton>
+                        <SignUpButton type="submit">로그인</SignUpButton>
                         <br/>
-                        <Link href="./SignIn">이미 회원이신가요?</Link>
+                        <Link href="./SignUp">회원이 아니신가요?</Link>
                 </SignUpForm>
             </History>
         </SignUpContainer>

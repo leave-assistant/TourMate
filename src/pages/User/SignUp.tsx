@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import KakaoMap from "../KakaoMap";
 import styled from "styled-components";
 import MenuBar from "../Home/MenuBar";
-import MenuContent from "./SignUpContent";
+import SignUpContent from "./SignUpContent";
 
 const Main = () => {
     // MenuBar와 MenuContent의 보이기/숨기기 상태를 관리하는 상태 변수
@@ -17,7 +17,7 @@ const Main = () => {
             <Sidebar>
                 <MenuBar onClick={toggleMenu} /> {/* MenuBar 클릭 이벤트 연결 */}
                 <MenuContentWrapper isVisible={isMenuVisible}>
-                    <MenuContent />
+                    <SignUpContent />
                 </MenuContentWrapper>
             </Sidebar>
 
@@ -42,7 +42,7 @@ const Sidebar = styled.div`
     height: 100%;
     position: absolute;
     z-index: 2;
-    background-color: rgba(0,0,0,0.1);
+    background-color: #ffffff;
     
 `;
 const MenuContentWrapper = styled.div<{ isVisible: boolean }>`
