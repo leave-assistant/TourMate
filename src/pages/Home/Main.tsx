@@ -1,8 +1,9 @@
 import React, {useState} from "react";
 import KakaoMap from "../KakaoMap";
 import styled from "styled-components";
-import MenuBar from "./MenuBar";
-import MenuContent from "./MenuContent";
+import MenuBar from "../../../public/src/NavBar";
+import MenuContent from "../../../public/src/MenuContent";
+import ExtendButton from "../../../public/src/ExtendButton";
 
 const Main = () => {
     // MenuBar와 MenuContent의 보이기/숨기기 상태를 관리하는 상태 변수
@@ -15,10 +16,11 @@ const Main = () => {
     return (
         <MainPage>
             <Sidebar>
-                <MenuBar onClick={toggleMenu} /> {/* MenuBar 클릭 이벤트 연결 */}
+                <MenuBar  /> {/* MenuBar 클릭 이벤트 연결 */}
                 <MenuContentWrapper isVisible={isMenuVisible}>
                     <MenuContent />
                 </MenuContentWrapper>
+                <ExtendButton onClick={toggleMenu}/>
             </Sidebar>
 
             <MapContainer>
@@ -38,15 +40,15 @@ const MainPage = styled.div`
 
 const Sidebar = styled.div`
     display: flex;
-    width: 510px; /* 원하는 사이드바 너비로 조정 */
+    width: 480px; /* 원하는 사이드바 너비로 조정 */
     height: 100%;
     position: absolute;
     z-index: 2;
     background-color: rgba(0,0,0,0.1);
-    
 `;
+
 const MenuContentWrapper = styled.div<{ isVisible: boolean }>`
-    width: ${(props) => (props.isVisible ? "86.5%" : "0%")};
+    width: ${(props) => (props.isVisible ? "100%" : "0%")};
     overflow: hidden;
     transition: width 0.3s ease-in-out;
 `;
