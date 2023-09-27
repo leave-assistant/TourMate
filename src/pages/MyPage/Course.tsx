@@ -3,69 +3,52 @@ import styled from "styled-components";
 
 const Course = () => {
   return (
-    <MyPageWrapper>
-      <MenuBar></MenuBar>
       <MyPageContent>
         <a href="./MyPage"><Back><img src="/MyPage_Image/back.png"/></Back></a>
         <Title>이전 코스 내역</Title>
         <Outline>
-          <C_Title>2000 - 00 - 00 XX코스</C_Title>
-          <C_Area>지역 : 안양</C_Area>
-          <C_Detail>
+          <CourseTitle>2000 - 00 - 00 XX코스</CourseTitle>
+          <CourseArea>지역 : 안양</CourseArea>
+          <CourseDetail>
             ㄱㄱㄱㄱ - ㄴㄴㄴㄴ - ㄷㄷㄷㄷ - ㄹㄹㄹㄹ 
-          </C_Detail>
+          </CourseDetail>
         </Outline>
         <Outline>
-          <C_Title>2000 - 00 - 00 XX코스</C_Title>
-          <C_Area>지역 : 안양</C_Area>
-          <C_Detail>
+          <CourseTitle>2000 - 00 - 00 XX코스</CourseTitle>
+          <CourseArea>지역 : 안양</CourseArea>
+          <CourseDetail>
             ㄱㄱㄱㄱ - ㄴㄴㄴㄴ - ㄷㄷㄷㄷ - ㄹㄹㄹㄹ 
-          </C_Detail>
+          </CourseDetail>
         </Outline>
         <Outline>
-          <C_Title>2000 - 00 - 00 XX코스</C_Title>
-          <C_Area>지역 : 안양</C_Area>
-          <C_Detail>
+          <CourseTitle>2000 - 00 - 00 XX코스</CourseTitle>
+          <CourseArea>지역 : 안양</CourseArea>
+          <CourseDetail>
             ㄱㄱㄱㄱ - ㄴㄴㄴㄴ - ㄷㄷㄷㄷ - ㄹㄹㄹㄹ 
-          </C_Detail>
+          </CourseDetail>
         </Outline>
         <Outline>
-          <C_Title>2000 - 00 - 00 XX코스</C_Title>
-          <C_Area>지역 : 안양</C_Area>
-          <C_Detail>
+          <CourseTitle>2000 - 00 - 00 XX코스</CourseTitle>
+          <CourseArea>지역 : 안양</CourseArea>
+          <CourseDetail>
             ㄱㄱㄱㄱ - ㄴㄴㄴㄴ - ㄷㄷㄷㄷ - ㄹㄹㄹㄹ 
-          </C_Detail>
+          </CourseDetail>
         </Outline>
         <Outline>
-          <C_Title>2000 - 00 - 00 XX코스</C_Title>
-          <C_Area>지역 : 안양</C_Area>
-          <C_Detail>
+          <CourseTitle>2000 - 00 - 00 XX코스</CourseTitle>
+          <CourseArea>지역 : 안양</CourseArea>
+          <CourseDetail>
             ㄱㄱㄱㄱ - ㄴㄴㄴㄴ - ㄷㄷㄷㄷ - ㄹㄹㄹㄹ 
-          </C_Detail>
+          </CourseDetail>
         </Outline>
       </MyPageContent>
-    </MyPageWrapper>
   );
 };
-
-const MyPageWrapper = styled.div`
-  width: 100%;
-  height: 1080px;
-  display: flex;
-  background-color: #000000;
-`;
-
-const MenuBar = styled.div`
-  width: 62px;
-  height: 100%;
-  background-color: #ffffff;
-  padding: 20px;
-  border-right: 1px solid black;
-`;
 
 const MyPageContent = styled.div`
   width: 390px;
   height: 100%;
+  padding: 1px;
   background-color: #ffffff;
 `;
 
@@ -96,13 +79,13 @@ const Outline = styled.div`
   border-radius: 10px;
 `;
 
-const C_Title = styled.div`
+const CourseTitle = styled.div`
   font-size: 20px;
   font-weight: bold; 
   text-align: center;
 `;
 
-const C_Area = styled.div`
+const CourseArea = styled.div`
   margin-top: 1px;
   font-size: 13px;
   font-weight: normal; 
@@ -110,7 +93,7 @@ const C_Area = styled.div`
   color: #D3D3D3;
 `;
 
-const C_Detail = styled.div`
+const CourseDetail = styled.div`
   margin-top: 10px;
   font-size: 15px;
   font-weight: normal; 

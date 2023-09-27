@@ -3,8 +3,6 @@ import styled from "styled-components";
 
 const MyPage = () => {
   return (
-    <MyPageWrapper>
-      <MenuBar></MenuBar>
       <MyPageContent>
         <Title>MY 투어메이트</Title>
         <Edit><img src="/MyPage_Image/edit.png"/></Edit>
@@ -21,28 +19,13 @@ const MyPage = () => {
           <Button><a href="./Review">내가 작성한 리뷰</a></Button>
         </History>
       </MyPageContent>
-    </MyPageWrapper>
   );
 };
-
-const MyPageWrapper = styled.div`
-  width: 100%;
-  height: 1080px;
-  display: flex;
-  background-color: #000000;
-`;
-
-const MenuBar = styled.div`
-  width: 62px;
-  height: 100%;
-  background-color: #ffffff;
-  padding: 20px;
-  border-right: 1px solid black;
-`;
 
 const MyPageContent = styled.div`
   width: 390px;
   height: 100%;
+  padding: 1px;
   background-color: #ffffff;
 `;
 
