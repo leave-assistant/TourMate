@@ -131,7 +131,7 @@ const Title = styled.div`
 `;
 
 const GoogleImage = styled.div`
-    margin-top: 40px;
+    margin-top: 0px;
     display: flex;
     margin-left: 25%;
     margin-right: auto;
