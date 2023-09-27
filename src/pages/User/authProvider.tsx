@@ -1,10 +1,14 @@
-//authProvider.tsx
+// authProvider.tsx
 import { User } from "@firebase/auth";
-import { useEffect, useState } from "react";
+import { useEffect, useState, ReactNode } from "react";
 import { AuthContext } from "./authContext";
 import { auth } from "./firebase";
 
-    const AuthProvider: React.FC = ({ children }) => {
+interface AuthProviderProps {
+  children: ReactNode; // children을 명시적으로 정의합니다.
+}
+
+    const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const [user, setUser] = useState<User | null>(null);
 
     useEffect(() => {
@@ -18,4 +22,4 @@ import { auth } from "./firebase";
     return <AuthContext.Provider value={user}>{children}</AuthContext.Provider>;
     };
 
-    export default AuthProvider;
+export default AuthProvider;
