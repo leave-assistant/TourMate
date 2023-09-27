@@ -86,11 +86,8 @@ const SignIn = () => {
             <Introduce>
                 <Image><img src="/MyPage_Image/people.png"/></Image><br/>
                 <Profile>여행메이트에 오신것을 환영합니다<br/>편리하게 이용하세요</Profile>
-<<<<<<< HEAD
                 <GoogleImage><img src="/Logo/btn_google_signin_light_normal_web.png"/></GoogleImage><br/>
                 {/* <GoogleButton type="submit">구글로그인</GoogleButton> */}
-=======
->>>>>>> 6c351737c0196598f81c83f6851aaa9b4ae6ee0f
             </Introduce>
             <History>
                     <SignUpForm onSubmit={handleSignIn}>
