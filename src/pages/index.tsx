@@ -41,6 +41,7 @@ export default function Home() {
         <div className={styles.navbar}>
               <a href="./Chatting" >Chat</a>
               <a href="./Home" >Home</a>
+              <a href='./Matching/basic'>test</a>
         </div>
         <div className={styles.center}>
           <Image
