@@ -39,7 +39,7 @@ export default function Home() {
           </div>
         </div>
         <div className={styles.navbar}>
-              <a href="./Chatting/Menu" >Chat</a>
+              <a href="./Chatting" >Chat</a>
               <a href="./Home" >Home</a>
         </div>
         <div className={styles.center}>
