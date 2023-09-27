@@ -4,7 +4,6 @@ import styled from 'styled-components';
 const MyPage = () => {
   return (
     <MyPageWrapper>
-      <MenuBar></MenuBar>
       <MyPageContent>
         <Title>MY 투어메이트</Title>
         <Image><img src="/MyPage_Image/people.png"/></Image>
@@ -29,14 +28,6 @@ const MyPageWrapper = styled.div`
   height: 1080px;
   display: flex;
   background-color: #000000;
-`;
-
-const MenuBar = styled.div`
-  width: 66px;
-  height: 100%;
-  background-color: #ffffff;
-  padding: 20px;
-  border-right: 1px solid black;
 `;
 
 const MyPageContent = styled.div`

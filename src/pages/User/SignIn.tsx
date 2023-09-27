@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 import KakaoMap from "../KakaoMap";
 import styled from "styled-components";
-import MenuBar from "../Home/MenuBar";
 import SignInContent from "./SignInContent";
+import MenuBar from "../../../public/src/NavBar";
 
 const Main = () => {
     // MenuBar와 MenuContent의 보이기/숨기기 상태를 관리하는 상태 변수
@@ -12,10 +12,12 @@ const Main = () => {
     const toggleMenu = () => {
         setMenuVisible(!isMenuVisible);
     };
+
     return (
         <MainPage>
+            <MenuBar/>
             <Sidebar>
-                <MenuBar onClick={toggleMenu} /> {/* MenuBar 클릭 이벤트 연결 */}
+                <MenuBar onClick={toggleMenu} />
                 <MenuContentWrapper isVisible={isMenuVisible}>
                     <SignInContent />
                 </MenuContentWrapper>
@@ -35,6 +37,7 @@ const MainPage = styled.div`
     height: 100vh;
     background-color: white;
 `;
+
 
 const Sidebar = styled.div`
     display: flex;

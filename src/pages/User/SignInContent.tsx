@@ -1,5 +1,12 @@
 import React, { useEffect, useState, useContext } from "react";
-import { getAuth, setPersistence, signInWithEmailAndPassword, browserSessionPersistence } from "@firebase/auth";
+import { 
+    getAuth, 
+    setPersistence, 
+    signInWithEmailAndPassword, 
+    browserSessionPersistence,
+    GoogleAuthProvider,
+    signInWithPopup,
+} from "@firebase/auth";
 import styled from "styled-components";
 import { auth } from "./firebase";
 import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore"; // firestore 추가
@@ -64,7 +71,7 @@ const SignIn = () => {
         setLoginPassword(e.target.value);
     };
 
-    // 회원 가입 버튼 클릭 핸들러
+    // 로그인 버튼 클릭 핸들러
     const handleSignIn = async (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -80,13 +87,29 @@ const SignIn = () => {
             })
     };
 
+    // GoogleAuthProvider 생성
+    const provider = new GoogleAuthProvider(); // GoogleAuthProvider 클래스를 authentication 라이브러리에서 사용할 수 있도록 불러오는 코드.
+    provider.setCustomParameters({prompt: 'select_account'}); // signIn이랑 authentication을 위해서 GoogleAuthProvider를 사용할 때마다 구글 팝업을 항상 띄우기를 원한다는 의미이다.
+
+    
+    const signInWithGoogle = async () => {
+        try {
+            const result = await signInWithPopup(auth, provider);
+            const user = result.user;
+            console.log("Google 로그인 성공", user);
+            router.push("./MyPage");
+        } catch (error) {
+            console.error("Google 로그인 실패", (error as { message: string }).message);
+        }
+    };
+
     return (
         <SignUpContainer>
             <Title>MY 투어메이트</Title>
             <Introduce>
                 <Image><img src="/MyPage_Image/people.png"/></Image><br/>
                 <Profile>여행메이트에 오신것을 환영합니다<br/>편리하게 이용하세요</Profile>
-                <GoogleImage><img src="/Logo/btn_google_signin_light_normal_web.png"/></GoogleImage><br/>
+                <GoogleImage onClick={signInWithGoogle}><img src="/Logo/btn_google_signin_light_normal_web.png"/></GoogleImage><br/>
                 {/* <GoogleButton type="submit">구글로그인</GoogleButton> */}
             </Introduce>
             <History>

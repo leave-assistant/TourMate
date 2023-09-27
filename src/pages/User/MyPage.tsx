@@ -1,12 +1,8 @@
 import React, { useState, useEffect} from "react";
 import KakaoMap from "../KakaoMap";
 import styled from "styled-components";
-import MenuBar from "../Home/MenuBar";
-<<<<<<< HEAD
-=======
-import { AuthProvider } from './authProvider';
-import { UserDataProvider } from './UserDataProvider';
->>>>>>> 6c351737c0196598f81c83f6851aaa9b4ae6ee0f
+import MenuBar from "../../../public/src/NavBar";
+import { auth } from "./firebase"; 
 
 const Main = () => {
     // MenuBar와 MenuContent의 보이기/숨기기 상태를 관리하는 상태 변수
@@ -25,14 +21,9 @@ const Main = () => {
     })
 
     return (
-<<<<<<< HEAD
-=======
-      <AuthProvider>
-        <UserDataProvider>
->>>>>>> 6c351737c0196598f81c83f6851aaa9b4ae6ee0f
         <MainPage>
             <Sidebar>
-                <MenuBar onClick={toggleMenu} /> {/* MenuBar 클릭 이벤트 연결 */}
+                <MenuBar/>
                 <MenuContentWrapper isVisible={isMenuVisible}>
                 <MyPageContent>
                   <Title>MY 투어메이트</Title>
@@ -47,6 +38,10 @@ const Main = () => {
                     <UseHistory>이용 기록</UseHistory>
                     <Button>이전 코스 내역</Button>
                     <Button>내가 작성한 리뷰</Button>
+                    <LogoutButton onClick={() =>{
+                      auth.signOut();
+                      alert("로그아웃 되었습니다");
+                    }}>로그아웃</LogoutButton>
                   </History>
                 </MyPageContent>
                 </MenuContentWrapper>
@@ -56,13 +51,19 @@ const Main = () => {
                 <KakaoMap />
             </MapContainer>
         </MainPage>
-<<<<<<< HEAD
-=======
-        </UserDataProvider>
-      </AuthProvider>
->>>>>>> 6c351737c0196598f81c83f6851aaa9b4ae6ee0f
     );
 };
+
+const LogoutButton = styled.button`
+    padding: 10px;
+    width: 60%;
+    font-size: 18px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+`;
 
 const MainPage = styled.div`
     display: flex;
