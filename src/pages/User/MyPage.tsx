@@ -2,6 +2,11 @@ import React, { useState, useEffect} from "react";
 import KakaoMap from "../KakaoMap";
 import styled from "styled-components";
 import MenuBar from "../Home/MenuBar";
+<<<<<<< HEAD
+=======
+import { AuthProvider } from './authProvider';
+import { UserDataProvider } from './UserDataProvider';
+>>>>>>> 6c351737c0196598f81c83f6851aaa9b4ae6ee0f
 
 const Main = () => {
     // MenuBar와 MenuContent의 보이기/숨기기 상태를 관리하는 상태 변수
@@ -20,6 +25,11 @@ const Main = () => {
     })
 
     return (
+<<<<<<< HEAD
+=======
+      <AuthProvider>
+        <UserDataProvider>
+>>>>>>> 6c351737c0196598f81c83f6851aaa9b4ae6ee0f
         <MainPage>
             <Sidebar>
                 <MenuBar onClick={toggleMenu} /> {/* MenuBar 클릭 이벤트 연결 */}
@@ -46,6 +56,11 @@ const Main = () => {
                 <KakaoMap />
             </MapContainer>
         </MainPage>
+<<<<<<< HEAD
+=======
+        </UserDataProvider>
+      </AuthProvider>
+>>>>>>> 6c351737c0196598f81c83f6851aaa9b4ae6ee0f
     );
 };
 
