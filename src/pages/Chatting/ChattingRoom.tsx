@@ -18,7 +18,7 @@ const ChattingRoom = () => {
                 <Chatting />
             </ImgChat>
             <Camera src = "/ChattingRoom_Picture/camera.png/"></Camera>
-            <Chatting_Div></Chatting_Div>
+            <ChattingDiv />
             <Send>
                 <SendFont>전송</SendFont>
             </Send>
@@ -105,7 +105,7 @@ const Camera = styled.img`
     height: 20px;
     margin: 0px 30px 40px 20px;
 `
-const Chatting_Div = styled.div`
+const ChattingDiv = styled.div`
     position: absolute;
     width: 260px;
     height: 100px;
