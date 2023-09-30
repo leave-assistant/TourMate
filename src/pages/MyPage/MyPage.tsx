@@ -18,6 +18,7 @@ const MyPage = () => {
           <Button><a href="./Course">이전 코스 내역</a></Button>
           <Button><a href="./Review">내가 작성한 리뷰</a></Button>
         </History>
+        <Bottom><b>홍길동</b>님 | 로그아웃</Bottom>
       </MyPageContent>
   );
 };
@@ -39,15 +40,15 @@ const Title = styled.div`
 `;
 
 const Edit = styled.div`
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
   display: flex;
   margin-left: 340px;
 `;
 
 const Image = styled.div`
-  width: 130px;
-  height: 130px;
+  width: 100px;
+  height: 100px;
   display: flex;
   margin: 0px auto;
 `;
@@ -98,7 +99,7 @@ const UseHistory = styled.div`
 
 const Button = styled.div`
   width: 360px;
-  height: 50px;
+  height: 40px;
   margin: 10px auto;
   display:flex;
   justify-content: center;
@@ -109,6 +110,18 @@ const Button = styled.div`
   background-color: #ffffff;
   border: 1px solid #0160D6;
   border-radius: 10px;
+`;
+
+const Bottom = styled.div`
+  width: 390px;
+  height: 20px;
+  position : fixed;
+  bottom : 0;
+  text-align: right;
+  font-size: 16px;
+  font-weight: normal; 
+  color: #585858;
+  background-color: #D3D3D3;
 `;
 
 export default MyPage;
