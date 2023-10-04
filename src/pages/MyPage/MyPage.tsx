@@ -1,13 +1,14 @@
 import React from "react";
 import styled from "styled-components";
+import Edit from './Edit';
 
 const MyPage = () => {
   return (
       <MyPageContent>
         <Title>MY 투어메이트</Title>
-        <Edit><img src="/MyPage_Image/edit.png"/></Edit>
         <Image><img src="/MyPage_Image/people.png"/></Image>
         <Profile>홍길동<br/>20대/남성</Profile>
+        <Edit />
         <Introduce>
           <Question>여행스타일</Question> <Answer>여행스타일을 입력해주세요</Answer>
           <Question>MBTI</Question> <Answer>MBTI을 입력해주세요</Answer>
@@ -37,13 +38,6 @@ const Title = styled.div`
   font-size: 28px;
   font-weight: bold; 
   border-bottom: 1px solid #0160D6
-`;
-
-const Edit = styled.div`
-  width: 20px;
-  height: 20px;
-  display: flex;
-  margin-left: 340px;
 `;
 
 const Image = styled.div`
