@@ -6,6 +6,8 @@ import {
     browserSessionPersistence,
     GoogleAuthProvider,
     signInWithPopup,
+    inMemoryPersistence,
+    signInWithRedirect,
 } from "@firebase/auth";
 import styled from "styled-components";
 import { auth } from "./firebase";
@@ -18,7 +20,6 @@ const SignIn = () => {
     const userInfo = useContext(AuthContext);
     const [email, setLoginEmail] = useState(""); // 이메일 상태
     const [password, setLoginPassword] = useState(""); // 비밀번호 상태
-    const [isCreate, setIsCreate] = useState(false);
     const [userData, setUserData] = useState<any>(null);
     const [showAlert, setShowAlert] = useState(false);
 
@@ -74,9 +75,10 @@ const SignIn = () => {
     // 로그인 버튼 클릭 핸들러
     const handleSignIn = async (e: React.FormEvent) => {
         e.preventDefault();
-
-        // 로그인 로직
-        signInWithEmailAndPassword(auth, email, password)
+        setPersistence(auth, browserSessionPersistence)
+        .then(() => {
+            // 로그인 로직
+            signInWithEmailAndPassword(auth, email, password)
             .then(() => {
                 alert("로그인 성공");
                 // 로그인 성공 시 MyPage로 이동
@@ -85,6 +87,8 @@ const SignIn = () => {
             .catch((error) => {
                 alert("로그인 실패 : " + error.message);
             })
+            })
+        
     };
 
     // GoogleAuthProvider 생성
@@ -92,15 +96,28 @@ const SignIn = () => {
     provider.setCustomParameters({prompt: 'select_account'}); // signIn이랑 authentication을 위해서 GoogleAuthProvider를 사용할 때마다 구글 팝업을 항상 띄우기를 원한다는 의미이다.
 
     
+    // const signInWithGoogle = async () => {
+    //     try {
+    //         const result = await signInWithPopup(auth, provider);
+    //         const user = result.user;
+    //         console.log("Google 로그인 성공", user);
+    //         router.push("./MyPage");
+    //     } catch (error) {
+    //         console.error("Google 로그인 실패", (error as { message: string }).message);
+    //     }
+    // };
+
     const signInWithGoogle = async () => {
-        try {
-            const result = await signInWithPopup(auth, provider);
-            const user = result.user;
-            console.log("Google 로그인 성공", user);
-            router.push("./MyPage");
-        } catch (error) {
-            console.error("Google 로그인 실패", (error as { message: string }).message);
-        }
+        setPersistence(auth, inMemoryPersistence)
+            .then(() => {
+                const provider = new GoogleAuthProvider();
+                signInWithRedirect(auth, provider);
+                router.push("./MyPage");
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+            })
     };
 
     return (

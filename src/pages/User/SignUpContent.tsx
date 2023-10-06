@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { auth } from "./firebase";
-import { createUserWithEmailAndPassword } from "@firebase/auth"; // Firebase의 createUserWithEmailAndPassword 함수를 import
+import { createUserWithEmailAndPassword, getAuth, sendEmailVerification } from "@firebase/auth"; // Firebase의 createUserWithEmailAndPassword 함수를 import
 import { getFirestore, collection, doc, setDoc } from "firebase/firestore"; // firestore 추가
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -11,6 +11,7 @@ const SignUp = () => {
     const [password, setPassword] = useState(""); // 비밀번호 상태
     const [year, setYear] = useState(""); // 년도 상태
     const [age, setAge] = useState(""); // 나이 상태
+    const [gender, setGender] = useState<string>(''); // 성별 상태
 
     // 라우터 초기화(로그인성공시 자동으로 페이지 이동)
     const router = useRouter();
@@ -36,6 +37,11 @@ const SignUp = () => {
         setAge(calculatedAge.toString()); // 나이를 문자열로 설정
     };
 
+    // 성별 변경 핸들러
+    const handleGenderChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setGender(event.target.value);
+    };
+
     // 회원 가입 버튼 클릭 핸들러
     const handleSignUp = async (e: any) => {
         e.preventDefault();
@@ -46,7 +52,7 @@ const SignUp = () => {
                 const userData = {
                     nickname: email,
                     age: age,
-                    gender: '',
+                    gender: gender,
                     MBTI: '',
                     introduce: '',
                     tripStyle: '',
@@ -94,6 +100,12 @@ const SignUp = () => {
                             value={year}
                             onChange={handleAgeChange}
                         />
+                        <Select name="mb_address" onChange={handleGenderChange} value={gender}>
+                            <option value="" disabled>성별을 선택해주세요.</option>
+                            <option value="여성">여성</option>
+                            <option value="남성">남성</option>
+                            <option value="">선택안함</option>
+                        </Select>
                         <br/>
                         <SignUpButton type="submit">회원가입</SignUpButton>
                         <br/>
@@ -103,6 +115,15 @@ const SignUp = () => {
         </SignUpContainer>
     );
 };
+
+const Select = styled.select`
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+`;
 
 // 스타일드 컴포넌트를 사용하여 스타일을 정의
 const SignUpContainer = styled.div`
