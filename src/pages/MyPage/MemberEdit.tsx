@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
+import styled from "styled-components";
 
 interface MemberInfo {
-  name: string;
-  age: string;
-  gender: string;
   tourstyle: string;
   mbti: string;
   info: string;
@@ -11,9 +9,6 @@ interface MemberInfo {
 
 const MemberEdit: React.FC = () => {
   const [memberInfo, setMemberInfo] = useState<MemberInfo>({
-    name: '',
-    age: '',
-    gender: '',
     tourstyle: '',
     mbti: '',
     info: '',
@@ -34,67 +29,77 @@ const MemberEdit: React.FC = () => {
   };
 
   return (
-    <div>
+    <Edit>
+      <div>
       <h1>정보 수정</h1>
       <form>
-      <div>
-          <label>이름: </label>
-          <input
-            type="text"
-            name="name"
-            value={memberInfo.name}
-            onChange={handleInputChange}
-          />
-        </div>
         <div>
-          <label>나이: </label>
-          <input
-            type="number"
-            name="age"
-            value={memberInfo.age}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div>
-          <label>성별: </label>
-          <input
-            type="text"
-            name="gender"
-            value={memberInfo.gender}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div>
-          <label>여행스타일: </label>
-          <input
+          <TourStyleQuestion><label>여행스타일</label></TourStyleQuestion>
+          <TourStyle><input
             type="text"
             name="tourstyle"
             value={memberInfo.tourstyle}
             onChange={handleInputChange}
-          />
+          /></TourStyle>
         </div>
         <div>
-          <label>MBTI: </label>
-          <input
+          <MbtiQuestion><label>MBTI </label></MbtiQuestion>
+          <Mbti><input
             type="text"
             name="mbti"
             value={memberInfo.mbti}
             onChange={handleInputChange}
-          />
+          /></Mbti>
         </div>
         <div>
-          <label>소개글: </label>
-          <input
+          <InfoQuestion><label>소개글 </label></InfoQuestion>
+          <Info><input
             type="text"
             name="info"
             value={memberInfo.info}
             onChange={handleInputChange}
-          />
+          /></Info>
         </div>
       </form>
-      <button onClick={handleSave}>저장</button>
+      <Button><button onClick={handleSave}>저장</button></Button>
     </div>
+    </Edit>
+    
   );
 };
+
+const Edit = styled.div`
+  margin-left: 20px;
+`;
+
+const TourStyleQuestion = styled.div`
+  font-size: 20px;
+  margin-top: 10px;
+`;
+
+const TourStyle = styled.div`
+  font-size: 18px;
+`;
+
+const MbtiQuestion = styled.div`
+  font-size: 20px;
+  margin-top: 10px;
+`;
+
+const Mbti = styled.div`
+  font-size: 18px;
+`;
+const InfoQuestion = styled.div`
+  font-size: 20px;
+  margin-top: 10px;
+`;
+
+const Info = styled.div`
+  font-size: 18px;
+`;
+
+const Button = styled.div`
+  margin-top: 10px;
+`;
 
 export default MemberEdit;

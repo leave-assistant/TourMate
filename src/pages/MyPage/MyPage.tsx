@@ -8,11 +8,11 @@ const MyPage = () => {
         <Title>MY 투어메이트</Title>
         <Image><img src="/MyPage_Image/people.png"/></Image>
         <Profile>홍길동<br/>20대/남성</Profile>
-        <Edit />
+        <EditPage><Edit /></EditPage>
         <Introduce>
-          <Question>여행스타일</Question> <Answer>여행스타일을 입력해주세요</Answer>
-          <Question>MBTI</Question> <Answer>MBTI을 입력해주세요</Answer>
-          <Question>소개글</Question> <Answer>소개글을 입력해주세요</Answer>
+          <TourStyleQuestion>여행스타일</TourStyleQuestion> <TourStyle>여행스타일을 입력해주세요</TourStyle>
+          <MbtiQuestion>MBTI</MbtiQuestion> <Mbti>MBTI을 입력해주세요</Mbti>
+          <InfoQuestion>소개글</InfoQuestion> <Info>소개글을 입력해주세요</Info>
         </Introduce>
         <History>
           <UseHistory>이용 기록</UseHistory>
@@ -27,7 +27,6 @@ const MyPage = () => {
 const MyPageContent = styled.div`
   width: 390px;
   height: 100%;
-  padding: 1px;
   background-color: #ffffff;
 `;
 
@@ -56,6 +55,10 @@ const Profile = styled.div`
   text-align: center;
 `;
 
+const EditPage = styled.div`
+margin-left: 20px;
+`;
+
 const Introduce = styled.div`
   width: 350px;
   height: 290px;
@@ -63,7 +66,7 @@ const Introduce = styled.div`
   border-bottom: 1px solid #000000
 `;
 
-const Question = styled.div`
+const TourStyleQuestion = styled.div`
   width: 100%;
   margin: 25px 0px 0px 30px;
   font-size: 24px;
@@ -71,7 +74,39 @@ const Question = styled.div`
   color: #000000
 `;
 
-const Answer = styled.div`
+const TourStyle = styled.div`
+  width: 100%;
+  margin: 5px 0px 0px 50px;
+  font-size: 22px;
+  font-weight: normal; 
+  color: #D3D3D3;
+`;
+
+const MbtiQuestion = styled.div`
+  width: 100%;
+  margin: 25px 0px 0px 30px;
+  font-size: 24px;
+  font-weight: bold; 
+  color: #000000
+`;
+
+const Mbti = styled.div`
+  width: 100%;
+  margin: 5px 0px 0px 50px;
+  font-size: 22px;
+  font-weight: normal; 
+  color: #D3D3D3;
+`;
+
+const InfoQuestion = styled.div`
+  width: 100%;
+  margin: 25px 0px 0px 30px;
+  font-size: 24px;
+  font-weight: bold; 
+  color: #000000
+`;
+
+const Info = styled.div`
   width: 100%;
   margin: 5px 0px 0px 50px;
   font-size: 22px;
