@@ -21,6 +21,7 @@
 npm install
 npm install styled-component
 npm install react-kakao-maps-sdk
+npm install firebasefrt
 ```
 
 ### 6. 테스트 규칙

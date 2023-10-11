@@ -5,20 +5,28 @@ import MenuBar from "../../../public/src/NavBar";
 import MenuContent from "../../../public/src/MenuContent";
 import ExtendButton from "../../../public/src/ExtendButton";
 
-const Main = () => {
+const Main: React.FC = () => {
     // MenuBar와 MenuContent의 보이기/숨기기 상태를 관리하는 상태 변수
     const [isMenuVisible, setMenuVisible] = useState(true);
+
+    const [selectedComponent, setSelectedComponent] = useState<string | null>(null);
 
     // MenuBar를 클릭할 때 MenuContent의 상태를 토글하는 함수
     const toggleMenu = () => {
         setMenuVisible(!isMenuVisible);
     };
+
+    // 선택된 컴포넌트를 설정하는 함수
+    const onSelectComponent = (component: string) => {
+        setSelectedComponent(component);
+    };
+
     return (
         <MainPage>
             <Sidebar>
-                <MenuBar  /> {/* MenuBar 클릭 이벤트 연결 */}
+                <MenuBar onSelectComponent={onSelectComponent} />
                 <MenuContentWrapper isVisible={isMenuVisible}>
-                    <MenuContent />
+                    <MenuContent selectedComponent={selectedComponent}/>
                 </MenuContentWrapper>
                 <ExtendButton onClick={toggleMenu}/>
             </Sidebar>

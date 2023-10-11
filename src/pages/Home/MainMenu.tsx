@@ -116,7 +116,7 @@ const MainMenu: React.FC = () => {
 const BackgroundContainer = styled.div`
     width: 390px;
     height: 100%;
-    background-color: pink;
+    background-color: #ffffff;
 `;
 
 // 검색
@@ -126,7 +126,7 @@ const SearchContainer = styled.div`
     align-items: flex-end;
     width: 390px;
     height: 72px;
-    background-color: purple;
+    background-color: #ffffff;
 `;
 
 // 예정된 코스
@@ -135,7 +135,7 @@ const CourseContainer = styled.div`
     flex-direction: column;
     width: 390px;
     height: 180px;
-    background-color: red;
+    background-color: #ffffff;
 `;
 
 const CourseHeader = styled.div`
@@ -172,7 +172,7 @@ const DayCourseContainer = styled.div`
     align-items: center;
     width: 390px;
     height: 112px;
-    background-color: skyblue;
+    background-color: #ffffff;
 `;
 
 const Day = styled.div`
