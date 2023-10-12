@@ -1,58 +1,49 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
+import Edit from './Edit';
 
 const MyPage = () => {
   return (
-    <MyPageWrapper>
       <MyPageContent>
         <Title>MY 투어메이트</Title>
         <Image><img src="/MyPage_Image/people.png"/></Image>
         <Profile>홍길동<br/>20대/남성</Profile>
+        <EditPage><Edit /></EditPage>
         <Introduce>
-          <Question>여행스타일</Question> <Answer>여행스타일을 입력해주세요</Answer>
-          <Question>MBTI</Question> <Answer>MBTI을 입력해주세요</Answer>
-          <Question>소개글</Question> <Answer>소개글을 입력해주세요</Answer>
+          <TourStyleQuestion>여행스타일</TourStyleQuestion> <TourStyle>여행스타일을 입력해주세요</TourStyle>
+          <MbtiQuestion>MBTI</MbtiQuestion> <Mbti>MBTI을 입력해주세요</Mbti>
+          <InfoQuestion>소개글</InfoQuestion> <Info>소개글을 입력해주세요</Info>
         </Introduce>
         <History>
           <UseHistory>이용 기록</UseHistory>
-          <Button>이전 코스 내역</Button>
-          <Button>내가 작성한 리뷰</Button>
+          <Button><a href="./Course">이전 코스 내역</a></Button>
+          <Button><a href="./Review">내가 작성한 리뷰</a></Button>
         </History>
+        <Bottom><b>홍길동</b>님 | 로그아웃</Bottom>
       </MyPageContent>
-    </MyPageWrapper>
   );
 };
 
-const MyPageWrapper = styled.div`
-  width: 100%;
-  height: 1080px;
-  display: flex;
-  background-color: #000000;
-`;
-
 const MyPageContent = styled.div`
-  width: 433px;
+  width: 390px;
   height: 100%;
   background-color: #ffffff;
-  padding: 20px;
 `;
 
 const Title = styled.div`
-  width: 100%;
+  width: 350px;
   height: 50px;
-  margin-top: 20px;
+  margin: 15px auto;
   font-size: 28px;
   font-weight: bold; 
   border-bottom: 1px solid #0160D6
 `;
 
 const Image = styled.div`
-  width: 130px;
-  height: 130px;
-  margin-top: 40px;
+  width: 100px;
+  height: 100px;
   display: flex;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0px auto;
 `;
 
 const Profile = styled.div`
@@ -64,29 +55,63 @@ const Profile = styled.div`
   text-align: center;
 `;
 
+const EditPage = styled.div`
+margin-left: 20px;
+`;
+
 const Introduce = styled.div`
-  width: 100%;
-  height: 300px;
-  margin-top: 35px;
+  width: 350px;
+  height: 290px;
+  margin: 35px 0px 0px 10px;
   border-bottom: 1px solid #000000
 `;
 
-const Question = styled.div`
+const TourStyleQuestion = styled.div`
   width: 100%;
-  margin-top: 25px;
-  margin-left: 30px;
+  margin: 25px 0px 0px 30px;
   font-size: 24px;
   font-weight: bold; 
   color: #000000
 `;
 
-const Answer = styled.div`
+const TourStyle = styled.div`
   width: 100%;
-  margin: 5px;
+  margin: 5px 0px 0px 50px;
   font-size: 22px;
-  font-weight: naomal; 
-  text-align: center;
-  color: #D3D3D3
+  font-weight: normal; 
+  color: #D3D3D3;
+`;
+
+const MbtiQuestion = styled.div`
+  width: 100%;
+  margin: 25px 0px 0px 30px;
+  font-size: 24px;
+  font-weight: bold; 
+  color: #000000
+`;
+
+const Mbti = styled.div`
+  width: 100%;
+  margin: 5px 0px 0px 50px;
+  font-size: 22px;
+  font-weight: normal; 
+  color: #D3D3D3;
+`;
+
+const InfoQuestion = styled.div`
+  width: 100%;
+  margin: 25px 0px 0px 30px;
+  font-size: 24px;
+  font-weight: bold; 
+  color: #000000
+`;
+
+const Info = styled.div`
+  width: 100%;
+  margin: 5px 0px 0px 50px;
+  font-size: 22px;
+  font-weight: normal; 
+  color: #D3D3D3;
 `;
 
 const History = styled.div`
@@ -102,18 +127,30 @@ const UseHistory = styled.div`
 `;
 
 const Button = styled.div`
-  width: 400px;
-  height: 50px;
-  margin-top: 10px;
-  margin-left: auto;
-  margin-right: auto;
-  line-height: 50px;
+  width: 360px;
+  height: 40px;
+  margin: 10px auto;
+  display:flex;
+  justify-content: center;
+  align-items: center;
   font-size: 24px;
   font-weight: normal; 
   text-align: center;
   background-color: #ffffff;
   border: 1px solid #0160D6;
   border-radius: 10px;
+`;
+
+const Bottom = styled.div`
+  width: 390px;
+  height: 20px;
+  position : fixed;
+  bottom : 0;
+  text-align: right;
+  font-size: 16px;
+  font-weight: normal; 
+  color: #585858;
+  background-color: #D3D3D3;
 `;
 
 export default MyPage;
