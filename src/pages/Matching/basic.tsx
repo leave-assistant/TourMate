@@ -43,7 +43,6 @@ const TextTourMate=styled.div`
     height : 50px;
     background-color :white;
     margin-top : 20px;
-    margin-left: 20px;
     font-size : 28px;
     font-weight : bold;
 `;

@@ -70,7 +70,7 @@ const Content = styled.div`
 `;
 
 const Box = styled.div`
-  margin-left: 20px;
+ 
   position: relative;
   width: 390px;
   height: 200px;
@@ -106,7 +106,7 @@ const TimeLine = styled.p`
   font-size: 16px;
   font-weight: light;
   margin-top: 10px;
-  margin-left: 20px;
+
   text-align: left;
 `;
 
