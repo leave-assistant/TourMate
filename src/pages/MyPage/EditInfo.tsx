@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
 
-function EditMbtiStyle() {
+function EditInfo() {
   const [isEditing, setIsEditing] = useState(false);
-  const [text, setText] = useState('MBTI를 입력해주세요');
+  const [Info, setText] = useState('소개글을 입력해주세요');
 
   const handleSaveClick = () => {
     setIsEditing(false);
@@ -20,9 +20,9 @@ function EditMbtiStyle() {
   return (
     <div>
       {isEditing ? (
-        <input type="text" value={text} onChange={handleTextChange} />
+        <input type="text" value={Info} onChange={handleTextChange} />
       ) : (
-        <p>{text}</p>
+        <p>{Info}</p>
       )}
       {isEditing ? (
         <Save><button onClick={handleSaveClick}><SaveImage><img src="/MyPage_Image/save.png"/></SaveImage></button></Save>
@@ -51,4 +51,4 @@ const EditImage = styled.div`
   background-color: white;
 `;
 
-export default EditMbtiStyle;
+export default EditInfo;

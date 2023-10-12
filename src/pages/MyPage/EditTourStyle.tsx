@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 function EditTourStyle() {
   const [isEditing, setIsEditing] = useState(false);
-  const [text, setText] = useState('여행스타일을 입력해주세요');
+  const [TourStyle, setText] = useState('여행스타일을 입력해주세요');
 
   const handleSaveClick = () => {
     setIsEditing(false);
@@ -20,9 +20,9 @@ function EditTourStyle() {
   return (
     <div>
       {isEditing ? (
-        <input type="text" value={text} onChange={handleTextChange} />
+        <input type="text" value={TourStyle} onChange={handleTextChange} />
       ) : (
-        <p>{text}</p>
+        <p>{TourStyle}</p>
       )}
       {isEditing ? (
         <Save><button onClick={handleSaveClick}><SaveImage><img src="/MyPage_Image/save.png"/></SaveImage></button></Save>
