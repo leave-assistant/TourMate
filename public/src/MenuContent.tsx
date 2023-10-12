@@ -27,7 +27,7 @@ const MenuContent: React.FC<MenuContentProps> = ({ selectedComponent }) => {
             case "Profile":
                 return <MyPage />;
             default:
-                return null;
+                return <MainMenu />;
         }
     };
 
