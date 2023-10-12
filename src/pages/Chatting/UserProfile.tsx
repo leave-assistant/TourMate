@@ -1,14 +1,25 @@
 
 import React from "react";
 import styled from "styled-components";
-import { useState, useEffect } from "react"
-import Chatting from "./ChattingRoom";
+import { useState, useEffect, useRef } from "react"
+import ChattingRoom from "./ChattingRoom";
 
 const UserProfile = () => {
-    
+    const [isChattingRoomVisible, setChattingRoomVisible] = useState(false);
+    const outside = useRef(null);	
+
+    const openChattingRoomModal = () => {
+        setChattingRoomVisible(true);
+    };
+
+    const closeChattingRoomModal = () => {
+        setChattingRoomVisible(false);
+    };
+  
 
     return (
-        <User>
+        <div>
+        <User onClick={openChattingRoomModal}>
             <ImageContainer>
                 <img
                     src="/User_Image/Profile_Blue.jpg"
@@ -26,6 +37,14 @@ const UserProfile = () => {
                 <Chat>최근에 여행가기로 한...</Chat>
             </UserInfo>
         </User>
+            {isChattingRoomVisible && (
+                <ModalOverlay
+                    ref={outside} 
+                    onClick={ (e) => { if(e.target == outside.current) setChattingRoomVisible(false) } }>
+                        <ChattingRoom />
+                </ModalOverlay>
+            )}
+        </div>
     );
 }
 
@@ -61,4 +80,17 @@ const Chat = styled.p`
     font-size: 14px;
     margin-top: 0px;
     margin-bottom: 0;
+`;
+
+const ModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 `;

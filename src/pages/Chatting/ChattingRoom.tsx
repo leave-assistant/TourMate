@@ -8,14 +8,12 @@ import { useState, useEffect } from "react"
 const ChattingRoom = () => {
     const plan = "11 : 00  행궁동 도착 -> 13 : 00 밥 -> 14: 00 카페 ";
     const modalText = "계획들어올 공간."
-    const [isVisible, setIsVisible] = useState(true);
+   
     const [modal, setModal] = useState(false)
-    const toggleVisibility = () => {   
-        setIsVisible(!isVisible);
-    };
+    
 
     
-    return isVisible ?(
+    return(
         <Room>
             <RoomHeader>
                 <ImageBox>
@@ -23,7 +21,7 @@ const ChattingRoom = () => {
                     <OtherImg src = "/User_Image/Profile_Purple.jpg"/>
                 </ImageBox>
                 <ChattingTitle>수원행궁가자</ChattingTitle>
-                <Exit src = "ChattingRoom_Picture/exit.png" onClick={toggleVisibility}/>
+                
             </RoomHeader>
             <ChattingPlan onClick={()=>setModal(!modal)}>{plan}</ChattingPlan>
             {
@@ -40,7 +38,7 @@ const ChattingRoom = () => {
             </Send>
         </Room>
         
-    ):null; 
+    ); 
     
 }
 
@@ -48,14 +46,15 @@ const ChattingRoom = () => {
 const Room = styled.div`
     width: 390px;
     height: 100%;
-    background-color: white;
+    background-color: black;
     margin-top: 70px;
 `;
 const RoomHeader = styled.div`
+
     display: flex;
     width: 390px;
     height: 80px;
-    background-color: #D9D9D9;
+    background-color: pink;
 `;
 const Img = styled.img`
     position: relative;
@@ -150,7 +149,7 @@ const Send = styled.button`
 const SendFont = styled.p`
     font-size: 12px;
     font-weight: bold;
-    color: white;
+    color: #ffffff;
 `
 const Modal = styled.div`
     display: flex;
@@ -158,7 +157,7 @@ const Modal = styled.div`
     height: 150px;
     margin-top: 20px;
     padding: 20px;
-    background-color: white;
+    background-color: blue;
     text-align: left;
 `
 
