@@ -1,8 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import UserProfile from "./UserProfile";
-import Chatting from "./ChattingRoom";
+
+import ChattingRoom from "./ChattingRoom";
+import { useState, useEffect } from "react"
+
 const Menu = () => {
+ 
+  
     return (
         <Page>
             <MenuExtend>
@@ -11,13 +16,14 @@ const Menu = () => {
                         채팅
                     </ChattingTitle>
                 </ChattingBox>
-                <UserProfile />
-                <UserProfile />
-                <UserProfile />
-                <UserProfile />
-
+                <UserProfile/>
+                <UserProfile/>
+                <UserProfile/>
+                <UserProfile/>
+                <UserProfile/>
             </MenuExtend>
-            <Chatting></Chatting>
+            <ChattingRoom />
+            
         </Page>
     );
 }
