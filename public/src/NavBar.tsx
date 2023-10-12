@@ -1,39 +1,44 @@
 import React from "react";
 import styled from "styled-components";
 
-const MenuBar = () => {
+const MenuBar: React.FC<{ onSelectComponent: (component: string) => void }> = ({ onSelectComponent }) => {
     return (
         <MenuContainer>
-            <LogoContainer>
+            <LogoContainer onClick={() => onSelectComponent("home")}>
                 <LogoButton src="../Menu_Picture/logo.png" alt="logo" />
             </LogoContainer>
 
             <NavContainer>
-                <HomeContainer>
+                <HomeContainer onClick={() => onSelectComponent("home")}>
                     <ImageButton src="../Menu_Picture/home.png" alt="logo" />
                     <p>홈</p>
                 </HomeContainer>
 
-                <AiContainer>
+                <AiContainer onClick={() => onSelectComponent("ai")}>
                     <ImageButton src="../Menu_Picture/ai.png" alt="logo" />
                     <p>AI 코스</p>
                 </AiContainer>
 
-                <MatchingContainer>
+                <MatchingContainer onClick={() => onSelectComponent("Matching")}>
                     <ImageButton src="../Menu_Picture/match.png" alt="logo" />
                     <p>매칭</p>
                 </MatchingContainer>
 
-                <ChattingContainer>
+                <ChattingContainer onClick={() => onSelectComponent("Chatting")}>
                     <ImageButton src="../Menu_Picture/chat.png" alt="logo" />
                     <p>채칭</p>
                 </ChattingContainer>
 
-                <PlaceContainer>
+                <PlaceContainer onClick={() => onSelectComponent("Place")}>
                     <ImageButton src="../Menu_Picture/place.png" alt="logo" />
                     <p>장소</p>
                 </PlaceContainer>
             </NavContainer>
+            
+            <Profile onClick={() => onSelectComponent("Profile")}>
+                <ImageButton src="../MyPage_Image/people.png" alt="logo" />
+                <p>프로필</p>
+            </Profile>
         </MenuContainer>
     );
 };
@@ -113,4 +118,13 @@ const ImageButton = styled.img`
     margin: 0px auto 4px auto;
 `;
 
+const Profile = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 62px;
+    height: 80px;
+    margin-top: auto;
+`
 export default MenuBar;

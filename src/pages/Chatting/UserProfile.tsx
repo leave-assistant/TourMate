@@ -1,7 +1,12 @@
+
 import React from "react";
 import styled from "styled-components";
+import { useState, useEffect } from "react"
+import Chatting from "./ChattingRoom";
 
 const UserProfile = () => {
+    
+
     return (
         <User>
             <ImageContainer>
@@ -12,6 +17,7 @@ const UserProfile = () => {
                         width: '60px',
                         height: '60px',
                         borderRadius: '30px',
+                    
                     }}
                 />
             </ImageContainer>
@@ -56,8 +62,3 @@ const Chat = styled.p`
     margin-top: 0px;
     margin-bottom: 0;
 `;
-
-
-
-
-

@@ -13,9 +13,8 @@ const Basic = () => {
                 <TextTourMate>
                     투어메이트<hr/>
                 </TextTourMate>
-                < ConnectPeople/>
-                <ConnectPeople />
-                <ConnectPeople />
+                <ConnectPeople/>
+
                
 
             </MenuExtend>
@@ -36,6 +35,7 @@ const MenuExtend = styled.div`
     width : 390px;
     height : 1080px;
     background-color :white;
+
 `;
 
 const TextTourMate=styled.div`

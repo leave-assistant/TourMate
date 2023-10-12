@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import Edit from './Edit';
+import EditTourStyle from './EditTourStyle';
+import EditMbtiStyle from './EditMbtiStyle';
+import EditInfoStyle from './EditInfoStyle';
 
 const MyPage = () => {
   return (
@@ -8,11 +10,13 @@ const MyPage = () => {
         <Title>MY 투어메이트</Title>
         <Image><img src="/MyPage_Image/people.png"/></Image>
         <Profile>홍길동<br/>20대/남성</Profile>
-        <EditPage><Edit /></EditPage>
         <Introduce>
-          <TourStyleQuestion>여행스타일</TourStyleQuestion> <TourStyle>여행스타일을 입력해주세요</TourStyle>
-          <MbtiQuestion>MBTI</MbtiQuestion> <Mbti>MBTI을 입력해주세요</Mbti>
-          <InfoQuestion>소개글</InfoQuestion> <Info>소개글을 입력해주세요</Info>
+          <TourStyleQuestion>여행스타일</TourStyleQuestion> 
+          <TourStyle><EditTourStyle /></TourStyle>
+          <MbtiQuestion>MBTI</MbtiQuestion> 
+          <Mbti><EditMbtiStyle /></Mbti>
+          <InfoQuestion>소개글</InfoQuestion> 
+          <Info><EditInfoStyle /></Info>
         </Introduce>
         <History>
           <UseHistory>이용 기록</UseHistory>
@@ -55,14 +59,11 @@ const Profile = styled.div`
   text-align: center;
 `;
 
-const EditPage = styled.div`
-margin-left: 20px;
-`;
-
 const Introduce = styled.div`
   width: 350px;
-  height: 290px;
+  height: 100%;
   margin: 35px 0px 0px 10px;
+  padding-bottom: 20px;
   border-bottom: 1px solid #000000
 `;
 
@@ -75,11 +76,10 @@ const TourStyleQuestion = styled.div`
 `;
 
 const TourStyle = styled.div`
-  width: 100%;
+  width: 80%;
   margin: 5px 0px 0px 50px;
-  font-size: 22px;
+  font-size: 20px;
   font-weight: normal; 
-  color: #D3D3D3;
 `;
 
 const MbtiQuestion = styled.div`
@@ -91,11 +91,10 @@ const MbtiQuestion = styled.div`
 `;
 
 const Mbti = styled.div`
-  width: 100%;
+  width: 80%;
   margin: 5px 0px 0px 50px;
-  font-size: 22px;
+  font-size: 20px;
   font-weight: normal; 
-  color: #D3D3D3;
 `;
 
 const InfoQuestion = styled.div`
@@ -107,11 +106,10 @@ const InfoQuestion = styled.div`
 `;
 
 const Info = styled.div`
-  width: 100%;
+  width: 80%;
   margin: 5px 0px 0px 50px;
-  font-size: 22px;
+  font-size: 20px;
   font-weight: normal; 
-  color: #D3D3D3;
 `;
 
 const History = styled.div`
