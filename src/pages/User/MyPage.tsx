@@ -91,6 +91,7 @@ const Main = () => {
 								<div>
 									<div>
 										<p>{user.tripStyle}</p>
+										<p></p>
 									</div>
 								</div>
 							) : (
