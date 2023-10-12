@@ -6,6 +6,7 @@ import { app, auth, firestore } from "./firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import Link from "next/link";
+import Logout from "./logout";
 
 interface UserData{
 	nickname?: string;
@@ -16,13 +17,20 @@ interface UserData{
 	tripStyle?: string;
 }
 
-const Main = () => {
-    // MenuBar와 MenuContent의 보이기/숨기기 상태를 관리하는 상태 변수
+const Main: React.FC = () => {
+	// MenuBar와 MenuContent의 보이기/숨기기 상태를 관리하는 상태 변수
     const [isMenuVisible, setMenuVisible] = useState(true);
+
+    const [selectedComponent, setSelectedComponent] = useState<string | null>(null);
 
     // MenuBar를 클릭할 때 MenuContent의 상태를 토글하는 함수
     const toggleMenu = () => {
         setMenuVisible(!isMenuVisible);
+    };
+
+    // 선택된 컴포넌트를 설정하는 함수
+    const onSelectComponent = (component: string) => {
+        setSelectedComponent(component);
     };
 
     const [user, setUser] = useState<UserData | null>(null);
@@ -47,10 +55,17 @@ const Main = () => {
 		return (
 			<MainPage>
 				<Sidebar>
-					<MenuBar/>
+				<MenuBar onSelectComponent={onSelectComponent} />
 					<MenuContentWrapper isVisible={isMenuVisible}>
 					<MyPageContent>
-					<Title>MY 투어메이트</Title>
+					<Title>
+						MY 투어메이트 
+						{user !== null ? (
+							<Logout>LogOut</Logout>
+						) : 
+						<div></div>}
+						
+					</Title>
 						{user !== null ? (
 							<Image>
 							<img src="/MyPage_Image/people.png"/>
@@ -116,6 +131,7 @@ const Main = () => {
 			</MainPage>
 		);
 	};
+
 
 	const LinkButton = styled.div`
     padding: 10px;

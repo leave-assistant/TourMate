@@ -53,9 +53,9 @@ const SignUp = () => {
                     nickname: email,
                     age: age,
                     gender: gender,
-                    MBTI: '',
-                    introduce: '',
-                    tripStyle: '',
+                    Mbti: '',
+                    Info: '',
+                    TourStyle: '',
                 };
                 // Firestore 'users' 컬렉션에 사용자 정보를 추가합니다.
                 const db = getFirestore();
