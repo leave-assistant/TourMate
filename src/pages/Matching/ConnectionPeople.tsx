@@ -13,9 +13,9 @@ class Persona {
 }
 
 const personas = [
-  new Persona('강릉 여행지', '이지원', '08:00 기상  -10:00 학교 - 13:00 점심 - 14:00 오후 수업 17:00 -귀가'),
-  new Persona('서울 여행지', '이몽룡', '08:00 기상   -10:00 학교 - 13:00 점심 - 14:00 오후 수업 17:00 -귀가'),
-  new Persona('부산 여행지', '홍길동', '08:00 기상 -10:00 학교 - 13:00 점심 - 14:00 오후 수업 17:00 -귀가'),
+  new Persona(' 강릉 여행지', '이지원', '08:00 기상  -10:00 학교 - 13:00 점심 - 14:00 오후 수업 17:00 -귀가'),
+  new Persona(' 서울 여행지', '이몽룡', '08:00 기상   -10:00 학교 - 13:00 점심 - 14:00 오후 수업 17:00 -귀가'),
+  new Persona(' 부산 여행지', '홍길동', '08:00 기상 -10:00 학교 - 13:00 점심 - 14:00 오후 수업 17:00 -귀가'),
   new Persona('제주도 여행지', '황진이', '08:00 기상 -10:00 학교 - 13:00 점심 - 14:00 오후 수업 17:00 -귀가'),
 ];
 
@@ -72,7 +72,7 @@ const Content = styled.div`
 const Box = styled.div`
  
   position: relative;
-  width: 390px;
+  width: 380px;
   height: 200px;
   border: 1px solid black;
 `;
@@ -103,10 +103,11 @@ const Name = styled.p`
 `;
 
 const TimeLine = styled.p`
+  width: 270px;
   font-size: 16px;
   font-weight: light;
   margin-top: 10px;
-
+  margin-left: 10px;
   text-align: left;
 `;
 
