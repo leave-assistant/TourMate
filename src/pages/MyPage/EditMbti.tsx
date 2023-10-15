@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
 
-function EditMbtiStyle() {
+function EditMbti() {
   const [isEditing, setIsEditing] = useState(false);
-  const [text, setText] = useState('MBTI를 입력해주세요');
+  const [Mbti, setText] = useState('MBTI를 입력해주세요');
 
   const handleSaveClick = () => {
     setIsEditing(false);
@@ -20,21 +20,25 @@ function EditMbtiStyle() {
   return (
     <div>
       {isEditing ? (
-        <input type="text" value={text} onChange={handleTextChange} />
+        <input type="text" value={Mbti} onChange={handleTextChange} />
       ) : (
-        <p>{text}</p>
+        <p>{Mbti}</p>
       )}
       {isEditing ? (
-        <Save><button onClick={handleSaveClick}><SaveImage><img src="/MyPage_Image/save.png"/></SaveImage></button></Save>
+        <SaveButton><Save type="button" onClick={handleSaveClick}><SaveImage><img src="/MyPage_Image/save.png"/></SaveImage></Save></SaveButton>
       ) : (
-        <button onClick={handleEditClick}><EditImage><img src="/MyPage_Image/edit.png"/></EditImage></button>
+        <Edit type="button" onClick={handleEditClick}><EditImage><img src="/MyPage_Image/edit.png"/></EditImage></Edit>
       )}
     </div>
   );
 }
 
-const Save = styled.div`
-  margin-top: 1px;
+const SaveButton = styled.div`
+  margin: 1px;
+`;
+
+const Save = styled.button`
+  border:none;
 `;
 
 const SaveImage = styled.div`
@@ -44,6 +48,11 @@ const SaveImage = styled.div`
   background-color: white;
 `;
 
+const Edit = styled.button`
+  margin: 1px;
+  border:none;
+`;
+
 const EditImage = styled.div`
   width: 15px;
   height: 15px;
@@ -51,4 +60,4 @@ const EditImage = styled.div`
   background-color: white;
 `;
 
-export default EditMbtiStyle;
+export default EditMbti;

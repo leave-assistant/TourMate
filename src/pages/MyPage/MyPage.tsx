@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import EditTourStyle from './EditTourStyle';
-import EditMbtiStyle from './EditMbtiStyle';
-import EditInfoStyle from './EditInfoStyle';
+import EditMbti from './EditMbti';
+import EditInfo from './EditInfo';
+import Use from "./Use";
 
 const MyPage = () => {
   return (
@@ -14,15 +15,11 @@ const MyPage = () => {
           <TourStyleQuestion>여행스타일</TourStyleQuestion> 
           <TourStyle><EditTourStyle /></TourStyle>
           <MbtiQuestion>MBTI</MbtiQuestion> 
-          <Mbti><EditMbtiStyle /></Mbti>
+          <Mbti><EditMbti /></Mbti>
           <InfoQuestion>소개글</InfoQuestion> 
-          <Info><EditInfoStyle /></Info>
+          <Info><EditInfo /></Info>
         </Introduce>
-        <History>
-          <UseHistory>이용 기록</UseHistory>
-          <Button><a href="./Course">이전 코스 내역</a></Button>
-          <Button><a href="./Review">내가 작성한 리뷰</a></Button>
-        </History>
+        <Use />
         <Bottom><b>홍길동</b>님 | 로그아웃</Bottom>
       </MyPageContent>
   );
@@ -32,22 +29,25 @@ const MyPageContent = styled.div`
   width: 390px;
   height: 100%;
   background-color: #ffffff;
+  border-left: 1px solid #0160D6;
+  overflow: scroll;
 `;
 
 const Title = styled.div`
   width: 350px;
   height: 50px;
-  margin: 15px auto;
+  margin: 5px auto;
+  padding: 5px 0px 0px 5px;
   font-size: 28px;
   font-weight: bold; 
-  border-bottom: 1px solid #0160D6
+  border-bottom: 1px solid #0160D6;
 `;
 
 const Image = styled.div`
   width: 100px;
   height: 100px;
   display: flex;
-  margin: 0px auto;
+  margin: 30px auto 10px;
 `;
 
 const Profile = styled.div`
@@ -61,8 +61,7 @@ const Profile = styled.div`
 
 const Introduce = styled.div`
   width: 350px;
-  height: 100%;
-  margin: 35px 0px 0px 10px;
+  margin: 35px auto;
   padding-bottom: 20px;
   border-bottom: 1px solid #000000
 `;
@@ -110,33 +109,6 @@ const Info = styled.div`
   margin: 5px 0px 0px 50px;
   font-size: 20px;
   font-weight: normal; 
-`;
-
-const History = styled.div`
-  width: 100%;
-  margin-top: 35px;
-`;
-
-const UseHistory = styled.div`
-  width: 100%;
-  margin-left: 25px;
-  font-size: 26px;
-  font-weight: bold; 
-`;
-
-const Button = styled.div`
-  width: 360px;
-  height: 40px;
-  margin: 10px auto;
-  display:flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 24px;
-  font-weight: normal; 
-  text-align: center;
-  background-color: #ffffff;
-  border: 1px solid #0160D6;
-  border-radius: 10px;
 `;
 
 const Bottom = styled.div`

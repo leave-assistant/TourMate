@@ -1,69 +1,93 @@
-import React from "react";
+import React, { useState } from 'react';
 import styled from "styled-components";
+import Popup from './Popup';
 
-const Course = () => {
+function Course() {
+  const [isPopupVisible, setPopupVisible] = useState(false);
+
+  const openPopup = () => {
+    setPopupVisible(true);
+  };
+
+  const closePopup = () => {
+    setPopupVisible(false);
+  };
+
   return (
-      <MyPageContent>
-        <a href="./MyPage"><Back><img src="/MyPage_Image/back.png"/></Back></a>
-        <Title>이전 코스 내역</Title>
-        <Outline>
-          <CourseTitle>2000 - 00 - 00 XX코스</CourseTitle>
-          <CourseArea>지역 : 안양</CourseArea>
-          <CourseDetail>
-            ㄱㄱㄱㄱ - ㄴㄴㄴㄴ - ㄷㄷㄷㄷ - ㄹㄹㄹㄹ 
-          </CourseDetail>
-        </Outline>
-        <Outline>
-          <CourseTitle>2000 - 00 - 00 XX코스</CourseTitle>
-          <CourseArea>지역 : 안양</CourseArea>
-          <CourseDetail>
-            ㄱㄱㄱㄱ - ㄴㄴㄴㄴ - ㄷㄷㄷㄷ - ㄹㄹㄹㄹ 
-          </CourseDetail>
-        </Outline>
-        <Outline>
-          <CourseTitle>2000 - 00 - 00 XX코스</CourseTitle>
-          <CourseArea>지역 : 안양</CourseArea>
-          <CourseDetail>
-            ㄱㄱㄱㄱ - ㄴㄴㄴㄴ - ㄷㄷㄷㄷ - ㄹㄹㄹㄹ 
-          </CourseDetail>
-        </Outline>
-        <Outline>
-          <CourseTitle>2000 - 00 - 00 XX코스</CourseTitle>
-          <CourseArea>지역 : 안양</CourseArea>
-          <CourseDetail>
-            ㄱㄱㄱㄱ - ㄴㄴㄴㄴ - ㄷㄷㄷㄷ - ㄹㄹㄹㄹ 
-          </CourseDetail>
-        </Outline>
-        <Outline>
-          <CourseTitle>2000 - 00 - 00 XX코스</CourseTitle>
-          <CourseArea>지역 : 안양</CourseArea>
-          <CourseDetail>
-            ㄱㄱㄱㄱ - ㄴㄴㄴㄴ - ㄷㄷㄷㄷ - ㄹㄹㄹㄹ 
-          </CourseDetail>
-        </Outline>
-      </MyPageContent>
+    <div>
+        <Button type="button" onClick={openPopup}><Text>이전 코스 내역</Text></Button>
+        <Popup visible={isPopupVisible} onClose={closePopup}>
+          <MyPageContent>
+            <Title>이전 코스 내역</Title>
+            <Outline>
+              <CourseTitle>2000 - 00 - 00 XX코스</CourseTitle>
+              <CourseArea>지역 : 안양</CourseArea>
+              <CourseDetail>
+                ㄱㄱㄱㄱ - ㄴㄴㄴㄴ - ㄷㄷㄷㄷ - ㄹㄹㄹㄹ 
+              </CourseDetail>
+            </Outline>
+            <Outline>
+              <CourseTitle>2000 - 00 - 00 XX코스</CourseTitle>
+              <CourseArea>지역 : 안양</CourseArea>
+              <CourseDetail>
+                ㄱㄱㄱㄱ - ㄴㄴㄴㄴ - ㄷㄷㄷㄷ - ㄹㄹㄹㄹ 
+              </CourseDetail>
+            </Outline>
+            <Outline>
+              <CourseTitle>2000 - 00 - 00 XX코스</CourseTitle>
+              <CourseArea>지역 : 안양</CourseArea>
+              <CourseDetail>
+                ㄱㄱㄱㄱ - ㄴㄴㄴㄴ - ㄷㄷㄷㄷ - ㄹㄹㄹㄹ 
+              </CourseDetail>
+            </Outline>
+            <Outline>
+              <CourseTitle>2000 - 00 - 00 XX코스</CourseTitle>
+              <CourseArea>지역 : 안양</CourseArea>
+              <CourseDetail>
+                ㄱㄱㄱㄱ - ㄴㄴㄴㄴ - ㄷㄷㄷㄷ - ㄹㄹㄹㄹ 
+              </CourseDetail>
+            </Outline>
+            <Outline>
+              <CourseTitle>2000 - 00 - 00 XX코스</CourseTitle>
+              <CourseArea>지역 : 안양</CourseArea>
+              <CourseDetail>
+                ㄱㄱㄱㄱ - ㄴㄴㄴㄴ - ㄷㄷㄷㄷ - ㄹㄹㄹㄹ 
+              </CourseDetail>
+            </Outline>
+          </MyPageContent>
+        </Popup>
+    </div>
   );
-};
+}
 
-const MyPageContent = styled.div`
-  width: 390px;
-  height: 100%;
-  padding: 1px;
+const Button = styled.button`
+  width: 360px;
+  height: 40px;
+  margin: 10px auto;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  border: 1px solid #0160D6;
+  border-radius: 10px;
+`;
+
+const Text = styled.div`
+  font-size: 20px;
+  font-weight: normal; 
   background-color: #ffffff;
 `;
 
-const Back = styled.div`
-  width: 25px;
-  height: 25px;
-  display: flex;
-  margin: 20px;
-  float: left;
+const MyPageContent = styled.div`
+  width: 375px;
+  height: 100%;
+  background-color: #ffffff;
 `;
 
 const Title = styled.div`
   width: 350px;
   height: 50px;
-  margin: 15px auto;
+  margin: 5px auto;
   font-size: 28px;
   font-weight: bold; 
   border-bottom: 1px solid #0160D6;

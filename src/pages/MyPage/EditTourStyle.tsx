@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 function EditTourStyle() {
   const [isEditing, setIsEditing] = useState(false);
-  const [text, setText] = useState('여행스타일을 입력해주세요');
+  const [TourStyle, setText] = useState('여행스타일을 입력해주세요');
 
   const handleSaveClick = () => {
     setIsEditing(false);
@@ -20,21 +20,25 @@ function EditTourStyle() {
   return (
     <div>
       {isEditing ? (
-        <input type="text" value={text} onChange={handleTextChange} />
+        <input type="text" value={TourStyle} onChange={handleTextChange} />
       ) : (
-        <p>{text}</p>
+        <p>{TourStyle}</p>
       )}
       {isEditing ? (
-        <Save><button onClick={handleSaveClick}><SaveImage><img src="/MyPage_Image/save.png"/></SaveImage></button></Save>
+        <SaveButton><Save type="button" onClick={handleSaveClick}><SaveImage><img src="/MyPage_Image/save.png"/></SaveImage></Save></SaveButton>
       ) : (
-        <button onClick={handleEditClick}><EditImage><img src="/MyPage_Image/edit.png"/></EditImage></button>
+        <Edit type="button" onClick={handleEditClick}><EditImage><img src="/MyPage_Image/edit.png"/></EditImage></Edit>
       )}
     </div>
   );
 }
 
-const Save = styled.div`
-  margin-top: 1px;
+const SaveButton = styled.div`
+  margin: 1px;
+`;
+
+const Save = styled.button`
+  border:none;
 `;
 
 const SaveImage = styled.div`
@@ -42,6 +46,11 @@ const SaveImage = styled.div`
   height: 15px;
   display: flex;
   background-color: white;
+`;
+
+const Edit = styled.button`
+  margin: 1px;
+  border:none;
 `;
 
 const EditImage = styled.div`
