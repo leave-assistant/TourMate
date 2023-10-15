@@ -1,69 +1,93 @@
-import React from "react";
+import React, { useState } from 'react';
 import styled from "styled-components";
+import Popup from './Popup';
 
-const Course = () => {
+function Review() {
+  const [isPopupVisible, setPopupVisible] = useState(false);
+
+  const openPopup = () => {
+    setPopupVisible(true);
+  };
+
+  const closePopup = () => {
+    setPopupVisible(false);
+  };
+
   return (
-      <MyPageContent>
-        <a href="./MyPage"><Back><img src="/MyPage_Image/back.png"/></Back></a>
-        <Title>내가 작성한 리뷰</Title>
-        <Outline>
-          <ReviewTitle>2000 - 00 - 00 XX코스</ReviewTitle>
-          <ReviewArea>지역 : 안양&nbsp;&nbsp;&nbsp;★★★★★</ReviewArea>
-          <ReviewDetail>
-            너무 좋았고 너무 완벽하고 펄펙함 
-          </ReviewDetail>
-        </Outline>
-        <Outline>
-          <ReviewTitle>2000 - 00 - 00 XX코스</ReviewTitle>
-          <ReviewArea>지역 : 안양&nbsp;&nbsp;&nbsp;★★★★★</ReviewArea>
-          <ReviewDetail>
-            너무 좋았고 너무 완벽하고 펄펙함 
-          </ReviewDetail>
-        </Outline>
-        <Outline>
-          <ReviewTitle>2000 - 00 - 00 XX코스</ReviewTitle>
-          <ReviewArea>지역 : 안양&nbsp;&nbsp;&nbsp;★★★★★</ReviewArea>
-          <ReviewDetail>
-            너무 좋았고 너무 완벽하고 펄펙함 
-          </ReviewDetail>
-        </Outline>
-        <Outline>
-          <ReviewTitle>2000 - 00 - 00 XX코스</ReviewTitle>
-          <ReviewArea>지역 : 안양&nbsp;&nbsp;&nbsp;★★★★★</ReviewArea>
-          <ReviewDetail>
-            너무 좋았고 너무 완벽하고 펄펙함 
-          </ReviewDetail>
-        </Outline>
-        <Outline>
-          <ReviewTitle>2000 - 00 - 00 XX코스</ReviewTitle>
-          <ReviewArea>지역 : 안양&nbsp;&nbsp;&nbsp;★★★★★</ReviewArea>
-          <ReviewDetail>
-            너무 좋았고 너무 완벽하고 펄펙함 
-          </ReviewDetail>
-        </Outline>
-      </MyPageContent>
+    <div>
+        <Button type="button" onClick={openPopup}><Text>내가 작성한 리뷰</Text></Button>
+        <Popup visible={isPopupVisible} onClose={closePopup}>
+        <MyPageContent>
+          <Title>내가 작성한 리뷰</Title>
+          <Outline>
+            <ReviewTitle>2000 - 00 - 00 XX코스</ReviewTitle>
+            <ReviewArea>지역 : 안양&nbsp;&nbsp;&nbsp;★★★★★</ReviewArea>
+            <ReviewDetail>
+              너무 좋았고 너무 완벽하고 펄펙함 
+            </ReviewDetail>
+          </Outline>
+          <Outline>
+            <ReviewTitle>2000 - 00 - 00 XX코스</ReviewTitle>
+            <ReviewArea>지역 : 안양&nbsp;&nbsp;&nbsp;★★★★★</ReviewArea>
+            <ReviewDetail>
+              너무 좋았고 너무 완벽하고 펄펙함 
+            </ReviewDetail>
+          </Outline>
+          <Outline>
+            <ReviewTitle>2000 - 00 - 00 XX코스</ReviewTitle>
+            <ReviewArea>지역 : 안양&nbsp;&nbsp;&nbsp;★★★★★</ReviewArea>
+            <ReviewDetail>
+              너무 좋았고 너무 완벽하고 펄펙함 
+            </ReviewDetail>
+          </Outline>
+          <Outline>
+            <ReviewTitle>2000 - 00 - 00 XX코스</ReviewTitle>
+            <ReviewArea>지역 : 안양&nbsp;&nbsp;&nbsp;★★★★★</ReviewArea>
+            <ReviewDetail>
+              너무 좋았고 너무 완벽하고 펄펙함 
+            </ReviewDetail>
+          </Outline>
+          <Outline>
+            <ReviewTitle>2000 - 00 - 00 XX코스</ReviewTitle>
+            <ReviewArea>지역 : 안양&nbsp;&nbsp;&nbsp;★★★★★</ReviewArea>
+            <ReviewDetail>
+              너무 좋았고 너무 완벽하고 펄펙함 
+            </ReviewDetail>
+          </Outline>
+        </MyPageContent>
+        </Popup>
+    </div>
   );
-};
+}
 
-const MyPageContent = styled.div`
-  width: 390px;
-  height: 100%;
-  padding: 1px;
+const Button = styled.button`
+  width: 360px;
+  height: 40px;
+  margin: 10px auto;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  border: 1px solid #0160D6;
+  border-radius: 10px;
+`;
+
+const Text = styled.div`
+  font-size: 20px;
+  font-weight: normal; 
   background-color: #ffffff;
 `;
 
-const Back = styled.div`
-  width: 25px;
-  height: 25px;
-  display: flex;
-  margin: 20px;
-  float: left;
+const MyPageContent = styled.div`
+  width: 375px;
+  height: 100%;
+  background-color: #ffffff;
 `;
 
 const Title = styled.div`
   width: 350px;
   height: 50px;
-  margin: 15px auto;
+  margin: 5px auto;
   font-size: 28px;
   font-weight: bold; 
   border-bottom: 1px solid #0160D6;
@@ -100,4 +124,4 @@ const ReviewDetail = styled.div`
   text-align: center;
 `;
 
-export default Course;
+export default Review;
