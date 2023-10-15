@@ -36,7 +36,7 @@ const MyPageContent = styled.div`
 const Title = styled.div`
   width: 350px;
   height: 50px;
-  margin: 0px auto;
+  margin: 5px auto;
   padding: 5px 0px 0px 5px;
   font-size: 28px;
   font-weight: bold; 

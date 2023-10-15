@@ -25,16 +25,20 @@ function EditInfo() {
         <p>{Info}</p>
       )}
       {isEditing ? (
-        <Save><button onClick={handleSaveClick}><SaveImage><img src="/MyPage_Image/save.png"/></SaveImage></button></Save>
+        <SaveButton><Save type="button" onClick={handleSaveClick}><SaveImage><img src="/MyPage_Image/save.png"/></SaveImage></Save></SaveButton>
       ) : (
-        <button onClick={handleEditClick}><EditImage><img src="/MyPage_Image/edit.png"/></EditImage></button>
+        <Edit type="button" onClick={handleEditClick}><EditImage><img src="/MyPage_Image/edit.png"/></EditImage></Edit>
       )}
     </div>
   );
 }
 
-const Save = styled.div`
-  margin-top: 1px;
+const SaveButton = styled.div`
+  margin: 1px;
+`;
+
+const Save = styled.button`
+  border:none;
 `;
 
 const SaveImage = styled.div`
@@ -42,6 +46,11 @@ const SaveImage = styled.div`
   height: 15px;
   display: flex;
   background-color: white;
+`;
+
+const Edit = styled.button`
+  margin: 1px;
+  border:none;
 `;
 
 const EditImage = styled.div`
