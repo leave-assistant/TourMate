@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Search from "../../../public/src/Search";
 import HorizonLine from "../../../public/src/HorizonLine";
 import CourseElement from '../../../public/src/CourseElement';
+import PlaceCard from './PlaceCard';
 
 const MainMenu: React.FC = () => {
     const [stringData, setStringData] = useState<string[]>([]);
@@ -84,7 +85,7 @@ const MainMenu: React.FC = () => {
             <CourseContainer>
                 <CourseHeader>
                     <CourseText>예정된 코스</CourseText>
-                    <HorizonLine width="150px" />
+                    <HorizonLine width="120px" />
                     <More>자세히</More>
                 </CourseHeader>
                 
@@ -101,11 +102,13 @@ const MainMenu: React.FC = () => {
             <PopularSpot>
                 <SpotHeader>
                     <SpotText>인기 장소 추천</SpotText>
-                    <HorizonLine width="180px" />
+                    <HorizonLine width="150px" />
                 </SpotHeader>
 
                 <PlaceContainer>
-                    
+                    <PlaceCard/>
+                    <PlaceCard/>
+                    <PlaceCard/>
                 </PlaceContainer>
             </PopularSpot>
         </BackgroundContainer>
@@ -148,7 +151,7 @@ const CourseHeader = styled.div`
 `;
 
 const CourseText = styled.div`
-    width: 130px;
+    width: 160px;
     height: 28px;
     font-size: 26px;
     font-weight: bolder;
@@ -197,10 +200,11 @@ const Course = styled.div`
 // 인기 장소 추천
 const PopularSpot = styled.div`
     display: flex;
+    flex-direction: column  ;
     justify-content: center;
     width: 390px;
     height: calc(100% - 252px);
-    background-color: blue;
+    background-color: #ffffff;
 `;
 
 const SpotHeader = styled.div`
@@ -213,14 +217,18 @@ const SpotHeader = styled.div`
 `;
 
 const SpotText = styled.div`
-    width: 150px;
+    width: 180px;
     height: 28px;
     font-size: 26px;
     font-weight: bolder;
 `;
 
 const PlaceContainer = styled.div`
-
+    display: flex;
+    flex-direction: column;
+    width: 390px;
+    height: 584px;
+    overflow-y: auto;
 `;
 
 export default MainMenu;
