@@ -20,7 +20,7 @@ const Menu = () => {
     
         const handleAddCourse = () => {
             setCourseBoxes(courseBoxes + 1);
-            setCourseAddBoxHeight(courseAddBoxHeight + 50); // 50px씩 높이 증가
+            setCourseAddBoxHeight(courseAddBoxHeight + 50); // 클릭이벤트시 50px씩 높이 증가
         };
 
         const [isModalOpen, setIsModalOpen] = useState(false);
@@ -110,7 +110,8 @@ const Menu = () => {
                 </CourseContent>
             </CourseAddBox>
 
-            <button onClick={openModal}>모달 열기</button>
+            <OpenModalButton onClick={openModal}>활동 선택하기</OpenModalButton>
+
             <CourseSelect isOpen={isModalOpen} onClose={closeModal} />
     </MenuExtend>
   );
@@ -121,9 +122,11 @@ export default Menu;
 const MenuExtend = styled.div`
     width : 390px;
     height : 1080px;
-    background-color :white;
+    background-color: white;
     border-left: 0.5px solid black;
+    overflow-y: auto; 
 `;
+
 
 const TitleBox = styled.div`
     width : 100%;
@@ -241,4 +244,17 @@ const ImageName = styled.div`
     font-weight: 600;
     margin-top: 3px;
     margin-left: 35px;
+`;
+
+const OpenModalButton = styled.button`
+  width: 300px; 
+  height: 40px; 
+  background-color: #007bff; 
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+  margin-left: 40px;
 `;
