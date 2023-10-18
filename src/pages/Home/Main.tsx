@@ -25,7 +25,7 @@ const Main: React.FC = () => {
         <MainPage>
             <Sidebar>
                 <MenuBar onSelectComponent={onSelectComponent} />
-                <MenuContentWrapper isVisible={isMenuVisible}>
+                <MenuContentWrapper isvisible={isMenuVisible}>
                     <MenuContent selectedComponent={selectedComponent}/>
                 </MenuContentWrapper>
                 <ExtendButton onClick={toggleMenu}/>
@@ -55,8 +55,8 @@ const Sidebar = styled.div`
     background-color: rgba(0,0,0,0.1);
 `;
 
-const MenuContentWrapper = styled.div<{ isVisible: boolean }>`
-    width: ${(props) => (props.isVisible ? "100%" : "0%")};
+const MenuContentWrapper = styled.div<{ isvisible: boolean }>`
+    width: ${(props) => (props.isvisible ? "100%" : "0%")};
     overflow: hidden;
     transition: width 0.3s ease-in-out;
 `;
