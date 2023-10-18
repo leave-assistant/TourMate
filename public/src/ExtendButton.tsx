@@ -42,7 +42,7 @@ const Extend = styled.div`
     border-radius: 0 5px 5px 0;
     background-color: #ffffff;
     p {
-        color: gray; /* 회색으로 설정 */
+        color: gray;
     }
 `;
 
