@@ -6,16 +6,14 @@ import { useState, useEffect } from "react"
 
 
 const ChattingRoom = () => {
-    const plan = "11 : 00  행궁동 도착 -> 13 : 00 밥 -> 14: 00 카페 ";
+    const plan = "11 : 00  행궁동 도착 -> 13 : 00 밥 -> 14: 00 카페";
     const modalText = "계획들어올 공간."
-    const [isVisible, setIsVisible] = useState(true);
+   
     const [modal, setModal] = useState(false)
-    const toggleVisibility = () => {   
-        setIsVisible(!isVisible);
-    };
+    
 
     
-    return isVisible ?(
+    return(
         <Room>
             <RoomHeader>
                 <ImageBox>
@@ -23,7 +21,7 @@ const ChattingRoom = () => {
                     <OtherImg src = "/User_Image/Profile_Purple.jpg"/>
                 </ImageBox>
                 <ChattingTitle>수원행궁가자</ChattingTitle>
-                <Exit src = "ChattingRoom_Picture/exit.png" onClick={toggleVisibility}/>
+                
             </RoomHeader>
             <ChattingPlan onClick={()=>setModal(!modal)}>{plan}</ChattingPlan>
             {
@@ -35,12 +33,13 @@ const ChattingRoom = () => {
             </ImgChat>
             <Camera src = "/ChattingRoom_Picture/camera.png/"></Camera>
             <ChattingInput />
+            <MyChatting />
             <Send>
                 <SendFont>전송</SendFont>
             </Send>
         </Room>
         
-    ):null; 
+    ); 
     
 }
 
@@ -55,7 +54,7 @@ const RoomHeader = styled.div`
     display: flex;
     width: 390px;
     height: 80px;
-    background-color: #D9D9D9;
+    background-color: #B4D8E7;
 `;
 const Img = styled.img`
     position: relative;
@@ -83,21 +82,19 @@ const ChattingTitle = styled.p`
     margin-left: 15px;
     font-size : 22px;
     font-weight: bold;
+    
 `;
 
-const Exit = styled.img`
-    display: fixed;
-    width: 30px;
-    height: 30px;
-    margin-left: 130px;
-    margin-top: 25px;
-`
+
 const ChattingPlan = styled.div`
     width: 350px;
     height: 45px;
     margin-left: 15px;
     margin-top: 35px;
     font-weight: bold;
+    word-break:break-all;
+    overflow:hidden;
+	text-overflow:ellipsis;
     padding : 0.5px 2px 0px 3px;
     background-color: lightgray;
     border-radius: 17px;
@@ -118,7 +115,7 @@ const Chatting = styled.div`
     padding: 8px;
     margin-left: 27px;
     border-radius: 25px; 
-    background-color: brown;
+    background-color: lightgray ;
 `;
 const Camera = styled.img`
     position: fixed;
@@ -131,6 +128,7 @@ const ChattingInput = styled.input`
     position: fixed;
     width: 260px;
     height: 100px;
+    word-break:break-all;
     bottom: 0;
     margin : 0 0 30px 60px;
     border-radius: 30px;
@@ -150,17 +148,31 @@ const Send = styled.button`
 const SendFont = styled.p`
     font-size: 12px;
     font-weight: bold;
-    color: white;
+    color: #ffffff;
 `
 const Modal = styled.div`
     display: flex;
-    width: 500px;
+    width: 100%;
     height: 150px;
     margin-top: 20px;
     padding: 20px;
-    background-color: white;
+    word-break:break-all;
+    overflow:hidden;
+	text-overflow:ellipsis;
+    background-color: lightblue;
     text-align: left;
 `
+const MyChatting = styled.div`
+    display: flex;
+    justify-content: center;
+    
+    margin: 30px 50px 0px 50px;
+    width: 300px;
+    height: 50px;
+    padding: 8px;  
+    border-radius: 25px; 
+    background-color: lightgray ;
+`;
 
 
 export default ChattingRoom;

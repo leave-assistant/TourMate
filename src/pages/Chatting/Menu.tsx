@@ -6,7 +6,6 @@ import ChattingRoom from "./ChattingRoom";
 import { useState, useEffect } from "react"
 
 const Menu = () => {
- 
   
     return (
         <Page>
@@ -22,7 +21,6 @@ const Menu = () => {
                 <UserProfile/>
                 <UserProfile/>
             </MenuExtend>
-            <ChattingRoom />
             
         </Page>
     );
