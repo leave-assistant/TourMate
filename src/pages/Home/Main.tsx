@@ -52,7 +52,6 @@ const Sidebar = styled.div`
     height: 100%;
     position: absolute;
     z-index: 2;
-    background-color: rgba(0,0,0,0.1);
 `;
 
 const MenuContentWrapper = styled.div<{ isvisible: boolean }>`
