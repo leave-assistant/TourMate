@@ -26,7 +26,7 @@ const MenuBar: React.FC<{ onSelectComponent: (component: string) => void }> = ({
 
                 <ChattingContainer onClick={() => onSelectComponent("Chatting")}>
                     <ImageButton src="../Menu_Picture/chat.png" alt="chattinglogo" />
-                    <p>채칭</p>
+                    <p>채팅</p>
                 </ChattingContainer>
 
                 <PlaceContainer onClick={() => onSelectComponent("Place")}>

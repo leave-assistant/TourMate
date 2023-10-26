@@ -32,7 +32,6 @@ const IconContainer = styled.div`
         margin-left: 10px;
         height: 35px;
         width: 280px;
-        color: #9F9F9F;
         font-size: 20px;
         border: none;
         outline: none;
