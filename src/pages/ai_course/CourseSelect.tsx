@@ -17,6 +17,10 @@ interface ImageStates {
   greentea: boolean;
   soju: boolean;
   cocktail: boolean;
+  history: boolean;
+  museum: boolean;
+  beach: boolean;
+  trekking: boolean;
 }
 
 const CourseSelect: React.FC<CourseSelectProps> = ({ isOpen, onClose }) => {
@@ -30,6 +34,10 @@ const CourseSelect: React.FC<CourseSelectProps> = ({ isOpen, onClose }) => {
     greentea: true,
     soju: true,
     cocktail: true,
+    history: true,
+    museum: true,
+    beach: true,
+    trekking: true,
   });
 
   const handleImageClick = (imageName: keyof ImageStates) => {
@@ -172,6 +180,67 @@ const CourseSelect: React.FC<CourseSelectProps> = ({ isOpen, onClose }) => {
               onClick={() => handleImageClick('cocktail')}
             />
             <ImageName>칵테일</ImageName>
+          </ImageWrapper>
+        </ImageContainer>
+
+        {/*놀거리 유형 선택 */}
+        <div style={{ marginLeft: "30px", fontSize: "20px", fontWeight: "bold", marginBottom: "10px", marginTop:"20px" }}>놀거리</div>
+        <ImageContainer>
+          <ImageWrapper>
+            <ClickableImage
+              className="Clickable-Image"
+              src="/Ai_Image/history.png"
+              alt="history"
+              style={{
+                filter: imageStates.history ? 'blur(1px)' : 'none',
+                width: "50px",
+                height: "50px"
+              }}
+              onClick={() => handleImageClick('history')}
+            />
+            <ImageName>관광명소</ImageName>
+          </ImageWrapper>
+          <ImageWrapper>
+            <ClickableImage
+              className="Clickable-Image"
+              src="/Ai_Image/museum.png"
+              alt="museum"
+              style={{
+                filter: imageStates.museum ? 'blur(1px)' : 'none',
+                width: "50px",
+                height: "50px"
+              }}
+              onClick={() => handleImageClick('museum')}
+            />
+            <ImageName>관람</ImageName>
+          </ImageWrapper>
+          <ImageWrapper>
+            <ClickableImage
+              className="Clickable-Image"
+              src="/Ai_Image/beach.png"
+              alt="beach"
+              style={{
+                filter: imageStates.beach ? 'blur(1px)' : 'none',
+                width: "50px",
+                height: "50px"
+              }}
+              onClick={() => handleImageClick('beach')}
+            />
+            <ImageName>휴양지</ImageName>
+          </ImageWrapper>
+          <ImageWrapper>
+            <ClickableImage
+              className="Clickable-Image"
+              src="/Ai_Image/trekking.png"
+              alt="trekking"
+              style={{
+                filter: imageStates.trekking ? 'blur(1px)' : 'none',
+                width: "50px",
+                height: "50px"
+              }}
+              onClick={() => handleImageClick('trekking')}
+            />
+            <ImageName>하이킹/등산</ImageName>
           </ImageWrapper>
         </ImageContainer>
       </ModalContent>

@@ -19,7 +19,7 @@
 * 깃 클론시 아래의 라이브러리 및 패키지를 install 해주세요.
 ```
 npm install
-npm install styled-component
+npm install styled-components
 npm install react-kakao-maps-sdk
 npm install firebase
 ```

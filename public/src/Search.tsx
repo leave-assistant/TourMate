@@ -7,7 +7,7 @@ const Search = () => {
         <SearchContainer>
             <IconContainer>
                 <SearchButton src="../Menu_Picture/search.png" alt="logo" />
-                <p>장소검색</p>
+                <input type="text" placeholder="장소 검색" />
             </IconContainer>
         </SearchContainer>
     );
@@ -26,13 +26,16 @@ const SearchContainer = styled.div`
 const IconContainer = styled.div`
     display: flex;
     align-items: center;
-    width: 120px;
     height: 24px;
     margin-left: 10px;
-    p {
+    input {
         margin-left: 10px;
-        color: #9F9F9F; 
+        height: 35px;
+        width: 280px;
+        color: #9F9F9F;
         font-size: 20px;
+        border: none;
+        outline: none;
     }
 `;
 

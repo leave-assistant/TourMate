@@ -10,33 +10,33 @@ const MenuBar: React.FC<{ onSelectComponent: (component: string) => void }> = ({
 
             <NavContainer>
                 <HomeContainer onClick={() => onSelectComponent("home")}>
-                    <ImageButton src="../Menu_Picture/home.png" alt="logo" />
+                    <ImageButton src="../Menu_Picture/home.png" alt="homelogo" />
                     <p>홈</p>
                 </HomeContainer>
 
                 <AiContainer onClick={() => onSelectComponent("ai")}>
-                    <ImageButton src="../Menu_Picture/ai.png" alt="logo" />
+                    <ImageButton src="../Menu_Picture/ai.png" alt="ailogo" />
                     <p>AI 코스</p>
                 </AiContainer>
 
                 <MatchingContainer onClick={() => onSelectComponent("Matching")}>
-                    <ImageButton src="../Menu_Picture/match.png" alt="logo" />
+                    <ImageButton src="../Menu_Picture/match.png" alt="matchinglogo" />
                     <p>매칭</p>
                 </MatchingContainer>
 
                 <ChattingContainer onClick={() => onSelectComponent("Chatting")}>
-                    <ImageButton src="../Menu_Picture/chat.png" alt="logo" />
+                    <ImageButton src="../Menu_Picture/chat.png" alt="chattinglogo" />
                     <p>채칭</p>
                 </ChattingContainer>
 
                 <PlaceContainer onClick={() => onSelectComponent("Place")}>
-                    <ImageButton src="../Menu_Picture/place.png" alt="logo" />
+                    <ImageButton src="../Menu_Picture/place.png" alt="placelogo" />
                     <p>장소</p>
                 </PlaceContainer>
             </NavContainer>
             
             <Profile onClick={() => onSelectComponent("Profile")}>
-                <ImageButton src="../MyPage_Image/people.png" alt="logo" />
+                <ImageButton src="../MyPage_Image/people.png" alt="profilelogo" />
                 <p>프로필</p>
             </Profile>
         </MenuContainer>
@@ -49,6 +49,7 @@ const MenuContainer = styled.div`
     width: 62px;
     height: 100%;
     background-color: #ffffff;
+    border-right: 1px solid gray;
 `;
 
 const LogoContainer = styled.div`
