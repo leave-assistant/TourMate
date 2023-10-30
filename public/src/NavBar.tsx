@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-component";
+import styled from "styled-components";
 
 const MenuBar: React.FC<{ onSelectComponent: (component: string) => void }> = ({ onSelectComponent }) => {
     return (
