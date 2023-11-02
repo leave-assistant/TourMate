@@ -7,6 +7,8 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import Link from "next/link";
 import Logout from "./logout";
+import EditMbti from "../MyPage/EditMbti";
+import EditUser from "./EditUser";
 
 interface UserData{
 	nickname?: string;
@@ -113,7 +115,7 @@ const Main: React.FC = () => {
 								<p>여행스타일을 입력해주세요</p>
 							)}
 						</Answer>
-						<Question>MBTI</Question> <Answer>MBTI을 입력해주세요</Answer>
+						<Question>MBTI</Question><EditUser /> <Answer>MBTI을 입력해주세요</Answer>
 						<Question>소개글</Question> <Answer>소개글을 입력해주세요</Answer>
 					</Introduce>
 					<History>
