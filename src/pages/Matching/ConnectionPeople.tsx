@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-
+import router, { useRouter } from 'next/router';
 class Persona {
   location: string;
   name: string;
@@ -14,7 +14,7 @@ class Persona {
 
 const personas = [
   new Persona(' 강릉 여행지', '이지원', '08:00 기상  -10:00 학교 - 13:00 점심 - 14:00 오후 수업 17:00 -귀가'),
-  new Persona(' 서울 여행지', '이몽룡', '08:00 기상   -10:00 학교 - 13:00 점심 - 14:00 오후 수업 17:00 -귀가'),
+  new Persona(' 서울 여행지', '허균', '08:00 기상   -10:00 학교 - 13:00 점심 - 14:00 오후 수업 17:00 -귀가'),
   new Persona(' 부산 여행지', '홍길동', '08:00 기상 -10:00 학교 - 13:00 점심 - 14:00 오후 수업 17:00 -귀가'),
   new Persona('제주도 여행지', '황진이', '08:00 기상 -10:00 학교 - 13:00 점심 - 14:00 오후 수업 17:00 -귀가'),
 ];
@@ -22,9 +22,11 @@ const personas = [
 const ConnectPeople = () => {
   const [message, setMessage] = useState('');
 
+  const router = useRouter();
   const requestButtonClick = () => {
     alert('동행 요청을 보냈습니다.');
-    setMessage('동행요청');
+
+    router.push('/Chatting/ChattingRoom');
   };
 
   const rejectButtonClick = () => {
