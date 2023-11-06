@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import EditTourStyle from './EditTourStyle';
-import EditMbti from './EditMbti';
-import EditInfo from './EditInfo';
+import EditText from './EditText';
 import Use from "./Use";
 
 const MyPage = () => {
@@ -12,12 +10,7 @@ const MyPage = () => {
         <Image><img src="/MyPage_Image/people.png"/></Image>
         <Profile>홍길동<br/>20대/남성</Profile>
         <Introduce>
-          <TourStyleQuestion>여행스타일</TourStyleQuestion> 
-          <TourStyle><EditTourStyle /></TourStyle>
-          <MbtiQuestion>MBTI</MbtiQuestion> 
-          <Mbti><EditMbti /></Mbti>
-          <InfoQuestion>소개글</InfoQuestion> 
-          <Info><EditInfo /></Info>
+          <Edit><EditText /></Edit>
         </Introduce>
         <Use />
         <Bottom><b>홍길동</b>님 | 로그아웃</Bottom>
@@ -30,7 +23,13 @@ const MyPageContent = styled.div`
   height: 100%;
   background-color: #ffffff;
   border-left: 1px solid #0160D6;
-  overflow: scroll;
+  overflow: auto;
+  &::-webkit-scrollbar { width: 12px; }
+  &::-webkit-scrollbar-thumb {
+    background-color: #0160D6; 
+    border-radius: 6px;
+  }
+  &::-webkit-scrollbar-track { background-color: #f1f1f1; }
 `;
 
 const Title = styled.div`
@@ -61,53 +60,14 @@ const Profile = styled.div`
 
 const Introduce = styled.div`
   width: 350px;
-  margin: 35px auto;
+  margin: 50px auto;
   padding-bottom: 20px;
   border-bottom: 1px solid #000000
 `;
 
-const TourStyleQuestion = styled.div`
-  width: 100%;
-  margin: 25px 0px 0px 30px;
-  font-size: 24px;
-  font-weight: bold; 
-  color: #000000
-`;
-
-const TourStyle = styled.div`
+const Edit = styled.div`
   width: 80%;
-  margin: 5px 0px 0px 50px;
-  font-size: 20px;
-  font-weight: normal; 
-`;
-
-const MbtiQuestion = styled.div`
-  width: 100%;
-  margin: 25px 0px 0px 30px;
-  font-size: 24px;
-  font-weight: bold; 
-  color: #000000
-`;
-
-const Mbti = styled.div`
-  width: 80%;
-  margin: 5px 0px 0px 50px;
-  font-size: 20px;
-  font-weight: normal; 
-`;
-
-const InfoQuestion = styled.div`
-  width: 100%;
-  margin: 25px 0px 0px 30px;
-  font-size: 24px;
-  font-weight: bold; 
-  color: #000000
-`;
-
-const Info = styled.div`
-  width: 80%;
-  margin: 5px 0px 0px 50px;
-  font-size: 20px;
+  margin: 5px 0px 0px 40px;
   font-weight: normal; 
 `;
 
