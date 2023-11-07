@@ -1,6 +1,6 @@
 import { AppProps } from 'next/app';
 import { UserProvider } from './UserContext';
-import UserProfile from './test11';
+import UserProfile from './UserContextTest';
 
 function MyApp({ Component, pageProps }: AppProps) {
 	return (
