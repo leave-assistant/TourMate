@@ -41,22 +41,7 @@ function TripList() {
         }
     }, [user]);
 
-    const handleEditTrip = async () => {
-        if (tripId) {
-            const tripRef = doc(firestore, 'TripPlan', tripId);
-            const updatedData = {
-                tripTitle: tripTitle,
-                tripPlan: tripPlan,
-            };
-            try {
-                await updateDoc(tripRef, updatedData);
-                alert('여행 계획이 성공적으로 수정되었습니다.');
-                clearForm();
-            } catch (error) {
-                alert('여행 계획 수정 중 오류 발생:'+error);
-            }
-            }
-        };
+    
 
     return (
         <div>
@@ -68,7 +53,6 @@ function TripList() {
                 <li key={trip.id}>
                     <p>여행 제목: {trip.tripTitle}</p>
                     <p>여행 계획: {trip.tripPlan}</p>
-                    <button onClick={handleEditTrip}>여행 수정</button>
                 </li>
                 ))}
             </ul>
