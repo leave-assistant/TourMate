@@ -1,4 +1,4 @@
-import { UserProvider, useUser } from './UserContext';
+import { useUser } from './UserContext';
 
 function UserProfile() {
 	const user = useUser();
