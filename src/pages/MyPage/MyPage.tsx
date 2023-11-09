@@ -2,19 +2,22 @@ import React from "react";
 import styled from "styled-components";
 import EditText from './EditText';
 import Use from "./Use";
+import { UserProvider } from "../User/UserContext";
 
 const MyPage = () => {
   return (
+    <UserProvider>
       <MyPageContent>
         <Title>MY 투어메이트</Title>
         <Image><img src="/MyPage_Image/people.png"/></Image>
         <Profile>홍길동<br/>20대/남성</Profile>
         <Introduce>
-          <Edit><EditText /></Edit>
+          <Text><EditText /></Text>
         </Introduce>
         <Use />
         <Bottom><b>홍길동</b>님 | 로그아웃</Bottom>
       </MyPageContent>
+    </UserProvider>
   );
 };
 
@@ -24,9 +27,9 @@ const MyPageContent = styled.div`
   background-color: #ffffff;
   border-left: 1px solid #0160D6;
   overflow: auto;
-  &::-webkit-scrollbar { width: 12px; }
+  &::-webkit-scrollbar { width: 10px; }
   &::-webkit-scrollbar-thumb {
-    background-color: #0160D6; 
+    background-color: #d3d3d3; 
     border-radius: 6px;
   }
   &::-webkit-scrollbar-track { background-color: #f1f1f1; }
@@ -65,7 +68,7 @@ const Introduce = styled.div`
   border-bottom: 1px solid #000000
 `;
 
-const Edit = styled.div`
+const Text = styled.div`
   width: 80%;
   margin: 5px 0px 0px 40px;
   font-weight: normal; 

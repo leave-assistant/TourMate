@@ -1,19 +1,47 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
+import { useUser } from '../User/UserContext';
+import { doc, getFirestore, updateDoc } from 'firebase/firestore';
 
 function EditText() {
+  const user = useUser();
+
   const [isEditing, setIsEditing] = useState(false);
   const [texts, setTexts] = useState({
-    TourStyle: '여행스타일을 입력해주세요',
-    Mbti: 'MBTI를 입력해주세요',
-    Info: '소개글을 입력해주세요',
+    TourStyle: user?.TourStyle,
+    Mbti: user?.Mbti,
+    Info: user?.Info,
   });
 
   const handleEditClick = () => {
     setIsEditing(true);
   };
 
-  const handleSaveClick = () => {
+  const handleSaveClick = async () => {
+    
+
+    if (user?.uid) {
+      try {
+        const db = getFirestore();
+        const userDocRef = doc(db, 'users', user.uid);
+
+        const updatedData = {
+          Mbti: texts.Mbti,
+          TourStyle: texts.TourStyle,
+          Info: texts.Info,
+        };
+
+        await updateDoc(userDocRef, updatedData);
+        console.log('MBTI 업데이트 성공');
+        alert('MBTI 업데이트 성공');
+      } catch (error) {
+        console.error('MBTI 업데이트 오류:', error);
+        alert('MBTI 업데이트 오류');
+      }
+    } else {
+      alert('UID 또는 MBTI 값이 없습니다.');
+    }
+
     setIsEditing(false);
   };
 
@@ -43,11 +71,11 @@ function EditText() {
       ) : (
         <div>
           <Question>여행스타일</Question> 
-          <SaveAnswer><p>{texts.TourStyle}</p></SaveAnswer>
+          <SaveAnswer><p>{user?.TourStyle}</p></SaveAnswer>
           <Question>MBTI</Question>
-          <SaveAnswer><p>{texts.Mbti}</p></SaveAnswer>
+          <SaveAnswer><p>{user?.Mbti}</p></SaveAnswer>
           <Question>소개글</Question>
-          <SaveAnswer><p>{texts.Info}</p></SaveAnswer>
+          <SaveAnswer><p>{user?.Info}</p></SaveAnswer>
         </div>
       )}
     </div>
