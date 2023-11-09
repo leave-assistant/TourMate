@@ -3,14 +3,16 @@ import { UserProvider } from './UserContext';
 import UserProfile from './UserContextTest';
 import TripList from './TripList';
 import TripAdd from './TripAdd';
+import EditText from './EditUser';
 
 function MyApp({ Component, pageProps }: AppProps) {
 	return (
 		<UserProvider>
-			<TripAdd></TripAdd>
-			<TripList></TripList>
+			<EditText></EditText>
+			<UserProfile></UserProfile>
 		</UserProvider>
 	);
 }
 
 export default MyApp;
+

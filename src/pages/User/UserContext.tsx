@@ -9,9 +9,9 @@ interface UserData {
     nickname?: string;
     age?: string;
     gender?: string;
-    MBTI?: string;
-    introduce?: string;
-    tripStyle?: string;
+    Mbti?: string;
+    Info?: string;
+    TourStyle?: string;
 }
 
 interface UserContextType {

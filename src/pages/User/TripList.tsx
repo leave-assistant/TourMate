@@ -16,8 +16,6 @@ interface TripData{
 function TripList() {
     const user = useUser();
     const [userTrips, setUserTrips] = useState<TripData[]>([]);
-    const [tripId, setTripId] = useState(null);
-    const [editing, setEditing] = useState(true);
 
     useEffect(() => {
         if (user) {

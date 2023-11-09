@@ -8,6 +8,7 @@ function UserProfile() {
 		<div>
 		<p>사용자 UID: {user?.nickname}</p>
 		<p>이메일: {user?.age}</p>
+		<p>투어스타일: {user?.TourStyle}</p>
 		{/* 다른 사용자 데이터 필드 렌더링 */}
 		</div>
 	);
