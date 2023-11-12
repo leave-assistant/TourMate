@@ -25,9 +25,9 @@ const PopupContainer = styled.div<{ visible: boolean }>`
   background-color: #ffffff;
   z-index: 100;
   overflow: auto;
-  &::-webkit-scrollbar { width: 12px; }
+  &::-webkit-scrollbar { width: 10px; }
   &::-webkit-scrollbar-thumb {
-    background-color: #0160D6; 
+    background-color: #d3d3d3; 
     border-radius: 6px;
   }
   &::-webkit-scrollbar-track { background-color: #f1f1f1; }

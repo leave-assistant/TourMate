@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import EditProfile from './EditProfile';
 import EditText from './EditText';
 import Use from "./Use";
 import { UserProvider } from "../User/UserContext";
@@ -10,7 +11,7 @@ const MyPage = () => {
       <MyPageContent>
         <Title>MY 투어메이트</Title>
         <Image><img src="/MyPage_Image/people.png"/></Image>
-        <Profile>홍길동<br/>20대/남성</Profile>
+        <Profile><EditProfile /></Profile>
         <Introduce>
           <Text><EditText /></Text>
         </Introduce>
@@ -55,8 +56,6 @@ const Image = styled.div`
 const Profile = styled.div`
   width: 100%;
   height: 70px;
-  margin-top: 10px;
-  font-size: 24px;
   font-weight: normal; 
   text-align: center;
 `;
@@ -64,8 +63,8 @@ const Profile = styled.div`
 const Introduce = styled.div`
   width: 350px;
   margin: 50px auto;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #000000
+  padding-bottom: 40px;
+  border-bottom: 1px solid #000000;
 `;
 
 const Text = styled.div`
