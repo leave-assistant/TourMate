@@ -2,7 +2,6 @@ import { createContext, useContext, useState, useEffect, ReactNode } from 'react
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth, firestore } from './firebase';
 import { DocumentReference, doc, getDoc } from 'firebase/firestore';
-import { setuid } from 'process';
 
 interface UserData {
 	uid?: string;
