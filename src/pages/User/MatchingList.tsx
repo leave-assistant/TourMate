@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import router, { useRouter } from 'next/router';
-import { addDoc, collection, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
+import { addDoc, collection, doc, getDocs, query, setDoc, updateDoc, where } from 'firebase/firestore';
 import { firestore } from './firebase';
 import { useUser } from './UserContext';
 import { useTripPlan } from './TripContext';
@@ -49,24 +49,60 @@ const ConnectPeople = (data: TripData) => {
     const [message, setMessage] = useState('');
     const router = useRouter();
 
-    const requestButtonClick = async (resUid?: string) => {
+    const requestButtonClick = async (resUid?: string, tripid?:string) => {
         if(user){
             const RoomData = {
                 id:'',
                 reqUid: user.uid,
                 resUid: resUid,
+                tripPlanId: tripid,
                 created_at: new Date(),
+            };
+            const User1Data = {
+                id: '',
+                uid: user.uid,
+                lastMessage: "채팅 시작",
+                profileImg: '',
+                roomId: '',
+                updated_at: new Date(),
+            };
+            const User2Data = {
+                id: '',
+                uid: resUid,
+                lastMessage: "채팅 시작",
+                profileImg: '',
+                roomId: '',
+                updated_at: new Date(),
             };
             try
             {
+                //ChattingRoom DB 추가
                 const RoomCollection = collection(firestore, 'ChattingRoom');
                 const newRoomRef = await addDoc(RoomCollection, RoomData);
+                //UserRooms DB 추가
+                const User1Collection = collection(firestore, 'UserRooms');
+                const newUser1Ref = await addDoc(User1Collection, User1Data);
+                const User2Collection = collection(firestore, 'UserRooms');
+                const newUser2Ref = await addDoc(User2Collection, User2Data);
 
-                const RoomRef = doc(firestore, 'ChaatingRoom', newRoomRef.id);
+                const RoomRef = doc(firestore, 'ChattingRoom', newRoomRef.id);
                 const updatedData = {
-                    id: newRoomRef.id,
+                    id: RoomRef.id,
+                };
+                const User1Ref = doc(firestore, 'UserRooms', newUser1Ref.id);
+                const updatedUser1Data = {
+                    id: User1Ref.id,
+                    roomId: RoomRef.id,
+                };
+                const User2Ref = doc(firestore, 'UserRooms', newUser2Ref.id);
+                const updatedUser2Data = {
+                    id: User2Ref.id,
+                    roomId: RoomRef.id,
                 };
                 await updateDoc(RoomRef, updatedData);
+                await updateDoc(User1Ref, updatedUser1Data);
+                await updateDoc(User2Ref, updatedUser2Data);
+
                 alert('채팅룸이 성공적으로 추가');
             } catch (error){
                 alert('채팅룸 추가 중 오류 발생: '+error);
@@ -77,7 +113,7 @@ const ConnectPeople = (data: TripData) => {
 
 
         // alert('동행 요청을 보냈습니다.');
-        // router.push('/Chatting/ChattingRoom');
+        router.push('/Chatting/ChattingRoom');
     };
     const rejectButtonClick = () => {
         alert('동행 거절을 보냈습니다.');
@@ -103,7 +139,7 @@ const ConnectPeople = (data: TripData) => {
                     <UserInfo>
                         <Location>{TripData.tripTitle}</Location>
                         <Name>{TripData.nickname}</Name>
-                        <Button onClick={() => requestButtonClick(TripData.uid)}>동행요청</Button>
+                        <Button onClick={() => requestButtonClick(TripData.uid, TripData.id)}>동행요청</Button>
                         <RejectButton onClick={rejectButtonClick}>동행거절</RejectButton>
                     </UserInfo>
                     </Content>

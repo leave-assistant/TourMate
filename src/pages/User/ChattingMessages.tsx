@@ -8,7 +8,6 @@ import { useState, useEffect } from "react"
 const ChattingRoom = () => {
     const plan = "11 : 00  행궁동 도착 -> 13 : 00 밥 -> 14: 00 카페";
     const modalText = "계획들어올 공간."
-
     const [modal, setModal] = useState(false)
     
 
