@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import router, { useRouter } from 'next/router';
-import { useUser } from './UserContext';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { addDoc, collection, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
 import { firestore } from './firebase';
+import { useUser } from './UserContext';
+import { useTripPlan } from './TripContext';
 
 interface TripData{
     id?: string;
@@ -17,36 +18,66 @@ interface TripData{
 }
 
 
-const ConnectPeople = () => {
+const ConnectPeople = (data: TripData) => {
+    const trip = useTripPlan();
     const user = useUser();
     const [userTrips, setUserTrips] = useState<TripData[]>([]);
-    useEffect(() => {
-        if (user) {
-        // 해당 사용자의 UID로 여행 플랜을 가져오는 쿼리 생성
-        const tripsQuery = query(
-            collection(firestore, 'TripPlan')
-            //,where('uid', '==', user.uid)
-        );
 
-        getDocs(tripsQuery)
-            .then((querySnapshot) => {
-            const trips: TripData[] = [];
-            querySnapshot.forEach((doc) => {
-                trips.push({ id: doc.id, ...doc.data() } as TripData);
-            });
-            setUserTrips(trips);
-            })
-            .catch((error) => {
-            console.error('여행 플랜 불러오기 오류:', error);
-            });
-        }
+    useEffect(() => {
+        const fetchUserTrips = async () => {
+            if (user) {
+                try {
+                    // 해당 사용자의 UID로 여행 플랜을 가져오는 쿼리 생성
+                    const tripsQuery = query(
+                        collection(firestore, 'TripPlan')
+                        ,where('uid', '!=', user.uid)
+                    );
+                    const querySnapshot = await getDocs(tripsQuery);
+                    const trips: TripData[] = querySnapshot.docs.map((doc) => ({
+                        id: doc.id,
+                        ...doc.data(),
+                    } as TripData));
+                    setUserTrips(trips);
+                } catch(error)  {
+                console.error('여행 플랜 불러오기 오류:', error);
+                }
+            }
+        };
+        fetchUserTrips();
     }, [user]);
 
     const [message, setMessage] = useState('');
     const router = useRouter();
-    const requestButtonClick = () => {
-        alert('동행 요청을 보냈습니다.');
-        router.push('/Chatting/ChattingRoom');
+
+    const requestButtonClick = async (resUid?: string) => {
+        if(user){
+            const RoomData = {
+                id:'',
+                reqUid: user.uid,
+                resUid: resUid,
+                created_at: new Date(),
+            };
+            try
+            {
+                const RoomCollection = collection(firestore, 'ChattingRoom');
+                const newRoomRef = await addDoc(RoomCollection, RoomData);
+
+                const RoomRef = doc(firestore, 'ChaatingRoom', newRoomRef.id);
+                const updatedData = {
+                    id: newRoomRef.id,
+                };
+                await updateDoc(RoomRef, updatedData);
+                alert('채팅룸이 성공적으로 추가');
+            } catch (error){
+                alert('채팅룸 추가 중 오류 발생: '+error);
+            }
+        } else {
+            alert('사용자가 로그인하지않았습니다.')
+        }
+
+
+        // alert('동행 요청을 보냈습니다.');
+        // router.push('/Chatting/ChattingRoom');
     };
     const rejectButtonClick = () => {
         alert('동행 거절을 보냈습니다.');
@@ -55,8 +86,8 @@ const ConnectPeople = () => {
 
     return (
         <div>
-            {userTrips.map((trip, index) => (
-                <Box key={index}>
+            {userTrips.map((TripData) => (
+                <Box key={TripData.id}>
                     <Content>
                     <ImageContainer>
                     <img
@@ -70,13 +101,13 @@ const ConnectPeople = () => {
                     />
                     </ImageContainer>
                     <UserInfo>
-                        <Location>{trip.tripTitle}</Location>
-                        <Name>{trip.nickname}</Name>
-                        <Button onClick={requestButtonClick}>동행요청</Button>
+                        <Location>{TripData.tripTitle}</Location>
+                        <Name>{TripData.nickname}</Name>
+                        <Button onClick={() => requestButtonClick(TripData.uid)}>동행요청</Button>
                         <RejectButton onClick={rejectButtonClick}>동행거절</RejectButton>
                     </UserInfo>
                     </Content>
-                    <TimeLine>{String(trip.tripPlan)}</TimeLine>
+                    <TimeLine>{String(TripData.tripPlan)}</TimeLine>
                 </Box>
             ))}
         </div>
