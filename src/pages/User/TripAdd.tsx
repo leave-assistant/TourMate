@@ -51,50 +51,6 @@ function TripAdd() {
         }
     };
 
-    const handleEditTrip = async () => {
-        if (tripId) {
-            const tripRef = doc(firestore, 'TripPlan', tripId);
-            const updatedData = {
-                tripTitle: tripTitle,
-                tripPlan: tripPlan,
-            };
-            try {
-                await updateDoc(tripRef, updatedData);
-                alert('여행 계획이 성공적으로 수정되었습니다.');
-                clearForm();
-            } catch (error) {
-                alert('여행 계획 수정 중 오류 발생:'+error);
-            }
-            }
-        };
-
-        const handleDeleteTrip = async () => {
-            if (tripId) {
-                const tripRef = doc(firestore, 'TripPlan', tripId);
-                try {
-                    await deleteDoc(tripRef);
-                    console.log('여행 계획이 성공적으로 삭제되었습니다.');
-                    clearForm();
-                } catch (error) {
-                    console.error('여행 계획 삭제 중 오류 발생:', error);
-                }
-                }
-            };
-
-    const selectTripToEdit = (trip: any) => {
-        setTripId(trip.id);
-        setTripTitle(trip.tripTitle);
-        setTripPlan(trip.tripPlan);
-        setIsEditing(true);
-        };
-
-    const clearForm = () => {
-        setTripTitle('');
-        setTripPlan('');
-        setTripId(null);
-        setIsEditing(false);
-        };
-
     return (
         <div>
             {user ? (

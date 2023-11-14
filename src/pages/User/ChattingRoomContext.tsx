@@ -8,6 +8,7 @@ interface RoomData {
     id: string;
     reqUid: string;
     resUid: string;
+	tripPlanId: string;
 }
 
 interface RoomContextType {

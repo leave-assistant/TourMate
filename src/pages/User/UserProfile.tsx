@@ -54,20 +54,6 @@ const UserProfile = () => {
                     });
                     setChattingRoom(rooms);
                 })
-
-                // Firestore에서 채팅방 정보를 가져오는 쿼리 생성
-                const tripQuery = query(collection(firestore, 'TripPlan'), 
-                where('reqUid', '==', room.tripPlanId)
-                );
-
-                getDocs(tripQuery)
-                .then((querySnapshot) => {
-                    const rooms: RoomData[] = [];
-                    querySnapshot.forEach((doc) => {
-                        rooms.push({ id: doc.id, ...doc.data() as RoomData});
-                    });
-                    setChattingRoom(rooms);
-                })
             } catch (error) {
                 console.error('채팅방 정보 가져오기 오류:', error);
             }
