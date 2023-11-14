@@ -11,6 +11,7 @@ interface UserData {
     Mbti?: string;
     Info?: string;
     TourStyle?: string;
+	profileImg?: string;
 }
 
 interface UserContextType {
