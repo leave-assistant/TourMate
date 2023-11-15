@@ -5,7 +5,7 @@ import { createUserWithEmailAndPassword, getAuth, sendEmailVerification } from "
 import { getFirestore, collection, doc, setDoc } from "firebase/firestore"; // firestore 추가
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { eventNames } from "process";
+import { useUser } from "./UserContext";
 
 const SignUp = () => {
     const [email, setEmail] = useState(""); // 이메일 상태
@@ -17,62 +17,57 @@ const SignUp = () => {
     // 라우터 초기화(로그인성공시 자동으로 페이지 이동)
     const router = useRouter();
 
-    // 이메일 입력값 변경 핸들러
-    const handleEmailChange = (e: any) => {
+    const handleEmailChange = (e: any) => { // 이메일 입력값 변경 핸들러
         setEmail(e.target.value);
     };
 
-    // 비밀번호 입력값 변경 핸들러
-    const handlePasswordChange = (e: any) => {
+    const handlePasswordChange = (e: any) => { // 비밀번호 입력값 변경 핸들러
         setPassword(e.target.value);
     };
 
-    // age 입력값 변경 핸들러
-    const handleAgeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const inputYear = e.target.value;
-        const isNumeric = /^\d{4}$/.test(inputYear);
-        //숫자인지, 4자리인지 확인
-        const isValidYear = /^\d{4}$/.test(inputYear);
-        if(isValidYear){
-            const numericYear = parseInt(inputYear, 10);
-            // 1870-2023
-            if(numericYear >= 1870 && numericYear <= 2023){
-                setYear(inputYear);
-                //나이계산(현재년도-입력된년도)
-                const currentYear = new Date().getFullYear();
-                const calculatedAge = currentYear - numericYear;
-                setAge(calculatedAge.toString()); // 나이를 문자열로 설정
-            }
-            else {
-                console.log("년도는 1870-2023 사이여야합니다");
-            }
-        } else {
-            console.log("4자리 숫자로 입력하세요");
-        }
-        // const inputYear = parseInt(e.target.value);
+    const handleAgeChange = (e: React.ChangeEvent<HTMLInputElement>) => { // age 입력값 변경 핸들러
+        // const inputYear = e.target.value;
+        // const isNumeric = /^\d{4}$/.test(inputYear);
+        // //숫자인지, 4자리인지 확인
+        // const isValidYear = /^\d{4}$/.test(inputYear);
+        // if(isValidYear){
+        //     const numericYear = parseInt(inputYear, 10);
+        //     // 1870-2023
+        //     if(numericYear >= 1870 && numericYear <= 2023){
+        //         setYear(inputYear);
+        //         //나이계산(현재년도-입력된년도)
+        //         const currentYear = new Date().getFullYear();
+        //         const calculatedAge = currentYear - numericYear;
+        //         setAge(calculatedAge.toString()); // 나이를 문자열로 설정
+        //     }
+        //     else {
+        //         console.log("년도는 1870-2023 사이여야합니다");
+        //     }
+        // } else {
+        //     console.log("4자리 숫자로 입력하세요");
+        // }
+        const inputYear = parseInt(e.target.value);
         
-        // setYear(inputYear.toString()); // 년도 값을 문자열로 설정
+        setYear(inputYear.toString()); // 년도 값을 문자열로 설정
         
-
-        // // 나이 계산 (현재 년도 - 입력된 년도)
-        // const currentYear = new Date().getFullYear();
-        // const calculatedAge = currentYear - inputYear;
-        // setAge(calculatedAge.toString()); // 나이를 문자열로 설정
+        // 나이 계산 (현재 년도 - 입력된 년도)
+        const currentYear = new Date().getFullYear();
+        const calculatedAge = currentYear - inputYear;
+        setAge(calculatedAge.toString()); // 나이를 문자열로 설정
     };
 
-    // 성별 변경 핸들러
-    const handleGenderChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const handleGenderChange = (event: React.ChangeEvent<HTMLSelectElement>) => { // 성별 변경 핸들러
         setGender(event.target.value);
     };
 
-    // 회원 가입 버튼 클릭 핸들러
-    const handleSignUp = async (e: any) => {
+    const handleSignUp = async (e: any) => { // 회원 가입 버튼 클릭 핸들러
         e.preventDefault();
         
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const userId = userCredential.user.uid;
                 const userData = {
+                    uid: userId,
                     nickname: email,
                     age: age,
                     gender: gender,

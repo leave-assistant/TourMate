@@ -24,7 +24,13 @@ const PopupContainer = styled.div<{ visible: boolean }>`
   height: 100%;
   background-color: #ffffff;
   z-index: 100;
-  overflow: scroll;
+  overflow: auto;
+  &::-webkit-scrollbar { width: 12px; }
+  &::-webkit-scrollbar-thumb {
+    background-color: #0160D6; 
+    border-radius: 6px;
+  }
+  &::-webkit-scrollbar-track { background-color: #f1f1f1; }
 `;
 
 const CloseButton = styled.button`
