@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
-import { useSearchContext } from './SearchContext';
 import { SearchOutlined, CaretLeftFilled, CaretRightFilled } from "@ant-design/icons";
+import { useSearch } from "./SearchContext";
 
 // Kakao Maps API를 전역으로 선언
 declare const window: typeof globalThis & {
   kakao: any;
 };
 
+interface WriteMapPageProps {
+  setAddress: (place: any) => void;
+}
+
 // WriteMapPage 컴포넌트 정의
 export default function WriteMapPage(props: any) {
-
-  // SearchContext에서 inputValue를 가져와 사용
-  const { inputValue } = useSearchContext();
+  const { searchValue } = useSearch();
 
   // 컴포넌트가 마운트될 때 실행되는 useEffect
   useEffect(() => {
@@ -25,6 +27,8 @@ export default function WriteMapPage(props: any) {
     script.onload = () => {
       // Kakao Maps API 로드 후 실행될 함수
       window.kakao.maps.load(function () {
+
+        // 마커를 담을 배열
         let markers: any[] = [];
 
         // 지도 초기화
@@ -33,6 +37,7 @@ export default function WriteMapPage(props: any) {
           center: new window.kakao.maps.LatLng(38.2313466, 128.2139293),
           level: 1,
         };
+        // 지도 생성
         const map = new window.kakao.maps.Map(container, options);
 
         // 마커 초기화
@@ -41,10 +46,11 @@ export default function WriteMapPage(props: any) {
           128.2139293
         );
 
+        // 마커 생성후 지도에 표시하는 함수
         const marker = new window.kakao.maps.Marker({
           position: markerPosition,
         });
-
+        // 지도 위에 마커를 표출합니다
         marker.setMap(map);
 
         // Places 서비스 초기화
@@ -54,27 +60,26 @@ export default function WriteMapPage(props: any) {
         const infowindow = new window.kakao.maps.InfoWindow({ zIndex: 1 });
 
         // 검색 버튼 클릭 이벤트
-        const searchForm = document.getElementById("submit_btn");
-        searchForm?.addEventListener("click", function (e) {
-          e.preventDefault();
-          searchPlaces();
-        });
+        // const searchForm = document.getElementById("submit_btn");
+        // searchForm?.addEventListener("click", function (e) {
+        //   e.preventDefault();
+        //   searchPlaces();
+        // });
 
         // 검색어로 장소 검색하는 함수
-        function searchPlaces() {
+        function searchPlaces(keyword: string) {
           // const keyword = (
           //   document.getElementById("keyword") as HTMLInputElement
           // ).value;
-          const keyword = inputValue;
 
-          if (!keyword.replace(/^\s+|\s+$/g, "")) {
-            alert("키워드를 입력해주세요!");
-            return false;
-          }
+          // if (!keyword.replace(/^\s+|\s+$/g, "")) {
+          //   alert("키워드를 입력해주세요!");
+          //   return false;
+          // }
 
           ps.keywordSearch(keyword, placesSearchCB);
         }
-
+        
         // 검색 결과 처리 콜백 함수
         function placesSearchCB(data: any, status: any, pagination: any) {
           if (status === window.kakao.maps.services.Status.OK) {
@@ -122,6 +127,7 @@ export default function WriteMapPage(props: any) {
 
         // 검색된 장소 목록을 화면에 표시하는 함수
         function displayPlaces(places: any) {
+          console.log("검색결과 : ", places);
           const listEl = document.getElementById("placesList");
           const menuEl = document.getElementById("menu_wrap");
           const fragment = document.createDocumentFragment();
@@ -225,12 +231,12 @@ export default function WriteMapPage(props: any) {
                 paginationEl.removeChild(lastChild);
               }
             }
-        
-            for (let i = 1; i <= pagination.last; i++) {  
+
+            for (let i = 1; i <= pagination.last; i++) {
               const el = document.createElement("a");
               el.href = "#";
               el.innerHTML = String(i);
-        
+
               if (i === pagination.current) {
                 el.className = "on";
               } else {
@@ -240,13 +246,13 @@ export default function WriteMapPage(props: any) {
                   };
                 })(i);
               }
-        
+
               fragment.appendChild(el);
             }
             paginationEl.appendChild(fragment);
           }
         }
-        
+
         // 인포윈도우에 정보를 표시하는 함수
         function displayInfowindow(marker: any, title: any) {
           const content =
@@ -262,18 +268,21 @@ export default function WriteMapPage(props: any) {
             el.removeChild(el.lastChild);
           }
         }
+
+        searchPlaces(searchValue);
       });
     };
-  }, []);
+    console.log("Search value changed:", searchValue);
+  }, [searchValue]);
 
   // 검색어 및 상태 관리
-  const [search, setSearch] = useState("");
+  // const [search, setSearch] = useState("");
   const [isOpen, setIsOpen] = useState(true);
 
   // 검색어 입력 시 상태 업데이트
-  const onchangeSearch = (event: any) => {
-    setSearch(event?.target.value);
-  };
+  // const onchangeSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setSearch(event?.target.value);
+  // };
 
   // 검색 바 토글 버튼 클릭시 상태 업데이트
   const onClickSearchBarOpen = () => {
@@ -293,15 +302,15 @@ export default function WriteMapPage(props: any) {
               </div>
 
               <div id="form">
-                <input
+                {/* <input
                   type="text"
-                  value={inputValue}
+                  value={search}
                   id="keyword"
                   onChange={onchangeSearch}
                 />
                 <button id="submit_btn" type="submit">
                   <SearchIcon />
-                </button>
+                </button> */}
               </div>
             </div>
           </div>

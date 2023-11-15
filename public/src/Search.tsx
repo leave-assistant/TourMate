@@ -1,37 +1,51 @@
-import React from "react";
+import { useSearch } from "@/pages/SearchContext";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useSearchContext } from "@/pages/SearchContext";
 
-const Search = () => {
-    const { inputValue, setInputValue } = useSearchContext();
+const Search: React.FC = () => {
+    // input요소 입력값 업데이트 객체
+    const [inputValue, setInputValue] = useState<string>("");
+    const { searchValue, setSearchValue } = useSearch();
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
-  };
+    // input요소 입력값 업데이트 함수
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setInputValue(event.target.value);
+    };
 
-  const handleSearchClick = () => {
-    // 필요한 경우 추가 작업 수행
-    // 아마도 검색을 시작하거나 WriteMapPage에서 상태를 업데이트할 수 있을 것입니다
-  };
-    return(
+    // 입력값 저장 함수
+    const handleSearchButtonClick = () => {
+        setSearchValue(inputValue);
+    };
+    const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === "Enter") {
+            handleSearchButtonClick();
+        }
+    };
+
+    return (
         <SearchContainer>
             <IconContainer>
                 <SearchButton
                     src="../Menu_Picture/search.png"
                     alt="로고"
-                    onClick={handleSearchClick}
+                    onClick={handleSearchButtonClick}
                 />
-                    <input
+                <input
                     type="text"
                     placeholder="장소 검색"
                     value={inputValue}
                     onChange={handleInputChange}
+                    onKeyPress={handleKeyPress}
                 />
+                <What><p>{searchValue}</p></What>
             </IconContainer>
         </SearchContainer>
     );
 };
 
+const What = styled.div`
+    
+`
 const SearchContainer = styled.div`
     display: flex;
     align-items: center;

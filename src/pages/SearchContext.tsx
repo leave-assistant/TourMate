@@ -1,27 +1,26 @@
-// SearchContext.tsx
-import React, { createContext, useContext, ReactNode, useState } from 'react';
+import React, { createContext, useContext, ReactNode, Dispatch, SetStateAction, useState } from 'react';
 
 interface SearchContextProps {
-  inputValue: string;
-  setInputValue: React.Dispatch<React.SetStateAction<string>>;
+  searchValue: string;
+  setSearchValue: Dispatch<SetStateAction<string>>;
 }
 
 const SearchContext = createContext<SearchContextProps | undefined>(undefined);
 
 export const SearchProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [inputValue, setInputValue] = useState('');
+  const [searchValue, setSearchValue] = useState<string>('');
 
   return (
-    <SearchContext.Provider value={{ inputValue, setInputValue }}>
+    <SearchContext.Provider value={{ searchValue, setSearchValue }}>
       {children}
     </SearchContext.Provider>
   );
 };
 
-export const useSearchContext = () => {
+export const useSearch = () => {
   const context = useContext(SearchContext);
   if (!context) {
-    throw new Error('useSearchContext는 SearchProvider 안에서 사용되어야 합니다');
+    throw new Error('useSearch must be used within a SearchProvider');
   }
   return context;
 };
