@@ -1,13 +1,32 @@
-import MainMenu from "@/pages/Home/MainMenu";
 import React from "react";
 import styled from "styled-components";
+import { useSearchContext } from "@/pages/SearchContext";
 
 const Search = () => {
+    const { inputValue, setInputValue } = useSearchContext();
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value);
+  };
+
+  const handleSearchClick = () => {
+    // 필요한 경우 추가 작업 수행
+    // 아마도 검색을 시작하거나 WriteMapPage에서 상태를 업데이트할 수 있을 것입니다
+  };
     return(
         <SearchContainer>
             <IconContainer>
-                <SearchButton src="../Menu_Picture/search.png" alt="logo" />
-                <input type="text" placeholder="장소 검색" />
+                <SearchButton
+                    src="../Menu_Picture/search.png"
+                    alt="로고"
+                    onClick={handleSearchClick}
+                />
+                    <input
+                    type="text"
+                    placeholder="장소 검색"
+                    value={inputValue}
+                    onChange={handleInputChange}
+                />
             </IconContainer>
         </SearchContainer>
     );

@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import KakaoMap from "../KakaoMap";
+import KakaoMap from "../WriteMapPage";
 import styled from "styled-components";
 import MenuBar from "../../../public/src/NavBar";
 import MenuContent from "../../../public/src/MenuContent";
@@ -26,13 +26,14 @@ const Main: React.FC = () => {
             <Sidebar>
                 <MenuBar onSelectComponent={onSelectComponent} />
                 <MenuContentWrapper isvisible={isMenuVisible}>
+
                     <MenuContent selectedComponent={selectedComponent}/>
                 </MenuContentWrapper>
                 <ExtendButton onClick={toggleMenu}/>
             </Sidebar>
 
             <MapContainer>
-                <KakaoMap />
+                <KakaoMap/>
             </MapContainer>
         </MainPage>
     );
@@ -50,21 +51,21 @@ const Sidebar = styled.div`
     display: flex;
     width: 480px; /* 원하는 사이드바 너비로 조정 */
     height: 100%;
-    position: absolute;
-    z-index: 2;
 `;
 
 const MenuContentWrapper = styled.div<{ isvisible: boolean }>`
     width: ${(props) => (props.isvisible ? "100%" : "0%")};
     overflow: hidden;
     transition: width 0.3s ease-in-out;
+    z-index: 2;
 `;
 
 const MapContainer = styled.div`
     position: absolute;
-    width: 100%;
+    width: calc(100% - 62px);
     height: 100%;
     z-index: 1;
+    margin-left: 62px;
 `;
 
 export default Main;

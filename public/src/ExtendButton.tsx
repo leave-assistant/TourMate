@@ -30,6 +30,7 @@ const ExtendContainer = styled.div`
     align-items: center;
     width: 28px;
     height: 100%;
+    z-index: 2;
 `;
 
 const Extend = styled.div`
