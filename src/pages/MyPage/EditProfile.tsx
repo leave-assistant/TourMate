@@ -3,14 +3,14 @@ import styled from "styled-components";
 import { useUser } from '../User/UserContext';
 import { doc, getFirestore, updateDoc } from 'firebase/firestore';
 
-function EditText() {
+function EditProfile() {
   const user = useUser();
 
   const [isEditing, setIsEditing] = useState(false);
   const [texts, setTexts] = useState({
-    TourStyle: user?.TourStyle,
-    Mbti: user?.Mbti,
-    Info: user?.Info,
+    nickname: user?.nickname,
+    age: user?.age,
+    gender: user?.gender,
   });
 
   const handleEditClick = () => {
@@ -26,20 +26,20 @@ function EditText() {
         const userDocRef = doc(db, 'users', user.uid);
 
         const updatedData = {
-          Mbti: texts.Mbti,
-          TourStyle: texts.TourStyle,
-          Info: texts.Info,
+          nickname: texts.nickname,
+          age: texts.age,
+          gender: texts.gender,
         };
 
         await updateDoc(userDocRef, updatedData);
-        console.log('MBTI 업데이트 성공');
-        alert('MBTI 업데이트 성공');
+        console.log('프로필 업데이트 성공');
+        alert('프로필 업데이트 성공');
       } catch (error) {
-        console.error('MBTI 업데이트 오류:', error);
-        alert('MBTI 업데이트 오류');
+        console.error('프로필 업데이트 오류:', error);
+        alert('프로필 업데이트 오류');
       }
     } else {
-      alert('UID 또는 MBTI 값이 없습니다.');
+      alert('프로필 값이 없습니다.');
     }
 
     setIsEditing(false);
@@ -56,21 +56,18 @@ function EditText() {
     <div>
       {isEditing ? (
         <div>
-          <Question>여행스타일</Question> 
-          <EditAnswer><input type="text" value={texts.TourStyle} onChange={(e) => handleTextChange('TourStyle', e)} /></EditAnswer>
-          <Question>MBTI</Question>
-          <EditAnswer><input type="text" value={texts.Mbti} onChange={(e) => handleTextChange('Mbti', e)} /></EditAnswer>
-          <Question>소개글</Question>
-          <EditAnswer><input type="text" value={texts.Info} onChange={(e) => handleTextChange('Info', e)} /></EditAnswer>
-        </div>
+          <Profile><Question>이름</Question> 
+          <EditAnswer><input type="text" value={texts.nickname} onChange={(e) => handleTextChange('nickname', e)} /></EditAnswer></Profile>
+          <Profile><Question>나이</Question>
+          <EditAnswer><input type="text" value={texts.age} onChange={(e) => handleTextChange('age', e)} /></EditAnswer></Profile>
+          <Profile><Question>성별</Question>
+          <EditAnswer><input type="text" value={texts.gender} onChange={(e) => handleTextChange('gender', e)} /></EditAnswer></Profile>
+          </div>
       ) : (
         <div>
-          <Question>여행스타일</Question> 
-          <SaveAnswer><p>{user?.TourStyle}</p></SaveAnswer>
-          <Question>MBTI</Question>
-          <SaveAnswer><p>{user?.Mbti}</p></SaveAnswer>
-          <Question>소개글</Question>
-          <SaveAnswer><p>{user?.Info}</p></SaveAnswer>
+          <SaveAnswer><p>{user?.nickname}</p></SaveAnswer>
+          <SaveAnswer><p>{user?.age}</p></SaveAnswer>
+          <SaveAnswer><p>{user?.gender}</p></SaveAnswer>
         </div>
       )}
       {isEditing ? (
@@ -81,6 +78,32 @@ function EditText() {
     </div>
   );
 }
+
+const Profile = styled.div`
+  display: flex;
+  margin: 10px auto;
+`;
+
+const Question = styled.div`
+  margin: 0 auto;
+  font-size: 18px;
+  font-weight: bold; 
+  color: #000000;
+`;
+
+const EditAnswer = styled.button`
+  font-size: 18px;
+  font-weight: normal; 
+  margin: 0 auto;
+  border: none;
+`;
+
+const SaveAnswer = styled.div`
+  font-size: 18px;
+  font-weight: normal; 
+  margin-top: 5px;
+  border: none;
+`;
 
 const SaveButton = styled.div`
   float: right;
@@ -93,6 +116,7 @@ const Save = styled.button`
 const SaveImage = styled.div`
   width: 15px;
   height: 15px;
+  padding-right: 50px;
   display: flex;
   background-color: white;
 `;
@@ -105,28 +129,9 @@ const Edit = styled.button`
 const EditImage = styled.div`
   width: 15px;
   height: 15px;
+  padding-right: 80px;
   display: flex;
   background-color: white;
 `;
 
-const Question = styled.div`
-  width: 100%;
-  margin: 25px 0px 0px 0px;
-  font-size: 24px;
-  font-weight: bold; 
-  color: #000000;
-`;
-
-const EditAnswer = styled.button`
-  margin-top: 5px;
-  border: none;
-`;
-
-const SaveAnswer = styled.div`
-  margin: 5px 0px 0px 10px;
-  font-size: 18px;
-  font-weight: normal; 
-  word-wrap: break-word;
-`;
-
-export default EditText;
+export default EditProfile;

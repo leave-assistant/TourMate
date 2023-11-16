@@ -228,7 +228,14 @@ const PlaceContainer = styled.div`
     flex-direction: column;
     width: 390px;
     height: 584px;
+    overflow-x: hidden;
     overflow-y: auto;
+    &::-webkit-scrollbar { width: 10px; }
+    &::-webkit-scrollbar-thumb {
+        background-color: #d3d3d3; 
+        border-radius: 6px;
+    }
+    &::-webkit-scrollbar-track { background-color: #f1f1f1; }
 `;
 
 export default MainMenu;
