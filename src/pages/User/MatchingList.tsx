@@ -49,7 +49,7 @@ const ConnectPeople = (data: TripData) => {
     const [message, setMessage] = useState('');
     const router = useRouter();
 
-    const requestButtonClick = async (resUid?: string, tripid?:string) => {
+    const requestButtonClick = async (resUid?: string, tripid?:string, tripnickname?:string) => {
         if(user){
             const RoomData = {
                 id:'',
@@ -61,6 +61,7 @@ const ConnectPeople = (data: TripData) => {
             const User1Data = {
                 id: '',
                 uid: user.uid,
+                partnerNickname: tripnickname,
                 lastMessage: "채팅 시작",
                 profileImg: '',
                 roomId: '',
@@ -69,6 +70,7 @@ const ConnectPeople = (data: TripData) => {
             const User2Data = {
                 id: '',
                 uid: resUid,
+                partnerNickname: user.nickname,
                 lastMessage: "채팅 시작",
                 profileImg: '',
                 roomId: '',
@@ -139,7 +141,7 @@ const ConnectPeople = (data: TripData) => {
                     <UserInfo>
                         <Location>{TripData.tripTitle}</Location>
                         <Name>{TripData.nickname}</Name>
-                        <Button onClick={() => requestButtonClick(TripData.uid, TripData.id)}>동행요청</Button>
+                        <Button onClick={() => requestButtonClick(TripData.uid, TripData.id, TripData.nickname)}>동행요청</Button>
                         <RejectButton onClick={rejectButtonClick}>동행거절</RejectButton>
                     </UserInfo>
                     </Content>

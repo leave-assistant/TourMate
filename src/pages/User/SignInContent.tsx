@@ -13,11 +13,11 @@ import styled from "styled-components";
 import { auth } from "./firebase";
 import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore"; // firestore 추가
 import Link from "next/link";
-import { AuthContext } from "./authContext";
+//import { AuthContext } from "./authContext";
 import { useRouter } from "next/router";
 
 const SignIn = () => {
-    const userInfo = useContext(AuthContext);
+    //const userInfo = useContext(AuthContext);
     const [email, setLoginEmail] = useState(""); // 이메일 상태
     const [password, setLoginPassword] = useState(""); // 비밀번호 상태
     const [userData, setUserData] = useState<any>(null);

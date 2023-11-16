@@ -7,6 +7,7 @@ import { UserProvider } from "../User/UserContext";
 
 const MyPage = () => {
   return (
+
     <UserProvider>
       <MyPageContent>
         <Title>MY 투어메이트</Title>
