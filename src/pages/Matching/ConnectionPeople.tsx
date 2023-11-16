@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState,useRef } from 'react';
 import styled from 'styled-components';
 import router, { useRouter } from 'next/router';
+import ChattingRoom from"../Chatting/ChattingRoom";
 class Persona {
   location: string;
   name: string;
@@ -21,12 +22,19 @@ const personas = [
 
 const ConnectPeople = () => {
   const [message, setMessage] = useState('');
-
+  const [isChattingRoomVisible, setChattingRoomVisible] = useState(false);
+  const outside = useRef(null);	
+  const openChattingRoomModal = () => {
+    setChattingRoomVisible(true);
+  };
+  const closeChattingRoomModal = () => {
+    setChattingRoomVisible(false);
+};
   const router = useRouter();
   const requestButtonClick = () => {
     alert('동행 요청을 보냈습니다.');
-
-    router.push('/Chatting/ChattingRoom');
+     openChattingRoomModal();
+  //router.push('/Chatting/ChattingRoom');
   };
 
   const rejectButtonClick = () => {
@@ -60,8 +68,17 @@ const ConnectPeople = () => {
             </UserInfo>
           </Content>
           <TimeLine>{individual.timeline}</TimeLine>
+          
         </Box>
+        
       ))}
+       {isChattingRoomVisible && (
+                <ModalOverlay
+                    ref={outside} 
+                    onClick={ (e) => { if(e.target == outside.current) setChattingRoomVisible(false) } }>
+                        <ChattingRoom />
+                </ModalOverlay>
+            )}
     </div>
   );
 };
@@ -145,6 +162,20 @@ const RejectButton = styled.button`
   &:hover {
     background-color: #990000;
   }
+`
+;
+const ModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 `;
+
 
 export default ConnectPeople;
