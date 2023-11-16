@@ -47,32 +47,32 @@ const MainMenu: React.FC = () => {
 
       }, []);
 
-      const fetchDataFromDatabase = async (userUid: string | undefined) => {
-        try {
-          if (userUid) {
-            // 데이터를 받아오는 비동기 로직을 이곳에 작성하세요.
-            // 예시: Firestore에서 해당 사용자의 데이터 가져오기
-            const db = firebase.firestore();
-            const userDocRef = db.collection('users').doc(userUid);
-            const userData = await userDocRef.get();
+    //   const fetchDataFromDatabase = async (userUid: string | undefined) => {
+    //     try {
+    //       if (userUid) {
+    //         // 데이터를 받아오는 비동기 로직을 이곳에 작성하세요.
+    //         // 예시: Firestore에서 해당 사용자의 데이터 가져오기
+    //         const db = firebase.firestore();
+    //         const userDocRef = db.collection('users').doc(userUid);
+    //         const userData = await userDocRef.get();
     
-            if (userData.exists) {
-              // 필요한 데이터를 가져옵니다.
-              const data = userData.data()?.someField;
-              return [data]; // 데이터 배열로 반환
-            } else {
-              console.log('사용자 문서를 찾을 수 없습니다.');
-              return [];
-            }
-          } else {
-            console.log('사용자 UID가 없습니다.');
-            return [];
-          }
-        } catch (error) {
-          console.error('데이터 가져오기 오류:', error);
-          return [];
-        }
-      };
+    //         if (userData.exists) {
+    //           // 필요한 데이터를 가져옵니다.
+    //           const data = userData.data()?.someField;
+    //           return [data]; // 데이터 배열로 반환
+    //         } else {
+    //           console.log('사용자 문서를 찾을 수 없습니다.');
+    //           return [];
+    //         }
+    //       } else {
+    //         console.log('사용자 UID가 없습니다.');
+    //         return [];
+    //       }
+    //     } catch (error) {
+    //       console.error('데이터 가져오기 오류:', error);
+    //       return [];
+    //     }
+    //   };
       
     return(
         <BackgroundContainer>

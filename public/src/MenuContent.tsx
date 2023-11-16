@@ -15,7 +15,7 @@ const MenuContent: React.FC<MenuContentProps> = ({ selectedComponent }) => {
     const renderComponent = () => {
         switch (selectedComponent) {
             case "home":
-                return <MainMenu />;
+                return <MainMenu/>;
             case "ai":
                 return <Menu />;
             case "Matching":

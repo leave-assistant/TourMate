@@ -1,18 +1,51 @@
-import MainMenu from "@/pages/Home/MainMenu";
-import React from "react";
+import { useSearch } from "@/pages/SearchContext";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-const Search = () => {
-    return(
+const Search: React.FC = () => {
+    // input요소 입력값 업데이트 객체
+    const [inputValue, setInputValue] = useState<string>("");
+    const { searchValue, setSearchValue } = useSearch();
+
+    // input요소 입력값 업데이트 함수
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setInputValue(event.target.value);
+    };
+
+    // 입력값 저장 함수
+    const handleSearchButtonClick = () => {
+        setSearchValue(inputValue);
+    };
+    const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === "Enter") {
+            handleSearchButtonClick();
+        }
+    };
+
+    return (
         <SearchContainer>
             <IconContainer>
-                <SearchButton src="../Menu_Picture/search.png" alt="logo" />
-                <input type="text" placeholder="장소 검색" />
+                <SearchButton
+                    src="../Menu_Picture/search.png"
+                    alt="로고"
+                    onClick={handleSearchButtonClick}
+                />
+                <input
+                    type="text"
+                    placeholder="장소 검색"
+                    value={inputValue}
+                    onChange={handleInputChange}
+                    onKeyPress={handleKeyPress}
+                />
+                <What><p>{searchValue}</p></What>
             </IconContainer>
         </SearchContainer>
     );
 };
 
+const What = styled.div`
+    
+`
 const SearchContainer = styled.div`
     display: flex;
     align-items: center;
