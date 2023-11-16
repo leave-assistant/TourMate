@@ -20,7 +20,7 @@ const RouteCalculatorScreen = () => {
 
   return (
     <div>
-      <h1>Shortest Route</h1>
+      <h1>테스트 페이지입니다.</h1>
       {shortestPath !== null ? (
         <div>
           <p>The shortest route length is: {shortestPath.length} km</p>
