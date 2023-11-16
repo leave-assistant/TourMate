@@ -1,11 +1,14 @@
 import React from "react"
 import styled from "styled-components"
 import { useState, useEffect } from "react"
+import { useTripPlan } from "./TripContext"
 
 
 
 
 const ChattingRoom = () => {
+    const tripPlan = useTripPlan();
+
     const plan = "11 : 00  행궁동 도착 -> 13 : 00 밥 -> 14: 00 카페";
     const modalText = "계획들어올 공간."
 

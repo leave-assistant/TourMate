@@ -2,7 +2,6 @@ import { createContext, useContext, useState, useEffect, ReactNode } from 'react
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth, firestore } from './firebase';
 import { DocumentReference, doc, getDoc } from 'firebase/firestore';
-import { setuid } from 'process';
 
 interface UserData {
 	uid?: string;
@@ -12,6 +11,7 @@ interface UserData {
     Mbti?: string;
     Info?: string;
     TourStyle?: string;
+	profileImg?: string;
 }
 
 interface UserContextType {
