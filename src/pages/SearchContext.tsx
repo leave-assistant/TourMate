@@ -1,17 +1,22 @@
 import React, { createContext, useContext, ReactNode, Dispatch, SetStateAction, useState } from 'react';
+import { SearchResult } from './SearchValueType';
 
 interface SearchContextProps {
   searchValue: string;
   setSearchValue: Dispatch<SetStateAction<string>>;
+  searchResult: SearchResult[];
+  setSearchResult: Dispatch<SetStateAction<SearchResult[]>>;
 }
 
 const SearchContext = createContext<SearchContextProps | undefined>(undefined);
 
 export const SearchProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [searchValue, setSearchValue] = useState<string>('');
+  const [searchResult, setSearchResult] = useState<SearchResult[]>([]);
+  console.log("잘 받아왔나?",searchResult);
 
   return (
-    <SearchContext.Provider value={{ searchValue, setSearchValue }}>
+    <SearchContext.Provider value={{ searchValue, setSearchValue, searchResult, setSearchResult }}>
       {children}
     </SearchContext.Provider>
   );

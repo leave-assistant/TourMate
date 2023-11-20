@@ -1,7 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useSearch } from "@/pages/SearchContext";
 
-const PlaceCard = () => {
+interface Place {
+    place_name: string,
+    road_address_name: string,
+    x: number,
+    y: number,
+}
+
+const PlaceCard = (props: any) => {
+    const { searchResult } = useSearch();
+    console.log("값 받아오기",searchResult);
+    const popularPlace = [
+        {place_name: "안양역", road_address_name: "경기 안양시 만안구 만안로 232", x: "126.922643794145", y: "37.4018568034268" }
+        ,{place_name: "롯데시네마 안양", road_address_name: "경기 안양시 만안구 만안로 244", x: "126.922300592287", y: "37.4017196232175"}
+        ,{place_name: "엔터식스 안양역점", road_address_name: "경기 안양시 만안구 만안로 232", x: "126.923001121893", y: "37.4014353588592"}
+    ];
+
+    // useEffect(() => {
+    //     console.log("값 받아오기",searchResult);
+    // }, [searchResult])
+
   return (
     <CardContainer>
 
@@ -11,8 +31,8 @@ const PlaceCard = () => {
 
         <TextContainer>
             <TitleContainer>
-                <Title>홍지관</Title>
-                <Subtitle>대림대학교</Subtitle>
+                <PlaceName>place_name</PlaceName>
+                <RoadAddress>road_address_name</RoadAddress>
             </TitleContainer>
 
             <ReviewContainer>
@@ -61,13 +81,13 @@ const TitleContainer = styled.div`
     width: 330px;
 `;
 
-const Title = styled.div`
+const PlaceName = styled.div`
     font-size: 28px;
     font-weight: bold;
     margin-right: 5px;
 `;
 
-const Subtitle = styled.div`
+const RoadAddress = styled.div`
     font-size: 16px;
     font-weight: bold;
     color: #828282;

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { SearchOutlined, CaretLeftFilled, CaretRightFilled } from "@ant-design/icons";
 import { useSearch } from "./SearchContext";
+import { SearchResult } from "./SearchValueType";
 
 // Kakao Maps API를 전역으로 선언
 declare const window: typeof globalThis & {
@@ -15,7 +16,8 @@ interface WriteMapPageProps {
 // WriteMapPage 컴포넌트 정의
 export default function WriteMapPage(props: any) {
   const { searchValue } = useSearch();
-
+  const [ searchResult, setSearchResult ] = useState<SearchResult[]>([]);
+  
   // 컴포넌트가 마운트될 때 실행되는 useEffect
   useEffect(() => {
     // Kakao Maps API 스크립트 동적으로 생성 및 로드
@@ -128,6 +130,8 @@ export default function WriteMapPage(props: any) {
         // 검색된 장소 목록을 화면에 표시하는 함수
         function displayPlaces(places: any) {
           console.log("검색결과 : ", places);
+          setSearchResult(places);
+          // console.log("값 출력 : ", searchResult);
           const listEl = document.getElementById("placesList");
           const menuEl = document.getElementById("menu_wrap");
           const fragment = document.createDocumentFragment();
@@ -274,6 +278,13 @@ export default function WriteMapPage(props: any) {
     };
     console.log("Search value changed:", searchValue);
   }, [searchValue]);
+
+  // 목적지 검색 결과 값 콘솔 출력
+  useEffect(() => {
+    console.log("값 출력 : ", searchResult);
+
+  }, [searchResult]);
+  
 
   // 검색어 및 상태 관리
   // const [search, setSearch] = useState("");

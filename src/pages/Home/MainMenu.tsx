@@ -107,8 +107,6 @@ const MainMenu: React.FC = () => {
 
                 <PlaceContainer>
                     <PlaceCard/>
-                    <PlaceCard/>
-                    <PlaceCard/>
                 </PlaceContainer>
             </PopularSpot>
         </BackgroundContainer>
