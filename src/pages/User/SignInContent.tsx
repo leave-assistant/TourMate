@@ -1,19 +1,17 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { 
     getAuth, 
     setPersistence, 
     signInWithEmailAndPassword, 
     browserSessionPersistence,
     GoogleAuthProvider,
-    signInWithPopup,
     inMemoryPersistence,
     signInWithRedirect,
 } from "@firebase/auth";
 import styled from "styled-components";
 import { auth } from "./firebase";
-import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore"; // firestore 추가
+import { getFirestore, doc, getDoc } from "firebase/firestore"; // firestore 추가
 import Link from "next/link";
-//import { AuthContext } from "./authContext";
 import { useRouter } from "next/router";
 
 const SignIn = () => {
@@ -28,6 +26,10 @@ const SignIn = () => {
 
     // 라우터 초기화(로그인성공시 자동으로 페이지 이동)
     const router = useRouter();
+
+    const handleSignUpClick = () => {
+        router.push('./SignUp');
+    };
 
     useEffect(() => {
         // Firebase 인증 상태 변화를 감지하고 사용자데이터 가져오기
@@ -136,7 +138,7 @@ const SignIn = () => {
                         <br/>
                         <SignUpButton type="submit">로그인</SignUpButton>
                         <br/>
-                        <Link href="/User/SignUp"><div>회원이 아니신가요?</div></Link>
+                        <Link href="./SignUp"><div>회원이 아니신가요?</div></Link>
                     </SignUpForm>
             </History>
             </SignInContainer>
@@ -223,16 +225,5 @@ const History = styled.div`
     width: 100%;
     margin-top: 35px;
 `;
-
-// const LoginLink = styled.div`
-//     padding: 10px;
-//     width: 60%;
-//     font-size: 18px;
-//     background-color: #007bff;
-//     color: #fff;
-//     border: none;
-//     border-radius: 5px;
-//     cursor: pointer;
-// `;
 
 export default SignIn;
