@@ -13,7 +13,6 @@ const SearchContext = createContext<SearchContextProps | undefined>(undefined);
 export const SearchProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [searchValue, setSearchValue] = useState<string>('');
   const [searchResult, setSearchResult] = useState<SearchResult[]>([]);
-  console.log("잘 받아왔나?",searchResult);
 
   return (
     <SearchContext.Provider value={{ searchValue, setSearchValue, searchResult, setSearchResult }}>

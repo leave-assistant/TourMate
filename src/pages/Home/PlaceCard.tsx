@@ -2,47 +2,45 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useSearch } from "@/pages/SearchContext";
 
-interface Place {
-    place_name: string,
-    road_address_name: string,
-    x: number,
-    y: number,
+interface Coordinate {
+    x: number;
+    y: number;
 }
 
-const PlaceCard = (props: any) => {
+const PlaceCard: React.FC = () => {
     const { searchResult } = useSearch();
-    console.log("값 받아오기",searchResult);
-    const popularPlace = [
-        {place_name: "안양역", road_address_name: "경기 안양시 만안구 만안로 232", x: "126.922643794145", y: "37.4018568034268" }
-        ,{place_name: "롯데시네마 안양", road_address_name: "경기 안양시 만안구 만안로 244", x: "126.922300592287", y: "37.4017196232175"}
-        ,{place_name: "엔터식스 안양역점", road_address_name: "경기 안양시 만안구 만안로 232", x: "126.923001121893", y: "37.4014353588592"}
-    ];
+    console.log("값 받아오기", searchResult);
 
-    // useEffect(() => {
-    //     console.log("값 받아오기",searchResult);
-    // }, [searchResult])
+    const [coordinates, setCoordinates] = useState<Array<Coordinate>>([]);
+    console.log("좌표 확인", coordinates)
 
-  return (
-    <CardContainer>
+    const handlePlaceNameClick = (x: number, y: number) => {
+        setCoordinates([...coordinates, { x, y }]);
+    };
 
-        <ImageContainer>
-            <Image src="../Menu_Picture/Rectangle 10.png" alt="placePicture" />
-        </ImageContainer>
+    return (
+        <>
+            {searchResult.map((result, index) => (
+                <CardContainer key={index}>
+                    <ImageContainer>
+                        <Image src="../Menu_Picture/Rectangle 10.png" alt="placePicture" />
+                    </ImageContainer>
 
-        <TextContainer>
-            <TitleContainer>
-                <PlaceName>place_name</PlaceName>
-                <RoadAddress>road_address_name</RoadAddress>
-            </TitleContainer>
+                    <TextContainer>
+                        <TitleContainer>
+                            <PlaceName onClick={() => handlePlaceNameClick(result.x, result.y)}>{result.place_name}</PlaceName>
+                            <RoadAddress>{result.road_address_name}</RoadAddress>
+                        </TitleContainer>
 
-            <ReviewContainer>
-                <Review>리뷰</Review>
-                <Score>점수</Score>
-            </ReviewContainer>
-        </TextContainer>
-
-    </CardContainer>
-  );
+                        <ReviewContainer>
+                            <Review>리뷰</Review>
+                            <Score>점수</Score>
+                        </ReviewContainer>
+                    </TextContainer>
+                </CardContainer>
+            ))}
+        </>
+    );
 };
 
 const CardContainer = styled.div`
