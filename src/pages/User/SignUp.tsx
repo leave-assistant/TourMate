@@ -13,18 +13,7 @@ const Main = () => {
         setMenuVisible(!isMenuVisible);
     };
     return (
-        <MainPage>
-            <Sidebar>
-            <MenuBar onClick={toggleMenu} />
-                <MenuContentWrapper isVisible={isMenuVisible}>
                     <SignUpContent />
-                </MenuContentWrapper>
-            </Sidebar>
-
-            <MapContainer>
-                <KakaoMap />
-            </MapContainer>
-        </MainPage>
     );
 };
 

@@ -95,17 +95,6 @@ const SignIn = () => {
     const provider = new GoogleAuthProvider(); // GoogleAuthProvider 클래스를 authentication 라이브러리에서 사용할 수 있도록 불러오는 코드.
     provider.setCustomParameters({prompt: 'select_account'}); // signIn이랑 authentication을 위해서 GoogleAuthProvider를 사용할 때마다 구글 팝업을 항상 띄우기를 원한다는 의미이다.
 
-    
-    // const signInWithGoogle = async () => {
-    //     try {
-    //         const result = await signInWithPopup(auth, provider);
-    //         const user = result.user;
-    //         console.log("Google 로그인 성공", user);
-    //         router.push("./MyPage");
-    //     } catch (error) {
-    //         console.error("Google 로그인 실패", (error as { message: string }).message);
-    //     }
-    // };
 
     const signInWithGoogle = async () => {
         setPersistence(auth, inMemoryPersistence)
@@ -121,7 +110,8 @@ const SignIn = () => {
     };
 
     return (
-        <SignUpContainer>
+        <>
+        <SignInContainer>
             <Title>MY 투어메이트</Title>
             <Introduce>
                 <Image><img src="/MyPage_Image/people.png"/></Image><br/>
@@ -146,15 +136,16 @@ const SignIn = () => {
                         <br/>
                         <SignUpButton type="submit">로그인</SignUpButton>
                         <br/>
-                        <Link href="./SignUp">회원이 아니신가요?</Link>
+                        <Link href="/User/SignUp"><div>회원이 아니신가요?</div></Link>
                     </SignUpForm>
             </History>
-        </SignUpContainer>
+            </SignInContainer>
+        </>
     );
 };
 
 // 스타일드 컴포넌트를 사용하여 스타일을 정의
-const SignUpContainer = styled.div`
+const SignInContainer = styled.div`
     width: 433px;
     height: 100%;
     background-color: #ffffff;

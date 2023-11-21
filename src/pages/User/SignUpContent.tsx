@@ -26,26 +26,6 @@ const SignUp = () => {
     };
 
     const handleAgeChange = (e: React.ChangeEvent<HTMLInputElement>) => { // age 입력값 변경 핸들러
-        // const inputYear = e.target.value;
-        // const isNumeric = /^\d{4}$/.test(inputYear);
-        // //숫자인지, 4자리인지 확인
-        // const isValidYear = /^\d{4}$/.test(inputYear);
-        // if(isValidYear){
-        //     const numericYear = parseInt(inputYear, 10);
-        //     // 1870-2023
-        //     if(numericYear >= 1870 && numericYear <= 2023){
-        //         setYear(inputYear);
-        //         //나이계산(현재년도-입력된년도)
-        //         const currentYear = new Date().getFullYear();
-        //         const calculatedAge = currentYear - numericYear;
-        //         setAge(calculatedAge.toString()); // 나이를 문자열로 설정
-        //     }
-        //     else {
-        //         console.log("년도는 1870-2023 사이여야합니다");
-        //     }
-        // } else {
-        //     console.log("4자리 숫자로 입력하세요");
-        // }
         const inputYear = parseInt(e.target.value);
         
         setYear(inputYear.toString()); // 년도 값을 문자열로 설정

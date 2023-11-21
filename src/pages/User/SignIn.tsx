@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import KakaoMap from "../KakaoMap";
+//import KakaoMap from "../KakaoMap";
 import styled from "styled-components";
 import SignInContent from "./SignInContent";
 import MenuBar from "../../../public/src/NavBar";
@@ -14,19 +14,7 @@ const Main = () => {
     };
 
     return (
-        <MainPage>
-            <MenuBar/>
-            <Sidebar>
-                <MenuBar onClick={toggleMenu} />
-                <MenuContentWrapper isVisible={isMenuVisible}>
                     <SignInContent />
-                </MenuContentWrapper>
-            </Sidebar>
-
-            <MapContainer>
-                <KakaoMap />
-            </MapContainer>
-        </MainPage>
     );
 };
 
