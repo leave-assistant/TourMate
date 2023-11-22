@@ -27,7 +27,7 @@ const ConnectPeople = (data: TripData) => {
         const fetchUserTrips = async () => {
             if (user) {
                 try {
-                    // 해당 사용자의 UID로 여행 플랜을 가져오는 쿼리 생성
+                    // 해당 사용자의 UID로 해당사용자외의 다른 사용자들의 여행 플랜을 가져오는 쿼리 생성
                     const tripsQuery = query(
                         collection(firestore, 'TripPlan')
                         ,where('uid', '!=', user.uid)

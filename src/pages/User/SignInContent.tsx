@@ -13,8 +13,20 @@ import { auth } from "./firebase";
 import { getFirestore, doc, getDoc } from "firebase/firestore"; // firestore 추가
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Popup from "../MyPage/Popup";
+import SignUp from "./SignUpContent";
 
 const SignIn = () => {
+    const [isPopupVisible, setPopupVisible] = useState(false);
+
+    const openPopup = () => {
+        setPopupVisible(true);
+    };
+
+    const closePopup = () => {
+        setPopupVisible(false);
+    };
+
     //const userInfo = useContext(AuthContext);
     const [email, setLoginEmail] = useState(""); // 이메일 상태
     const [password, setLoginPassword] = useState(""); // 비밀번호 상태
@@ -87,7 +99,7 @@ const SignIn = () => {
                 router.push("./MyPage");
             })
             .catch((error) => {
-                alert("로그인 실패 : " + error.message);
+                console.log("로그인 실패 : ", error.message);
             })
             })
         
@@ -122,7 +134,7 @@ const SignIn = () => {
                 {/* <GoogleButton type="submit">구글로그인</GoogleButton> */}
             </Introduce>
             <History>
-                    <SignUpForm onSubmit={handleSignIn}>
+                    <SignInForm onSubmit={handleSignIn}>
                         <Input
                             type="email"
                             placeholder="이메일"
@@ -138,8 +150,12 @@ const SignIn = () => {
                         <br/>
                         <SignUpButton type="submit">로그인</SignUpButton>
                         <br/>
-                        <Link href="./SignUp"><div>회원이 아니신가요?</div></Link>
-                    </SignUpForm>
+
+                        <button onClick={openPopup}><div>회원이 아니신가요?</div></button>
+                        <Popup visible={isPopupVisible} onClose={closePopup}>
+                        <SignUp></SignUp>
+                        </Popup>
+                    </SignInForm>
             </History>
             </SignInContainer>
         </>
@@ -171,12 +187,12 @@ const GoogleImage = styled.div`
 `;
 
 const Image = styled.div`
-width: 130px;
-height: 130px;
-margin-top: 40px;
-display: flex;
-margin-left: auto;
-margin-right: auto;
+    width: 130px;
+    height: 130px;
+    margin-top: 40px;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
 `;
 
 const Profile = styled.div`
@@ -188,7 +204,7 @@ const Profile = styled.div`
     text-align: center;
 `;
 
-const SignUpForm = styled.form`
+const SignInForm = styled.form`
     display: flex;
     flex-direction: column;
     align-items: center;

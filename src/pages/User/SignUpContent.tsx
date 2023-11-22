@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { auth } from "./firebase";
 import { createUserWithEmailAndPassword, getAuth, sendEmailVerification } from "@firebase/auth"; // Firebase의 createUserWithEmailAndPassword 함수를 import
 import { getFirestore, collection, doc, setDoc } from "firebase/firestore"; // firestore 추가
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useUser } from "./UserContext";
 
@@ -106,8 +105,6 @@ const SignUp = () => {
                         </Select>
                         <br/>
                         <SignUpButton type="submit">회원가입</SignUpButton>
-                        <br/>
-                        <Link href="./SignIn">이미 회원이신가요?</Link>
                 </SignUpForm>
             </History>
         </SignUpContainer>
@@ -123,12 +120,11 @@ const Select = styled.select`
     border-radius: 5px;
 `;
 
-// 스타일드 컴포넌트를 사용하여 스타일을 정의
 const SignUpContainer = styled.div`
     width: 433px;
     height: 100%;
     background-color: #ffffff;
-    padding: 20px;  
+    padding: 20px; 
 `;
 
 const Title = styled.div`
@@ -195,16 +191,5 @@ const History = styled.div`
     width: 100%;
     margin-top: 35px;
 `;
-
-// const LoginLink = styled.div`
-//     padding: 10px;
-//     width: 60%;
-//     font-size: 18px;
-//     background-color: #007bff;
-//     color: #fff;
-//     border: none;
-//     border-radius: 5px;
-//     cursor: pointer;
-// `;
 
 export default SignUp;

@@ -30,6 +30,8 @@ const App = () => {
 
     return (
         <>
+        
+
         {isLogin ? (
             <MyPageContent>
             <Title>MY 투어메이트</Title>
@@ -39,10 +41,10 @@ const App = () => {
                 <Text><EditText /></Text>
             </Introduce>
             <Use />
-            <Bottom><b>홍길동</b>님 | <Logout /></Bottom>
+            <Bottom>{user?.nickname}님 | <Logout /></Bottom>
             </MyPageContent>
         ) : (
-            <SignIn />
+                <SignIn />
         )}
         </>
     );
