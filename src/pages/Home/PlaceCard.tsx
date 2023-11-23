@@ -2,17 +2,11 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useSearch } from "@/pages/SearchContext";
 
-interface Coordinate {
-    x: number;
-    y: number;
-    place_name: string;
-}
-
 const PlaceCard: React.FC = () => {
     const { searchResult } = useSearch();
     console.log("값 받아오기", searchResult);
 
-    const [coordinates, setCoordinates] = useState<Array<Coordinate>>([]);
+    const {coordinates, setCoordinates} = useSearch();
     console.log("좌표 확인", coordinates)
 
     const handlePlaceNameClick = (place_name: string, x: number, y: number) => {
