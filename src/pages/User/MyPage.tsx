@@ -1,22 +1,23 @@
-import { AppProps } from 'next/app';
-import { UserProvider } from './UserContext';
-import { TripPlanProvider } from './TripContext';
-import ConnectPeople from "./MatchingList";
-import AllUserTripPlans from "./TripList";
-import TripAdd from "./TripAdd";
+import React from "react";
+import styled from "styled-components";
+import { UserProvider } from "../User/UserContext";
+import App from "./LastMyPage"; //로그인여부에 따른 MyPage
+import { TripPlanProvider } from "./TripContext";
+import { RoomProvider } from "./ChattingRoomContext";
+import TripList from "./TripList";
+import Review from "../MyPage/Review";
+import Course from "./Course";
 
+const MyPage = () => {
+    return (
+        <UserProvider>
+        <TripPlanProvider>
+		    <RoomProvider>
+            <App></App>
+        </RoomProvider>
+        </TripPlanProvider>
+        </UserProvider>
+    );
+};
 
-function MyApp({ Component, pageProps }: AppProps) {
-	return (
-		<UserProvider>
-		<TripPlanProvider>
-					<TripAdd></TripAdd>
-                    투어메이트<hr/>
-					<ConnectPeople></ConnectPeople>
-		</TripPlanProvider>
-		</UserProvider>
-	);
-}
-
-export default MyApp;
-
+export default MyPage;

@@ -1,23 +1,33 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { 
     getAuth, 
     setPersistence, 
     signInWithEmailAndPassword, 
     browserSessionPersistence,
     GoogleAuthProvider,
-    signInWithPopup,
     inMemoryPersistence,
     signInWithRedirect,
 } from "@firebase/auth";
 import styled from "styled-components";
 import { auth } from "./firebase";
-import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore"; // firestore 추가
+import { getFirestore, doc, getDoc } from "firebase/firestore"; // firestore 추가
 import Link from "next/link";
-import { AuthContext } from "./authContext";
 import { useRouter } from "next/router";
+import Popup from "../MyPage/Popup";
+import SignUp from "./SignUpContent";
 
 const SignIn = () => {
-    const userInfo = useContext(AuthContext);
+    const [isPopupVisible, setPopupVisible] = useState(false);
+
+    const openPopup = () => {
+        setPopupVisible(true);
+    };
+
+    const closePopup = () => {
+        setPopupVisible(false);
+    };
+
+    //const userInfo = useContext(AuthContext);
     const [email, setLoginEmail] = useState(""); // 이메일 상태
     const [password, setLoginPassword] = useState(""); // 비밀번호 상태
     const [userData, setUserData] = useState<any>(null);
@@ -28,6 +38,10 @@ const SignIn = () => {
 
     // 라우터 초기화(로그인성공시 자동으로 페이지 이동)
     const router = useRouter();
+
+    const handleSignUpClick = () => {
+        router.push('./SignUp');
+    };
 
     useEffect(() => {
         // Firebase 인증 상태 변화를 감지하고 사용자데이터 가져오기
@@ -85,7 +99,7 @@ const SignIn = () => {
                 router.push("./MyPage");
             })
             .catch((error) => {
-                alert("로그인 실패 : " + error.message);
+                console.log("로그인 실패 : ", error.message);
             })
             })
         
@@ -95,17 +109,6 @@ const SignIn = () => {
     const provider = new GoogleAuthProvider(); // GoogleAuthProvider 클래스를 authentication 라이브러리에서 사용할 수 있도록 불러오는 코드.
     provider.setCustomParameters({prompt: 'select_account'}); // signIn이랑 authentication을 위해서 GoogleAuthProvider를 사용할 때마다 구글 팝업을 항상 띄우기를 원한다는 의미이다.
 
-    
-    // const signInWithGoogle = async () => {
-    //     try {
-    //         const result = await signInWithPopup(auth, provider);
-    //         const user = result.user;
-    //         console.log("Google 로그인 성공", user);
-    //         router.push("./MyPage");
-    //     } catch (error) {
-    //         console.error("Google 로그인 실패", (error as { message: string }).message);
-    //     }
-    // };
 
     const signInWithGoogle = async () => {
         setPersistence(auth, inMemoryPersistence)
@@ -121,7 +124,8 @@ const SignIn = () => {
     };
 
     return (
-        <SignUpContainer>
+        <>
+        <SignInContainer>
             <Title>MY 투어메이트</Title>
             <Introduce>
                 <Image><img src="/MyPage_Image/people.png"/></Image><br/>
@@ -130,7 +134,7 @@ const SignIn = () => {
                 {/* <GoogleButton type="submit">구글로그인</GoogleButton> */}
             </Introduce>
             <History>
-                    <SignUpForm onSubmit={handleSignIn}>
+                    <SignInForm onSubmit={handleSignIn}>
                         <Input
                             type="email"
                             placeholder="이메일"
@@ -146,15 +150,20 @@ const SignIn = () => {
                         <br/>
                         <SignUpButton type="submit">로그인</SignUpButton>
                         <br/>
-                        <Link href="./SignUp">회원이 아니신가요?</Link>
-                    </SignUpForm>
+
+                        <button onClick={openPopup}><div>회원이 아니신가요?</div></button>
+                        <Popup visible={isPopupVisible} onClose={closePopup}>
+                        <SignUp></SignUp>
+                        </Popup>
+                    </SignInForm>
             </History>
-        </SignUpContainer>
+            </SignInContainer>
+        </>
     );
 };
 
 // 스타일드 컴포넌트를 사용하여 스타일을 정의
-const SignUpContainer = styled.div`
+const SignInContainer = styled.div`
     width: 433px;
     height: 100%;
     background-color: #ffffff;
@@ -178,12 +187,12 @@ const GoogleImage = styled.div`
 `;
 
 const Image = styled.div`
-width: 130px;
-height: 130px;
-margin-top: 40px;
-display: flex;
-margin-left: auto;
-margin-right: auto;
+    width: 130px;
+    height: 130px;
+    margin-top: 40px;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
 `;
 
 const Profile = styled.div`
@@ -195,7 +204,7 @@ const Profile = styled.div`
     text-align: center;
 `;
 
-const SignUpForm = styled.form`
+const SignInForm = styled.form`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -232,16 +241,5 @@ const History = styled.div`
     width: 100%;
     margin-top: 35px;
 `;
-
-// const LoginLink = styled.div`
-//     padding: 10px;
-//     width: 60%;
-//     font-size: 18px;
-//     background-color: #007bff;
-//     color: #fff;
-//     border: none;
-//     border-radius: 5px;
-//     cursor: pointer;
-// `;
 
 export default SignIn;

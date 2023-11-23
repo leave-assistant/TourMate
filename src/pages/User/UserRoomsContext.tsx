@@ -11,6 +11,7 @@ interface UserRoomsData {
     profileImg?: string;
     roomId?: string;
     updated_at?: Timestamp;
+    partnerNickname?: string;
     }
 
     // UserRooms 컨텍스트 타입 정의
