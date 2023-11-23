@@ -37,15 +37,11 @@ const Search: React.FC = () => {
                     onChange={handleInputChange}
                     onKeyPress={handleKeyPress}
                 />
-                <What><p>{searchValue}</p></What>
             </IconContainer>
         </SearchContainer>
     );
 };
 
-const What = styled.div`
-    
-`
 const SearchContainer = styled.div`
     display: flex;
     align-items: center;

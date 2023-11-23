@@ -1,28 +1,46 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useSearch } from "@/pages/SearchContext";
 
-const PlaceCard = () => {
-  return (
-    <CardContainer>
+interface Coordinate {
+    x: number;
+    y: number;
+}
 
-        <ImageContainer>
-            <Image src="../Menu_Picture/Rectangle 10.png" alt="placePicture" />
-        </ImageContainer>
+const PlaceCard: React.FC = () => {
+    const { searchResult } = useSearch();
+    console.log("값 받아오기", searchResult);
 
-        <TextContainer>
-            <TitleContainer>
-                <Title>홍지관</Title>
-                <Subtitle>대림대학교</Subtitle>
-            </TitleContainer>
+    const [coordinates, setCoordinates] = useState<Array<Coordinate>>([]);
+    console.log("좌표 확인", coordinates)
 
-            <ReviewContainer>
-                <Review>리뷰</Review>
-                <Score>점수</Score>
-            </ReviewContainer>
-        </TextContainer>
+    const handlePlaceNameClick = (x: number, y: number) => {
+        setCoordinates([...coordinates, { x, y }]);
+    };
 
-    </CardContainer>
-  );
+    return (
+        <>
+            {searchResult.map((result, index) => (
+                <CardContainer key={index}>
+                    <ImageContainer>
+                        <Image src="../Menu_Picture/Rectangle 10.png" alt="placePicture" />
+                    </ImageContainer>
+
+                    <TextContainer>
+                        <TitleContainer>
+                            <PlaceName onClick={() => handlePlaceNameClick(result.x, result.y)}>{result.place_name}</PlaceName>
+                            <RoadAddress>{result.road_address_name}</RoadAddress>
+                        </TitleContainer>
+
+                        <ReviewContainer>
+                            <Review>리뷰</Review>
+                            <Score>점수</Score>
+                        </ReviewContainer>
+                    </TextContainer>
+                </CardContainer>
+            ))}
+        </>
+    );
 };
 
 const CardContainer = styled.div`
@@ -61,13 +79,13 @@ const TitleContainer = styled.div`
     width: 330px;
 `;
 
-const Title = styled.div`
+const PlaceName = styled.div`
     font-size: 28px;
     font-weight: bold;
     margin-right: 5px;
 `;
 
-const Subtitle = styled.div`
+const RoadAddress = styled.div`
     font-size: 16px;
     font-weight: bold;
     color: #828282;
