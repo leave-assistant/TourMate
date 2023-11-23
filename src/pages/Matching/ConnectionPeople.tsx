@@ -39,14 +39,14 @@ const ConnectPeople = (data: TripData) => {
                     setUserTrips(trips);
             } else{
                     const tripsQuery = query(
-                      collection(firestore, 'TripPlan')
-                  );
-                  const querySnapshot = await getDocs(tripsQuery);
-                  const trips: TripData[] = querySnapshot.docs.map((doc) => ({
-                      id: doc.id,
-                      ...doc.data(),
-                  } as TripData));
-                  setUserTrips(trips);
+                        collection(firestore, 'TripPlan')
+                    );
+                    const querySnapshot = await getDocs(tripsQuery);
+                    const trips: TripData[] = querySnapshot.docs.map((doc) => ({
+                        id: doc.id,
+                        ...doc.data(),
+                    } as TripData));
+                    setUserTrips(trips);
             }
         };
         fetchUserTrips();

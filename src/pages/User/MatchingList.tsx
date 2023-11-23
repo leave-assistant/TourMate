@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import { addDoc, collection, doc, getDocs, query, setDoc, updateDoc, where } from 'firebase/firestore';
 import { firestore } from './firebase';
 import { useUser } from './UserContext';
-import { useTripPlan } from './TripContext';
 
 interface TripData{
     id?: string;
@@ -19,7 +18,6 @@ interface TripData{
 
 
 const ConnectPeople = (data: TripData) => {
-    const trip = useTripPlan();
     const user = useUser();
     const [userTrips, setUserTrips] = useState<TripData[]>([]);
 

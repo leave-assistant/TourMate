@@ -1,19 +1,52 @@
 import React from "react"
 import styled from "styled-components"
 import { useState, useEffect } from "react"
+import { useUser } from "./UserContext"
+import { Timestamp, collection, getDocs, query, where } from "firebase/firestore";
+import { firestore } from "./firebase";
 
-
-
+interface UserRoomsData {
+    id?: string;
+    uid?: string;
+    lastMessage?: string;
+    profileImg?: string;
+    roomId?: string;
+    updated_at?: Timestamp;
+    partnerNickname?: string;
+    }
 
 const ChattingRoom = () => {
+    const user = useUser();
+    const [userRooms, setUserRooms] = useState<UserRoomsData[]>([]);
+
     const plan = "11 : 00  행궁동 도착 -> 13 : 00 밥 -> 14: 00 카페";
     const modalText = "계획들어올 공간."
-
     const [modal, setModal] = useState(false)
-    
+
+    useEffect(() => {
+        const fetchUserTrips = async () => {
+            if (user) {
+                    // 해당 사용자의 UID로 해당사용자외의 다른 사용자들의 여행 플랜을 가져오는 쿼리 생성
+                    const tripsQuery = query(
+                        collection(firestore, 'UserRooms')
+                        ,where('uid', '==', user.uid)
+                    );
+                    const querySnapshot = await getDocs(tripsQuery);
+                    const trips: UserRoomsData[] = querySnapshot.docs.map((doc) => ({
+                        id: doc.id,
+                        ...doc.data(),
+                    } as UserRoomsData));
+                    setUserRooms(trips);
+            } else{
+                    
+            }
+        };
+        fetchUserTrips();
+    }, [user]);
 
     
     return(
+        <div>
         <Room>
             <RoomHeader>
                 <ImageBox>
@@ -38,7 +71,7 @@ const ChattingRoom = () => {
                 <SendFont>전송</SendFont>
             </Send>
         </Room>
-        
+        </div>
     ); 
     
 }

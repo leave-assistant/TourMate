@@ -7,13 +7,14 @@ import { RoomProvider } from "./ChattingRoomContext";
 import TripList from "./TripList";
 import Review from "../MyPage/Review";
 import Course from "./Course";
+import UserProfile from "./UserProfile";
 
 const MyPage = () => {
     return (
         <UserProvider>
         <TripPlanProvider>
 		    <RoomProvider>
-            <App></App>
+            <UserProfile />
         </RoomProvider>
         </TripPlanProvider>
         </UserProvider>
