@@ -74,8 +74,7 @@ const Menu = () => {
    
     const [accommodations, setAccommodations] = useState<string[]>([]);
     const [inputs, setInputs] = useState({
-      username: '',
-      lodging: '',
+      lodging: ''
     });const handleAccommodationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       setInputs({
         ...inputs,

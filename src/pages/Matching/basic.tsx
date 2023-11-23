@@ -8,11 +8,10 @@ const Basic = () => {
         <Page>
             <MenuExtend>
                 <Top/>
-                <SearchLocation/>
-                
                 <TextTourMate>
                     투어메이트<hr/>
                 </TextTourMate>
+               
                 <ConnectPeople/>
 
                
