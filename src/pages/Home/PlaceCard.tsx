@@ -5,6 +5,7 @@ import { useSearch } from "@/pages/SearchContext";
 interface Coordinate {
     x: number;
     y: number;
+    place_name: string;
 }
 
 const PlaceCard: React.FC = () => {
@@ -14,8 +15,8 @@ const PlaceCard: React.FC = () => {
     const [coordinates, setCoordinates] = useState<Array<Coordinate>>([]);
     console.log("좌표 확인", coordinates)
 
-    const handlePlaceNameClick = (x: number, y: number) => {
-        setCoordinates([...coordinates, { x, y }]);
+    const handlePlaceNameClick = (place_name: string, x: number, y: number) => {
+        setCoordinates([...coordinates, { place_name, x, y }]);
     };
 
     return (
@@ -28,7 +29,7 @@ const PlaceCard: React.FC = () => {
 
                     <TextContainer>
                         <TitleContainer>
-                            <PlaceName onClick={() => handlePlaceNameClick(result.x, result.y)}>{result.place_name}</PlaceName>
+                            <PlaceName onClick={() => handlePlaceNameClick(result.place_name, result.x, result.y)}>{result.place_name}</PlaceName>
                             <RoadAddress>{result.road_address_name}</RoadAddress>
                         </TitleContainer>
 
