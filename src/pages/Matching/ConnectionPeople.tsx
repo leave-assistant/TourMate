@@ -1,164 +1,237 @@
-import React, { useState,useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import router, { useRouter } from 'next/router';
-import ChattingRoom from"../Chatting/ChattingRoom";
-class Persona {
-  location: string;
-  name: string;
-  timeline: string;
-  constructor(location: string, name: string, timeline: string) {
-    this.location = location;
-    this.name = name;
-    this.timeline = timeline;
-  }
+import { addDoc, collection, doc, getDocs, query, setDoc, updateDoc, where } from 'firebase/firestore';
+import { firestore } from '../User/firebase';
+import { useUser } from '../User/UserContext';
+import { useTripPlan } from '../User/TripContext';
+import { useRouter } from 'next/router';
+
+interface TripData{
+    id?: string;
+    uid?: string;
+    tripTitle?: string;
+    tripPlan?: string;
+    userPhoto?: string;
+    nickname?: string;
+    area?: string;
+    created_at?: string;
 }
 
-const personas = [
-  new Persona(' 강릉 여행지', '이지원', '08:00 기상  -10:00 학교 - 13:00 점심 - 14:00 오후 수업 17:00 -귀가'),
-  new Persona(' 서울 여행지', '허균', '08:00 기상   -10:00 학교 - 13:00 점심 - 14:00 오후 수업 17:00 -귀가'),
-  new Persona(' 부산 여행지', '홍길동', '08:00 기상 -10:00 학교 - 13:00 점심 - 14:00 오후 수업 17:00 -귀가'),
-  new Persona('제주도 여행지', '이지원', '08:00 기상 -10:00 학교 - 13:00 점심 - 14:00 오후 수업 17:30 -귀가')
-];
 
-const ConnectPeople = () => {
-  const [message, setMessage] = useState('');
-  const [isChattingRoomVisible, setChattingRoomVisible] = useState(false);
-  const outside = useRef(null);	
-  const openChattingRoomModal = () => {
-    setChattingRoomVisible(true);
-  };
-  const closeChattingRoomModal = () => {
-    setChattingRoomVisible(false);
-};
-  const router = useRouter();
-  const requestButtonClick = () => {
-    alert('동행 요청을 보냈습니다.');
-     openChattingRoomModal();
-  //router.push('/Chatting/ChattingRoom');
-  };
+const ConnectPeople = (data: TripData) => {
+    const trip = useTripPlan();
+    const user = useUser();
+    const [userTrips, setUserTrips] = useState<TripData[]>([]);
+
+    useEffect(() => {
+        const fetchUserTrips = async () => {
+            if (user) {
+                    // 해당 사용자의 UID로 해당사용자외의 다른 사용자들의 여행 플랜을 가져오는 쿼리 생성
+                    const tripsQuery = query(
+                        collection(firestore, 'TripPlan')
+                        ,where('uid', '!=', user.uid)
+                    );
+                    const querySnapshot = await getDocs(tripsQuery);
+                    const trips: TripData[] = querySnapshot.docs.map((doc) => ({
+                        id: doc.id,
+                        ...doc.data(),
+                    } as TripData));
+                    setUserTrips(trips);
+            } else{
+                    const tripsQuery = query(
+                      collection(firestore, 'TripPlan')
+                  );
+                  const querySnapshot = await getDocs(tripsQuery);
+                  const trips: TripData[] = querySnapshot.docs.map((doc) => ({
+                      id: doc.id,
+                      ...doc.data(),
+                  } as TripData));
+                  setUserTrips(trips);
+            }
+        };
+        fetchUserTrips();
+    }, [user]);
+
+    const [message, setMessage] = useState('');
+    const router = useRouter();
+
+    const requestButtonClick = async (resUid?: string, tripid?:string, tripnickname?:string) => {
+        if(user){
+            const RoomData = {
+                id:'',
+                reqUid: user.uid,
+                resUid: resUid,
+                tripPlanId: tripid,
+                created_at: new Date(),
+            };
+            const User1Data = {
+                id: '',
+                uid: user.uid,
+                partnerNickname: tripnickname,
+                lastMessage: "채팅 시작",
+                profileImg: '',
+                roomId: '',
+                updated_at: new Date(),
+            };
+            const User2Data = {
+                id: '',
+                uid: resUid,
+                partnerNickname: user.nickname,
+                lastMessage: "채팅 시작",
+                profileImg: '',
+                roomId: '',
+                updated_at: new Date(),
+            };
+            try
+            {
+                //ChattingRoom DB 추가
+                const RoomCollection = collection(firestore, 'ChattingRoom');
+                const newRoomRef = await addDoc(RoomCollection, RoomData);
+                //UserRooms DB 추가
+                const User1Collection = collection(firestore, 'UserRooms');
+                const newUser1Ref = await addDoc(User1Collection, User1Data);
+                const User2Collection = collection(firestore, 'UserRooms');
+                const newUser2Ref = await addDoc(User2Collection, User2Data);
+
+                const RoomRef = doc(firestore, 'ChattingRoom', newRoomRef.id);
+                const updatedData = {
+                    id: RoomRef.id,
+                };
+                const User1Ref = doc(firestore, 'UserRooms', newUser1Ref.id);
+                const updatedUser1Data = {
+                    id: User1Ref.id,
+                    roomId: RoomRef.id,
+                };
+                const User2Ref = doc(firestore, 'UserRooms', newUser2Ref.id);
+                const updatedUser2Data = {
+                    id: User2Ref.id,
+                    roomId: RoomRef.id,
+                };
+                await updateDoc(RoomRef, updatedData);
+                await updateDoc(User1Ref, updatedUser1Data);
+                await updateDoc(User2Ref, updatedUser2Data);
+
+                alert('채팅룸이 성공적으로 추가');
+            } catch (error){
+                alert('채팅룸 추가 중 오류 발생: '+error);
+            }
+        } else {
+            alert('사용자가 로그인하지않았습니다.')
+        }
 
 
-  const maxDisplayedPersona = personas.slice(0, 4);
+        // alert('동행 요청을 보냈습니다.');
+        router.push('/Chatting/ChattingRoom');
+    };
 
-  return (
-    <div>
-      {maxDisplayedPersona.map((individual, index) => (
-        <Box key={index}>
-          <Content>
-            <ImageContainer>
-              <img
-                src="/User_Image/Profile_Blue.jpg"
-                alt="My Image"
-                style={{
-                  width: '100px',
-                  height: '100px',
-                  borderRadius: '70%',
-                }}
-              />
-            </ImageContainer>
-            <UserInfo>
-              <Location>{individual.location}</Location>
-              <Name>{individual.name}</Name>
-              <Button onClick={requestButtonClick}>동행요청</Button>
-            
-            </UserInfo>
-          </Content>
-          <TimeLine>{individual.timeline}</TimeLine>
-          
-        </Box>
-        
-      ))}
-       {isChattingRoomVisible && (
-                <ModalOverlay
-                    ref={outside} 
-                    onClick={ (e) => { if(e.target == outside.current) setChattingRoomVisible(false) } }>
-                        <ChattingRoom />
-                </ModalOverlay>
-            )}
-    </div>
-  );
-};
+    return (
+        <div>
+            {userTrips.map((TripData) => (
+                <Box key={TripData.id}>
+                    <Content>
+                    <ImageContainer>
+                    <img
+                        src="/User_Image/Profile_Blue.jpg"
+                        alt="My Image"
+                        style={{
+                        width: '100px',
+                        height: '100px',
+                        borderRadius: '70%',
+                        }}
+                    />
+                    </ImageContainer>
+                    <UserInfo>
+                        <Location>{TripData.tripTitle}</Location>
+                        <Name>{TripData.nickname}</Name>
+                        <Button onClick={() => requestButtonClick(TripData.uid, TripData.id, TripData.nickname)}>동행요청</Button>
+                    </UserInfo>
+                    </Content>
+                    <TimeLine>{String(TripData.tripPlan)}</TimeLine>
+                </Box>
+            ))}
+        </div>
+    );
+    };
 
-const Content = styled.div`
-  display: flex;
-  align-items: center;
+    const Content = styled.div`
+    display: flex;
+    align-items: center;
+    `;
+
+    const Box = styled.div`
+    
+    position: relative;
+    width: 380px;
+    height: 200px;
+    border: 1px solid black;
+    `;
+
+    const ImageContainer = styled.div`
+    margin-left: 10px;
+    margin-top: 10px;
+    `;
+
+    const UserInfo = styled.div`
+    margin-left: 15px;
+    margin-top: 10px;
+    `;
+
+    const Location = styled.p`
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 7px;
+    margin-bottom: 8px;
+    `;
+
+    const Name = styled.p`
+    font-size: 20px;
+    font-weight: light;
+    margin-top: 7px;
+    margin-bottom: 8px;
+    text-align: left;
+    `;
+
+    const TimeLine = styled.p`
+    width: 270px;
+    font-size: 16px;
+    font-weight: light;
+    margin-top: 10px;
+    margin-left: 10px;
+    text-align: left;
+    `;
+
+    const Button = styled.button`
+    width: 90px;
+    height: 40px;
+    background-color: #0160d6;
+    color: white;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    position: absolute;
+    top: 25px;
+    right: 5px;
+    &:hover {
+      background-color: #003f9e;
+    }
+    `;
+
+    const RejectButton = styled.button`
+    width: 90px;
+    height: 30px;
+    background-color: red;
+    color: white;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    position: absolute;
+    top: 65px;
+    right: 5px;
+    &:hover {
+        background-color: #990000;
+    }
 `;
-
-const Box = styled.div`
- 
-  position: relative;
-  width: 390px;
-  height: 200px;
-  border-bottom: 1px solid grey;
-  border-right: 1px solid grey;
-`;
-
-const ImageContainer = styled.div`
-  margin-left: 10px;
-  margin-top: 10px;
-`;
-
-const UserInfo = styled.div`
-  margin-left: 15px;
-  margin-top: 10px;
-`;
-
-const Location = styled.p`
-  font-size: 24px;
-  font-weight: bold;
-  margin-top: 7px;
-  margin-bottom: 8px;
-`;
-
-const Name = styled.p`
-  font-size: 20px;
-  font-weight: light;
-  margin-top: 7px;
-  margin-bottom: 8px;
-  text-align: left;
-`;
-
-const TimeLine = styled.p`
-  width: 270px;
-  font-size: 16px;
-  font-weight: light;
-  margin-top: 10px;
-  margin-left: 10px;
-  text-align: left;
-`;
-
-const Button = styled.button`
-  width: 90px;
-  height: 40px;
-  background-color: #0160d6;
-  color: white;
-  border-radius: 10px;
-  font-size: 16px;
-  font-weight: bold;
-  border: none;
-  position: absolute;
-  top: 25px;
-  right: 5px;
-  &:hover {
-    background-color: #003f9e;
-  }
-`;
-
-
-
-;
-const ModalOverlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-`;
-
 
 export default ConnectPeople;
