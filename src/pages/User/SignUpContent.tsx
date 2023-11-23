@@ -4,7 +4,6 @@ import { auth } from "./firebase";
 import { createUserWithEmailAndPassword, getAuth, sendEmailVerification } from "@firebase/auth"; // Firebase의 createUserWithEmailAndPassword 함수를 import
 import { getFirestore, collection, doc, setDoc } from "firebase/firestore"; // firestore 추가
 import { useRouter } from "next/router";
-import { useUser } from "./UserContext";
 
 const SignUp = () => {
     const [email, setEmail] = useState(""); // 이메일 상태
