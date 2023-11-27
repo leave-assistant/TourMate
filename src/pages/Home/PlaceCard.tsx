@@ -11,6 +11,7 @@ const PlaceCard: React.FC = () => {
 
     const handlePlaceNameClick = (place_name: string, x: number, y: number) => {
         setCoordinates([...coordinates, { place_name, x, y }]);
+        alert(`${place_name}(이)가 코스가 추가되었습니다.`);
     };
 
     return (
@@ -23,13 +24,14 @@ const PlaceCard: React.FC = () => {
 
                     <TextContainer>
                         <TitleContainer>
-                            <PlaceName onClick={() => handlePlaceNameClick(result.place_name, result.x, result.y)}>{result.place_name}</PlaceName>
-                            <RoadAddress>{result.road_address_name}</RoadAddress>
+                            <PlaceName>{result.place_name}</PlaceName>
+                            <CourseAdd onClick={() => handlePlaceNameClick(result.place_name, result.x, result.y)}>장소 추가</CourseAdd>
                         </TitleContainer>
 
                         <ReviewContainer>
-                            <Review>리뷰</Review>
-                            <Score>점수</Score>
+                            {/* <Review>리뷰</Review>
+                            <Score>점수</Score> */}
+                            <RoadAddress>{result.road_address_name}</RoadAddress>
                         </ReviewContainer>
                     </TextContainer>
                 </CardContainer>
@@ -74,7 +76,20 @@ const TitleContainer = styled.div`
     width: 330px;
 `;
 
+const CourseAdd = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0160D6;
+    color: white;
+    border-radius: 8px;
+    width: 70px;
+    height: 30px;
+    margin-left: 4px;
+`;
+
 const PlaceName = styled.div`
+    width: 256px;
     font-size: 28px;
     font-weight: bold;
     margin-right: 5px;

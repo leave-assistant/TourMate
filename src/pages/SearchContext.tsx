@@ -19,7 +19,7 @@ interface Coordinate {
 const SearchContext = createContext<SearchContextProps | undefined>(undefined);
 
 export const SearchProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [searchValue, setSearchValue] = useState<string>('');
+  const [searchValue, setSearchValue] = useState<string>('대림대');
   const [searchResult, setSearchResult] = useState<SearchResult[]>([]);
   const [coordinates, setCoordinates] = useState<Array<Coordinate>>([]);
 
