@@ -86,6 +86,7 @@ const CourseAdd = styled.div`
     width: 70px;
     height: 30px;
     margin-left: 4px;
+    cursor: pointer;
 `;
 
 const PlaceName = styled.div`
@@ -110,14 +111,14 @@ const ReviewContainer = styled.div`
     margin-top: 8px;
 `;
 
-const Review = styled.div`
-    font-size: 16px;
-    font-weight: bold;
-`;
+// const Review = styled.div`
+//     font-size: 16px;
+//     font-weight: bold;
+// `;
 
-const Score = styled.div`
-    font-size: 16px;
-    font-weight: bold;
-`;
+// const Score = styled.div`
+//     font-size: 16px;
+//     font-weight: bold;
+// `;
 
 export default PlaceCard;
