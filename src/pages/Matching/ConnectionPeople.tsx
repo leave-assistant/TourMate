@@ -77,7 +77,7 @@ const ConnectPeople = (data: TripData) => {
                 id: '',
                 uid: resUid,
                 partnerNickname: user.nickname,
-                lastMessage: "채팅 시작1",
+                lastMessage: "채팅 시작",
                 profileImg: '',
                 roomId: '',
                 updated_at: new Date(),
