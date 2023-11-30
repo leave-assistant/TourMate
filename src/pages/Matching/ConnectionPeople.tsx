@@ -50,8 +50,8 @@ const ConnectPeople = () => {
                 src="/User_Image/Profile_Blue.jpg"
                 alt="My Image"
                 style={{
-                  width: '100px',
-                  height: '100px',
+                  width: '75px',
+                  height: '75px',
                   borderRadius: '70%',
                 }}
               />
@@ -111,7 +111,7 @@ const Location = styled.p`
 `;
 
 const Name = styled.p`
-  font-size: 20px;
+  font-size: 30px;
   font-weight: light;
   margin-top: 7px;
   margin-bottom: 8px;
@@ -119,11 +119,11 @@ const Name = styled.p`
 `;
 
 const TimeLine = styled.p`
-  width: 270px;
-  font-size: 16px;
+  width: 390px;
+  font-size: 20px;
   font-weight: light;
   margin-top: 10px;
-  margin-left: 10px;
+  margin-left: 15px;
   text-align: left;
 `;
 
