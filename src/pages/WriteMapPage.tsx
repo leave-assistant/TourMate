@@ -13,12 +13,18 @@ export default function WriteMapPage(props: any) {
   const { searchValue } = useSearch();
   const { searchResult, setSearchResult } = useSearch();
 
-  // AI 코스 추가 객체 및 함수
+  // AI 코스 숙소 추가 객체 및 함수
+  const { checkPointCoordinates, setCheckPointCoordinates } = useSearch();
+  const handleCheckPointClick = (place_name: string, x: number, y: number) => {
+    setCheckPointCoordinates(prevcheckPointCoordinates => [...prevcheckPointCoordinates, { place_name, x, y }]);
+    alert(`${place_name}(이)가 숙소에 추가되었습니다.`);
+  };
+
+  // AI 코스 목적지 추가 객체 및 함수
   const { coordinates, setCoordinates } = useSearch();
-  console.log("좌표 ghkghkghk", coordinates)
-  const handlePlaceNameClick = (place_name: string, x: number, y: number) => {
+  const handlePlaceClick = (place_name: string, x: number, y: number) => {
     setCoordinates(prevCoordinates => [...prevCoordinates, { place_name, x, y }]);
-    alert(`${place_name}(이)가 코스가 추가되었습니다.`);
+    alert(`${place_name}(이)가 목적지로 추가되었습니다.`);
   };
 
   // 컴포넌트가 마운트될 때 실행되는 useEffect
@@ -96,6 +102,8 @@ export default function WriteMapPage(props: any) {
               <span>
                 ${place.place_name}
               </span>
+              <br/>
+              <button id="addCheckPointButton">숙소 추가</button>
               <button id="addCourseButton">장소 추가</button>
             `);
         
@@ -103,11 +111,18 @@ export default function WriteMapPage(props: any) {
             const moveLatLon = new window.kakao.maps.LatLng(place.y, place.x);
             map.panTo(moveLatLon);
         
-            // 버튼에 onClick 이벤트 핸들러 추가 (AI 코스 추가)
+            // 버튼에 onClick 이벤트 핸들러 추가 (AI 코스 목적지 추가)
             const addCourseButton = document.getElementById("addCourseButton");
             if (addCourseButton) {
               addCourseButton.addEventListener("click", function () {
-                handlePlaceNameClick(place.place_name, place.x, place.y);
+                handlePlaceClick(place.place_name, place.x, place.y);
+              });
+            }
+            // 버튼에 onClick 이벤트 핸들러 추가 (AI 코스 숙소 추가)
+            const addCheckPointButton = document.getElementById("addCheckPointButton");
+            if (addCheckPointButton) {
+              addCheckPointButton.addEventListener("click", function () {
+                handleCheckPointClick(place.place_name, place.x, place.y);
               });
             }
           });

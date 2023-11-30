@@ -8,6 +8,8 @@ interface SearchContextProps {
   setSearchResult: Dispatch<SetStateAction<SearchResult[]>>;
   coordinates: Coordinate[];
   setCoordinates: React.Dispatch<React.SetStateAction<Coordinate[]>>;
+  checkPointCoordinates: Coordinate[];
+  setCheckPointCoordinates: React.Dispatch<React.SetStateAction<Coordinate[]>>;
 }
 
 interface Coordinate {
@@ -22,9 +24,12 @@ export const SearchProvider: React.FC<{ children: ReactNode }> = ({ children }) 
   const [searchValue, setSearchValue] = useState<string>('대림대');
   const [searchResult, setSearchResult] = useState<SearchResult[]>([]);
   const [coordinates, setCoordinates] = useState<Array<Coordinate>>([]);
+  const [checkPointCoordinates, setCheckPointCoordinates] = useState<Array<Coordinate>>([]);
 
   return (
-    <SearchContext.Provider value={{ searchValue, setSearchValue, searchResult, setSearchResult, coordinates, setCoordinates }}>
+    <SearchContext.Provider value={{ 
+      searchValue, setSearchValue, searchResult, setSearchResult, 
+      coordinates, setCoordinates, checkPointCoordinates, setCheckPointCoordinates }}>
       {children}
     </SearchContext.Provider>
   );
