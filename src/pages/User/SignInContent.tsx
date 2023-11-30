@@ -175,32 +175,25 @@ const Text = styled.div`
 `;
 
 const SignInContainer = styled.div`
-    width: 433px;
+    width: 390px;
     height: 100%;
     background-color: #ffffff;
     padding: 20px;  
 `;
 
 const Title = styled.div`
-    width: 100%;
+    width: 350px;
     height: 50px;
-    margin-top: 20px;
+    margin: 20px auto;
     font-size: 28px;
     font-weight: bold; 
-    border-bottom: 1px solid #000000
-`;
-
-const GoogleImage = styled.div`
-    margin-top: 0px;
-    display: flex;
-    margin-left: 25%;
-    margin-right: auto;
+    border-bottom: 1px solid #0160D6;
 `;
 
 const Image = styled.div`
     width: 130px;
     height: 130px;
-    margin-top: 40px;
+    margin-top: 20px;
     display: flex;
     margin-left: auto;
     margin-right: auto;
@@ -210,9 +203,16 @@ const Profile = styled.div`
     width: 100%;
     height: 70px;
     margin-top: 10px;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: normal; 
     text-align: center;
+`;
+
+const GoogleImage = styled.div`
+    margin-top: 0px;
+    display: flex;
+    margin-left: 25%;
+    margin-right: auto;
 `;
 
 const SignInForm = styled.form`
@@ -225,7 +225,7 @@ const Introduce = styled.div`
     width: 100%;
     height: 300px;
     margin-top: 35px;
-    border-bottom: 1px solid #000000
+    border-bottom: 1px solid #000000;
 `;
 
 const Input = styled.input`
@@ -241,7 +241,7 @@ const SignUpButton = styled.button`
     padding: 10px;
     width: 60%;
     font-size: 18px;
-    background-color: #007bff;
+    background-color: #0160D6;
     color: #fff;
     border: none;
     border-radius: 5px;

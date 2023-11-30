@@ -45,7 +45,7 @@ const Image = styled.div`
   width: 25px;
   height: 25px;
   display: flex;
-  margin-top: 3px;
+  margin-top: 10px;
 `;
 
 export default Popup;

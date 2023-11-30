@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
-import Review from './Review';
 import Course from './Course';
 
 function Use() {
@@ -9,7 +8,6 @@ function Use() {
       <History>
         <UseHistory>이용 기록</UseHistory>
         <Course />
-        <Review />
       </History>
     </div>
   );
