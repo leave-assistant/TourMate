@@ -4,8 +4,19 @@ import { auth } from "./firebase";
 import { createUserWithEmailAndPassword, getAuth, sendEmailVerification } from "@firebase/auth"; // Firebase의 createUserWithEmailAndPassword 함수를 import
 import { getFirestore, collection, doc, setDoc } from "firebase/firestore"; // firestore 추가
 import { useRouter } from "next/router";
+import Popup from '../MyPage/Popup';
 
-const SignUp = () => {
+const SignUpContent = () => {
+    const [isPopupVisible, setPopupVisible] = useState(false);
+
+    const openPopup = () => {
+        setPopupVisible(true);
+    };
+
+    const closePopup = () => {
+        setPopupVisible(false);
+    };
+
     const [email, setEmail] = useState(""); // 이메일 상태
     const [password, setPassword] = useState(""); // 비밀번호 상태
     const [year, setYear] = useState(""); // 년도 상태
@@ -70,6 +81,9 @@ const SignUp = () => {
     };
 
     return (
+        <div>
+        <Button type="button" onClick={closePopup}><Text>회원이 아니신가요?</Text></Button>
+        <Popup visible={isPopupVisible} onClose={openPopup}>
         <SignUpContainer>
             <Title>MY 투어메이트</Title>
             <Introduce>
@@ -107,8 +121,28 @@ const SignUp = () => {
                 </SignUpForm>
             </History>
         </SignUpContainer>
+        </Popup>
+        </div>
     );
 };
+
+const Button = styled.button`
+    width: 360px;
+    height: 40px;
+    margin: 10px auto;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    border: 1px solid #0160D6;
+    border-radius: 10px;
+`;
+
+const Text = styled.div`
+    font-size: 20px;
+    font-weight: normal; 
+    background-color: #ffffff;
+`;
 
 const Select = styled.select`
     width: 80%;
@@ -191,4 +225,4 @@ const History = styled.div`
     margin-top: 35px;
 `;
 
-export default SignUp;
+export default SignUpContent;

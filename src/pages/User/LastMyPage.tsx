@@ -30,8 +30,6 @@ const App = () => {
 
     return (
         <>
-        
-
         {isLogin ? (
             <MyPageContent>
             <Title>MY 투어메이트</Title>

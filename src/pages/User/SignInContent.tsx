@@ -11,10 +11,8 @@ import {
 import styled from "styled-components";
 import { auth } from "./firebase";
 import { getFirestore, doc, getDoc } from "firebase/firestore"; // firestore 추가
-import Link from "next/link";
 import { useRouter } from "next/router";
-import Popup from "../MyPage/Popup";
-import SignUp from "./SignUpContent";
+import SignUpContent from "./SignUpContent";
 
 const SignIn = () => {
     const [isPopupVisible, setPopupVisible] = useState(false);
@@ -152,12 +150,30 @@ const SignIn = () => {
                         <br/>
                     </SignInForm>
             </History>
+            <SignUpContent/>
             </SignInContainer>
         </>
     );
 };
 
-// 스타일드 컴포넌트를 사용하여 스타일을 정의
+const Button = styled.button`
+    width: 360px;
+    height: 40px;
+    margin: 10px auto;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    border: 1px solid #0160D6;
+    border-radius: 10px;
+`;
+
+const Text = styled.div`
+    font-size: 20px;
+    font-weight: normal; 
+    background-color: #ffffff;
+`;
+
 const SignInContainer = styled.div`
     width: 390px;
     height: 100%;

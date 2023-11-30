@@ -1,10 +1,8 @@
 import React, {useState} from "react";
-import KakaoMap from "../KakaoMap";
 import styled from "styled-components";
 import SignUpContent from "./SignUpContent";
-import MenuBar from "../../../public/src/NavBar";
 
-const Main = () => {
+const SignUp = () => {
     // MenuBar와 MenuContent의 보이기/숨기기 상태를 관리하는 상태 변수
     const [isMenuVisible, setMenuVisible] = useState(true);
 
@@ -47,4 +45,4 @@ const MapContainer = styled.div`
     z-index: 1;
 `;
 
-export default Main;
+export default SignUp;

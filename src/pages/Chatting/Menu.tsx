@@ -4,10 +4,15 @@ import UserProfile from "./UserProfile";
 
 import ChattingRoom from "./ChattingRoom";
 import { useState, useEffect } from "react"
+import { UserProvider } from "../User/UserContext";
+import { RoomProvider } from "../User/ChattingRoomContext";
+import { TripPlanProvider } from "../User/TripContext";
 
 const Menu = () => {
-  
     return (
+        <UserProvider>
+        <RoomProvider>
+        <TripPlanProvider>
         <Page>
             <MenuExtend>
                 <ChattingBox>
@@ -16,13 +21,11 @@ const Menu = () => {
                     </ChattingTitle>
                 </ChattingBox>
                 <UserProfile/>
-                <UserProfile/>
-                <UserProfile/>
-                <UserProfile/>
-                <UserProfile/>
             </MenuExtend>
-            
         </Page>
+        </TripPlanProvider>
+        </RoomProvider>
+        </UserProvider>
     );
 }
 

@@ -1,5 +1,7 @@
 import React, {useState} from "react";
 import SignInContent from "./SignInContent";
+import SignUp from "./SignUp";
+import SignUpContent from "./SignUpContent";
 
 const Main = () => {
     // MenuBar와 MenuContent의 보이기/숨기기 상태를 관리하는 상태 변수
@@ -11,7 +13,9 @@ const Main = () => {
     };
 
     return (
+        <>
         <SignInContent />
+        </>
     );
 };
 
