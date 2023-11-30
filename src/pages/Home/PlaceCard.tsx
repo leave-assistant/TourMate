@@ -4,15 +4,24 @@ import { useSearch } from "@/pages/SearchContext";
 
 const PlaceCard: React.FC = () => {
     const { searchResult } = useSearch();
-    console.log("값 받아오기", searchResult);
-
+    // console.log("값 받아오기", searchResult);
     const {coordinates, setCoordinates} = useSearch();
     console.log("좌표 확인", coordinates)
-
-    const handlePlaceNameClick = (place_name: string, x: number, y: number) => {
+    const {checkPointCoordinates, setCheckPointCoordinates} = useSearch();
+    console.log("좌표 봄?", checkPointCoordinates)
+    
+    // 목적지 추가 함수
+    const handlePlaceClick = (place_name: string, x: number, y: number) => {
         setCoordinates([...coordinates, { place_name, x, y }]);
-        alert(`${place_name}(이)가 코스가 추가되었습니다.`);
+        alert(`${place_name}(이)가 목적지에 추가되었습니다.`);
     };
+    
+    // 출발, 도착, 숙소 추가 함수
+    const handleCheckPointClick = (place_name: string, x: number, y: number) => {
+        setCheckPointCoordinates([...checkPointCoordinates, {place_name, x, y}]);
+        alert(`${place_name}(이)가 숙소에 추가되었습니다.`);
+    }
+    
 
     return (
         <>
@@ -25,7 +34,8 @@ const PlaceCard: React.FC = () => {
                     <TextContainer>
                         <TitleContainer>
                             <PlaceName>{result.place_name}</PlaceName>
-                            <CourseAdd onClick={() => handlePlaceNameClick(result.place_name, result.x, result.y)}>장소 추가</CourseAdd>
+                            <CheckPointAdd onClick={() => handleCheckPointClick(result.place_name, result.x, result.y)}>숙소 추가</CheckPointAdd>
+                            <CourseAdd onClick={() => handlePlaceClick(result.place_name, result.x, result.y)}>장소 추가</CourseAdd>
                         </TitleContainer>
 
                         <ReviewContainer>
@@ -76,6 +86,19 @@ const TitleContainer = styled.div`
     width: 330px;
 `;
 
+const CheckPointAdd = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: pink;
+    color: white;
+    border-radius: 8px;
+    width: 70px;
+    height: 30px;
+    margin-left: 4px;
+    cursor: pointer;
+`
+
 const CourseAdd = styled.div`
     display: flex;
     justify-content: center;
@@ -90,7 +113,7 @@ const CourseAdd = styled.div`
 `;
 
 const PlaceName = styled.div`
-    width: 256px;
+    width: 182px;
     font-size: 28px;
     font-weight: bold;
     margin-right: 5px;
