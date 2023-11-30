@@ -96,7 +96,7 @@ export default function WriteMapPage(props: any) {
               <span>
                 ${place.place_name}
               </span>
-              <button id="addCourseButton">코스 추가</button>
+              <button id="addCourseButton">장소 추가</button>
             `);
         
             infowindow.open(map, marker);
