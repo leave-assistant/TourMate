@@ -1,77 +1,167 @@
 import React from "react"
 import styled from "styled-components"
 import { useState, useEffect } from "react"
-import { useUser } from "./UserContext"
-import { Timestamp, collection, getDocs, query, where } from "firebase/firestore";
+import { useUser } from "./UserContext";
+import { Timestamp, addDoc, collection, doc, getDocs, orderBy, query, serverTimestamp, updateDoc, where } from "firebase/firestore";
 import { firestore } from "./firebase";
+import { useTripPlan } from "./TripContext";
 
-interface UserRoomsData {
+interface RoomData {
+	created_at: string;
+    id: string;
+    reqUid: string;
+    resUid: string;
+	tripPlanId: string;
+}
+interface TripPlanData {
     id?: string;
     uid?: string;
-    lastMessage?: string;
-    profileImg?: string;
-    roomId?: string;
-    updated_at?: Timestamp;
-    partnerNickname?: string;
+    tripTitle?: string;
+    tripPlan?: string;
+    userPhoto?: string;
+    nickname?: string;
+    area?: string;
     }
+interface MessageData {
+    created_at: string;
+    id: string;
+    message: string;
+    roomId: string;
+    uid: string;
+}
+interface ChattingRoomProps {
+    roomId: string;
+}
 
-const ChattingRoom = () => {
-    const user = useUser();
-    const [userRooms, setUserRooms] = useState<UserRoomsData[]>([]);
+const ChattingRoom: React.FC<ChattingRoomProps> = ({ roomId }) => {
+    const userContext = useUser();
+    const tripPlanContext = useTripPlan();
+    const [tripPlan, setTripPaln] = useState<TripPlanData[]>([]);
+    const [message, setMessage] = useState("");
+    const [messages, setMessages] = useState<MessageData[]>([]);
+    const [newMessage, setNewMessage] = useState("");
 
-    const plan = "11 : 00  행궁동 도착 -> 13 : 00 밥 -> 14: 00 카페";
-    const modalText = "계획들어올 공간."
     const [modal, setModal] = useState(false)
 
+    const handleOnChange = (e: any) => {
+        setNewMessage(e.target.value);
+    };
+
+
+    const sendButtonClick = async (message: string) => {
+        if(userContext){
+            const MessageData = {
+                id:'',
+                roomId: roomId,
+                uid: userContext.uid,
+                message: message,
+                created_at: serverTimestamp(),
+            };
+            try{
+                const MessageCollection = collection(firestore, 'Message');
+                const newMessageRef = await addDoc(MessageCollection, MessageData);
+                const MessageRef = doc(firestore, 'Message', newMessageRef.id);
+                const updatedMessage = {
+                    id: MessageRef.id,
+                };
+                await updateDoc(MessageRef, updatedMessage);
+                alert('메세지 성공적으로 추가');
+            } catch(error){
+                alert('메세지 추가 중 오류 발생: '+error);
+            }
+        }
+    }
+
     useEffect(() => {
-        const fetchUserTrips = async () => {
-            if (user) {
-                    // 해당 사용자의 UID로 해당사용자외의 다른 사용자들의 여행 플랜을 가져오는 쿼리 생성
-                    const tripsQuery = query(
-                        collection(firestore, 'UserRooms')
-                        ,where('uid', '==', user.uid)
+        const fetchChattingRoomData = async () => {
+            try {
+                if (userContext) {
+                    // 해당 roomId를 가진 채팅방 데이터 가져오기
+                    const roomQuery = query(
+                        collection(firestore, 'ChattingRoom'),
+                        where('id', '==', roomId)
                     );
-                    const querySnapshot = await getDocs(tripsQuery);
-                    const trips: UserRoomsData[] = querySnapshot.docs.map((doc) => ({
+                    const roomSnapshot = await getDocs(roomQuery);
+                    const roomData: RoomData[] = roomSnapshot.docs.map(doc => ({ 
                         id: doc.id,
-                        ...doc.data(),
-                    } as UserRoomsData));
-                    setUserRooms(trips);
-            } else{
-                    
+                        ...doc.data()
+                    } as RoomData ));
+
+                    if (roomData && roomData.length > 0) {
+                        const targetRoom = roomData[0];
+                        const tripQuery = query(
+                            collection(firestore, "TripPlan"),
+                            where('id', '==', targetRoom.tripPlanId)
+                        );
+                        const tripSnapshot = await getDocs(tripQuery);
+                        const tripData: TripPlanData[] = tripSnapshot.docs.map(doc => ({
+                            id: doc.id,
+                            ...doc.data()
+                        } as TripPlanData ));
+                        setTripPaln(tripData);
+                    }
+                    if(roomId) {
+                        const messagesRef = collection(firestore, 'Message');
+                        const MessagesQuery = query(
+                            messagesRef,
+                            where('roomId', '==', roomId),
+                            orderBy('created_at', 'asc')
+                        );
+                        const messagesSnapshot = await getDocs(MessagesQuery);
+                        const messagesData: MessageData[] = messagesSnapshot.docs.map(doc => ({
+                            id: doc.id,
+                            ...doc.data()
+                        } as MessageData));
+                        setMessages(messagesData);
+                    }
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
             }
         };
-        fetchUserTrips();
-    }, [user]);
+
+        fetchChattingRoomData();
+    }, [userContext, roomId, tripPlanContext]);
+    
 
     
     return(
-        <div>
+        <>
         <Room>
-            <RoomHeader>
+            {tripPlan.map((trip) => (
+                <div key={trip.id}>
+                <RoomHeader>
                 <ImageBox>
                     <Img src="/User_Image/Profile_Blue.jpg"/>
                     <OtherImg src = "/User_Image/Profile_Purple.jpg"/>
                 </ImageBox>
-                <ChattingTitle>수원행궁가자</ChattingTitle>
-                
-            </RoomHeader>
-            <ChattingPlan onClick={()=>setModal(!modal)}>{plan}</ChattingPlan>
-            {
-            	modal == true ? <Modal>{modalText}</Modal> : null  //기계역할
-            }
-            <ImgChat>
-                <UserImg src = "/User_Image/Profile_Blue.jpg" />
-                <Chatting />
-            </ImgChat>
-            <Camera src = "/ChattingRoom_Picture/camera.png/"></Camera>
-            <ChattingInput />
-            <MyChatting />
-            <Send>
-                <SendFont>전송</SendFont>
-            </Send>
+                <ChattingTitle>{trip.tripTitle}</ChattingTitle>
+                </RoomHeader>
+                <ChattingPlan onClick={()=>setModal(!modal)}>{trip.tripPlan}</ChattingPlan>
+                {
+                    modal == true ? <Modal>{trip.tripPlan}</Modal> : null  //기계역할
+                }
+                </div>
+            ))}
+            {messages?.map((messageData) => (
+                    <ImgChat key={messageData.id}>
+                    <ChatBubble isMine={messageData.uid === userContext?.uid}>
+                        <UserImg src = "/User_Image/Profile_Blue.jpg" />
+                        <Chatting>{messageData.message}</Chatting>
+                        </ChatBubble>
+                    </ImgChat>
+                ))}
+                <ChattingInput
+                    onChange={(e) => setMessage(e.target.value)}
+                    value={newMessage}
+                    placeholder="메시지를 입력하세요."
+                    />
+                <MyChatting  />
+                <Send onClick={() => sendButtonClick(newMessage)}>
+                    <SendFont>전송</SendFont>
+                </Send>
         </Room>
-        </div>
+        </>
     ); 
     
 }
@@ -118,6 +208,20 @@ const ChattingTitle = styled.p`
     
 `;
 
+const ChatBubble = styled.div<{ isMine: boolean }>`
+    display: flex;
+    justify-content: ${({ isMine }) => (isMine ? 'flex-end' : 'flex-start')};
+    /* 사용자 별로 채팅 표시 위치를 변경합니다. */
+
+    & > div {
+        padding: 8px;
+        margin: 4px;
+        border-radius: 8px;
+        background-color: ${({ isMine }) => (isMine ? 'lightblue' : 'lightgray')};
+        /* 사용자 별로 채팅 배경색을 변경합니다. */
+    }
+`;
+
 
 const ChattingPlan = styled.div`
     width: 350px;
@@ -150,21 +254,15 @@ const Chatting = styled.div`
     border-radius: 25px; 
     background-color: lightgray ;
 `;
-const Camera = styled.img`
+
+const ChattingInput = styled.input.attrs({ type: 'text'})`
     position: fixed;
-    bottom: 0;
-    width: 25px;
-    height: 20px;
-    margin: 0px 30px 40px 20px;
-`
-const ChattingInput = styled.input`
-    position: fixed;
-    width: 260px;
-    height: 100px;
+    width: 300px;
+    height: 50px;
     word-break:break-all;
     bottom: 0;
-    margin : 0 0 30px 60px;
-    border-radius: 30px;
+    margin : 0 0 30px 30px;
+    border-radius: 10px;
     border : 1px solid #0160D6;
 `
 
@@ -174,7 +272,7 @@ const Send = styled.button`
     height: 35px;
     bottom: 0;
     margin: 0 0 30px 330px;
-    border-radius: 15px;
+    border-radius: 5px;
     background-color: #0160D6;
     
 `

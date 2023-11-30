@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useState, useEffect, useRef } from "react"
-import ChattingRoom from "./ChattingRoom";
+import ChattingRoom from "../User/ChattingRoom";
 import { QuerySnapshot, Timestamp, collection, getDocs, query, where } from "firebase/firestore";
 import { useUser } from "../User/UserContext";
 import { firestore } from "../User/firebase";
@@ -34,11 +34,16 @@ const UserProfile = () => {
     const tripPlan = useTripPlan();
     const [userRooms, setUserRooms] = useState<UserRoomsData[]>([]);
     const [userTrips, setUserTrips] = useState<TripData[]>([]);
+    const [selectedRoomId, setSelectedRoomId] = useState<string | undefined>(undefined);
+
 
     const [isChattingRoomVisible, setChattingRoomVisible] = useState(false);
     const outside = useRef(null);	
-    const openChattingRoomModal = () => {
-        setChattingRoomVisible(true);
+    const openChattingRoomModal = (roomId: string | undefined) => {
+        if(roomId){
+            setSelectedRoomId(roomId);
+            setChattingRoomVisible(true);
+        }
     };
     const closeChattingRoomModal = () => {
         setChattingRoomVisible(false);
@@ -75,7 +80,7 @@ return (
         {userRooms.length > 0 ? (
             <UserContainer>
             {userRooms.map((userData) => (
-                <User key={userData.id} onClick={openChattingRoomModal}>
+                <User key={userData.id} onClick={() => openChattingRoomModal(userData.roomId)}>
                 <ImageContainer>
                     <img
                     src="/User_Image/Profile_Blue.jpg"
@@ -99,16 +104,16 @@ return (
             <p>채팅방이 없습니다.</p>
         )}
     
-        {isChattingRoomVisible && (
-            <ModalOverlay
+        {isChattingRoomVisible && selectedRoomId && (
+        <ModalOverlay
             ref={outside}
             onClick={(e) => {
                 if (e.target === outside.current) setChattingRoomVisible(false);
             }}
-            >
-            <ChattingRoom></ChattingRoom>
-            </ModalOverlay>
-        )}
+        >
+            <ChattingRoom roomId={selectedRoomId}></ChattingRoom>
+        </ModalOverlay>
+    )}
         </div>
     );
     

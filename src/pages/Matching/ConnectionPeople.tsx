@@ -213,7 +213,7 @@ const ConnectPeople = (data: TripData) => {
     top: 25px;
     right: 5px;
     &:hover {
-      background-color: #003f9e;
+        background-color: #003f9e;
     }
     `;
 
