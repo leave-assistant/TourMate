@@ -25,13 +25,13 @@ const Logout: React.FC<LogoutProps> = () => {
 export default Logout;
 
 const Logoutstyles = styled.button`
+    margin: 5px 0px 0px 80px;
     padding: 5px;
-    width: 25%;
+    height: 30px;
 	text-align: center;
     font-size: 18px;
-    background-color: #007bff;
+    background-color: #0160D6;
     color: #fff;
     border: none;
     border-radius: 5px;
-	margin-left: 80px;
 `;
