@@ -101,8 +101,8 @@ const MainMenu: React.FC = () => {
             {/* 인기 장소 추천 */}
             <PopularSpot>
                 <SpotHeader>
-                    <SpotText>인기 장소 추천</SpotText>
-                    <HorizonLine width="150px" />
+                    <SpotText>장소검색</SpotText>
+                    <HorizonLine width="230px" />
                 </SpotHeader>
 
                 <PlaceContainer>
@@ -215,7 +215,7 @@ const SpotHeader = styled.div`
 `;
 
 const SpotText = styled.div`
-    width: 180px;
+    width: 100px;
     height: 28px;
     font-size: 26px;
     font-weight: bolder;
