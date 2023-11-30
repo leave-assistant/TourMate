@@ -3,21 +3,23 @@ import styled from "styled-components";
 import ConnectPeople from "./ConnectionPeople";
 import Top from "./Top";
 import SearchLocation from "./SearchLocation";
+import { TripPlanProvider } from "../User/TripContext";
+import { UserProvider } from "../User/UserContext";
 const Basic = () => {
     return (
+        <UserProvider>
+        <TripPlanProvider>
         <Page>
             <MenuExtend>
                 <Top/>
                 <TextTourMate>
                     투어메이트<hr/>
                 </TextTourMate>
-               
                 <ConnectPeople/>
-
-               
-
             </MenuExtend>
         </Page>
+        </TripPlanProvider>
+        </UserProvider>
     );
 }
 
@@ -27,7 +29,7 @@ const Page = styled.div`
     width : 1920px;
     height : 1080px;
     position : relative;
-  background-color : white;
+    background-color : white;
     
 `;
 const MenuExtend = styled.div`

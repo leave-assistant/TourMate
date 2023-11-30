@@ -11,10 +11,8 @@ import {
 import styled from "styled-components";
 import { auth } from "./firebase";
 import { getFirestore, doc, getDoc } from "firebase/firestore"; // firestore 추가
-import Link from "next/link";
 import { useRouter } from "next/router";
-import Popup from "../MyPage/Popup";
-import SignUp from "./SignUpContent";
+import SignUpContent from "./SignUpContent";
 
 const SignIn = () => {
     const [isPopupVisible, setPopupVisible] = useState(false);
@@ -150,46 +148,52 @@ const SignIn = () => {
                         <br/>
                         <SignUpButton type="submit">로그인</SignUpButton>
                         <br/>
-
-                        <button onClick={openPopup}><div>회원이 아니신가요?</div></button>
-                        <Popup visible={isPopupVisible} onClose={closePopup}>
-                        <SignUp></SignUp>
-                        </Popup>
                     </SignInForm>
             </History>
+            <SignUpContent/>
             </SignInContainer>
         </>
     );
 };
 
-// 스타일드 컴포넌트를 사용하여 스타일을 정의
+const Button = styled.button`
+    width: 360px;
+    height: 40px;
+    margin: 10px auto;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    border: 1px solid #0160D6;
+    border-radius: 10px;
+`;
+
+const Text = styled.div`
+    font-size: 20px;
+    font-weight: normal; 
+    background-color: #ffffff;
+`;
+
 const SignInContainer = styled.div`
-    width: 433px;
+    width: 390px;
     height: 100%;
     background-color: #ffffff;
     padding: 20px;  
 `;
 
 const Title = styled.div`
-    width: 100%;
+    width: 350px;
     height: 50px;
-    margin-top: 20px;
+    margin: 20px auto;
     font-size: 28px;
     font-weight: bold; 
-    border-bottom: 1px solid #000000
-`;
-
-const GoogleImage = styled.div`
-    margin-top: 0px;
-    display: flex;
-    margin-left: 25%;
-    margin-right: auto;
+    border-bottom: 1px solid #0160D6;
 `;
 
 const Image = styled.div`
     width: 130px;
     height: 130px;
-    margin-top: 40px;
+    margin-top: 20px;
     display: flex;
     margin-left: auto;
     margin-right: auto;
@@ -199,9 +203,16 @@ const Profile = styled.div`
     width: 100%;
     height: 70px;
     margin-top: 10px;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: normal; 
     text-align: center;
+`;
+
+const GoogleImage = styled.div`
+    margin-top: 0px;
+    display: flex;
+    margin-left: 25%;
+    margin-right: auto;
 `;
 
 const SignInForm = styled.form`
@@ -214,7 +225,7 @@ const Introduce = styled.div`
     width: 100%;
     height: 300px;
     margin-top: 35px;
-    border-bottom: 1px solid #000000
+    border-bottom: 1px solid #000000;
 `;
 
 const Input = styled.input`
@@ -230,7 +241,7 @@ const SignUpButton = styled.button`
     padding: 10px;
     width: 60%;
     font-size: 18px;
-    background-color: #007bff;
+    background-color: #0160D6;
     color: #fff;
     border: none;
     border-radius: 5px;

@@ -68,47 +68,58 @@ const UserProfile = () => {
     }, [user]);
     
 
-    return (
-        <div>
+    // ... (이전 코드)
+
+return (
+    <div>
         {userRooms.length > 0 ? (
-        
-        <User onClick={openChattingRoomModal}>
-            {userRooms.map((UserRoomsData, TripData) => (
-            <>
+            <UserContainer>
+            {userRooms.map((userData) => (
+                <User key={userData.id} onClick={openChattingRoomModal}>
                 <ImageContainer>
                     <img
-                        src="/User_Image/Profile_Blue.jpg"
-                        alt="My Image"
-                        style={{
-                            width: '60px',
-                            height: '60px',
-                            borderRadius: '30px',
-                        }} />
+                    src="/User_Image/Profile_Blue.jpg"
+                    alt="My Image"
+                    style={{
+                        width: '60px',
+                        height: '60px',
+                        borderRadius: '30px',
+                    }}
+                    />
                 </ImageContainer>
-                        
+    
                 <UserInfo>
-                    <UserName>{UserRoomsData.partnerNickname}</UserName>
-                    <Chat>{UserRoomsData.lastMessage}</Chat>
+                    <UserName>{userData.partnerNickname}</UserName>
+                    <Chat>{userData.lastMessage}</Chat>
                 </UserInfo>
-            </>
+                </User>
             ))}
-        </User>
+            </UserContainer>
         ) : (
             <p>사용자의 여행 플랜이 없습니다.</p>
         )}
-
-            {isChattingRoomVisible && (
-                <ModalOverlay
-                    ref={outside} 
-                    onClick={ (e) => { if(e.target == outside.current) setChattingRoomVisible(false) } }>
-                        <ChattingRoom></ChattingRoom>
-                </ModalOverlay>
-            )}
+    
+        {isChattingRoomVisible && (
+            <ModalOverlay
+            ref={outside}
+            onClick={(e) => {
+                if (e.target === outside.current) setChattingRoomVisible(false);
+            }}
+            >
+            <ChattingRoom></ChattingRoom>
+            </ModalOverlay>
+        )}
         </div>
     );
+    
 }
 
 export default UserProfile;
+
+const UserContainer = styled.div`
+    margin-left: 10px;
+    margin-top: 10px;
+`;
 
 const User = styled.div`
     display: flex;
