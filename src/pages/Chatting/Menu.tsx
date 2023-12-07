@@ -1,9 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import UserProfile from "./UserProfile";
-
-import ChattingRoom from "./ChattingRoom";
-import { useState, useEffect } from "react"
 import { UserProvider } from "../User/UserContext";
 import { RoomProvider } from "../User/ChattingRoomContext";
 import { TripPlanProvider } from "../User/TripContext";

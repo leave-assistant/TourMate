@@ -150,7 +150,6 @@ const SignIn = () => {
                         <br/>
                     </SignInForm>
             </History>
-            <SignUpContent/>
             </SignInContainer>
         </>
     );
