@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { useState, useEffect } from "react"
 import { useUser } from "../User/UserContext";
 import { useTripPlan } from "../User/TripContext";
-import { Timestamp, addDoc, collection, doc, getDocs, orderBy, query, updateDoc, where } from "firebase/firestore";
+import { Timestamp, addDoc, collection, doc, getDocs, orderBy, query, serverTimestamp, updateDoc, where } from "firebase/firestore";
 import { firestore } from "../User/firebase";
 
 interface RoomsData {
@@ -34,6 +34,17 @@ interface ChattingRoomProps {
     roomId: string;
 }
 
+interface UserData {
+	uid?: string;
+    nickname?: string;
+    age?: string;
+    gender?: string;
+    Mbti?: string;
+    Info?: string;
+    TourStyle?: string;
+	profileImg?: string;
+}
+
 
 const ChattingRoom: React.FC<ChattingRoomProps> = ({ roomId }) => {
     const userContext = useUser();
@@ -41,6 +52,7 @@ const ChattingRoom: React.FC<ChattingRoomProps> = ({ roomId }) => {
     const [chattingRoom, setChattingRoom] = useState<RoomsData[]>([]);
     const [tripPlan, setTripPlan] = useState<TripPlanData[]>([]);
     const [messages, setMessages] = useState<MessageData[]>([]);
+    const [otherUser, setOtherUser] = useState<UserData[]>([]);
     const [inputMessage, setInputMessage] = useState("");
 
     const [modal, setModal] = useState(false);
@@ -73,7 +85,6 @@ const ChattingRoom: React.FC<ChattingRoomProps> = ({ roomId }) => {
     useEffect(() => {
         const fetchChattingRoomData = async () => {
             try {
-                if(userContext){
                     // 채팅방
                     const roomQuery = query(
                         collection(firestore, 'ChattingRoom'),
@@ -86,45 +97,74 @@ const ChattingRoom: React.FC<ChattingRoomProps> = ({ roomId }) => {
                     } as RoomsData ));
                     setChattingRoom(roomDataforId);
                     // 여행일정
-                    for(let i = 0; i<chattingRoom.length; i++){
-                        const targetRoom = chattingRoom[i];
-                        const tripQuery = query(
-                            collection(firestore, 'TripPlan'),
-                            where('id', '==', targetRoom.tripPlanId)
-                        );
-                        const tripSnapshot = await getDocs(tripQuery);
-                        const tripDataForRoom: TripPlanData[] = tripSnapshot.docs.map(doc => ({
-                            id: doc.id,
-                            ...doc.data()
-                        } as TripPlanData ));
-                        setTripPlan(tripDataForRoom);
-                    }
+                    const targetRoom = roomDataforId[0];
+                    const tripQuery = query(
+                        collection(firestore, 'TripPlan'),
+                        where('id', '==', targetRoom.tripPlanId)
+                    );
+                    const tripSnapshot = await getDocs(tripQuery);
+                    const tripDataForRoom: TripPlanData[] = tripSnapshot.docs.map(doc => ({
+                        id: doc.id,
+                        ...doc.data()
+                    } as TripPlanData ));
+                    setTripPlan(tripDataForRoom);
                     // 채팅메세지
                     const MessagesQuery = query(
                         collection(firestore, 'Message'),
-                        where('roomId', '==', roomId),
+                        where('roomId', '==', roomId)
                     );
                     const messagesSnapshot = await getDocs(MessagesQuery);
                     const messagesData: MessageData[] = messagesSnapshot.docs.map(doc => ({
                         id: doc.id,
                         ...doc.data()
                     } as MessageData));
+                    // created_at 기준 정렬
+                    messagesData.sort((a, b) => {
+                        const timeA = new Date(a.created_at).getTime();
+                        const timeB = new Date(b.created_at).getTime();
+                        return timeA - timeB;
+                    })
                     setMessages(messagesData);
-
-                }
-                    
+                    // 다른 유저 정보
+                    if(targetRoom.reqUid == userContext?.uid){
+                        const OtherUserQuery = query(
+                            collection(firestore, 'users'),
+                            where('uid', '==', targetRoom.resUid)
+                        );
+                        const OtherUserSnapshot = await getDocs(OtherUserQuery);
+                        const OtherUserData: UserData[] = OtherUserSnapshot.docs.map(doc => ({
+                            id: doc.id,
+                            ...doc.data()
+                        } as UserData));
+                        setOtherUser(OtherUserData);
+                    }else{
+                        const OtherUserQuery = query(
+                            collection(firestore, 'users'),
+                            where('uid', '==', targetRoom.reqUid)
+                        );
+                        const OtherUserSnapshot = await getDocs(OtherUserQuery);
+                        const OtherUserData: UserData[] = OtherUserSnapshot.docs.map(doc => ({
+                            id: doc.id,
+                            ...doc.data()
+                        } as UserData));
+                        setOtherUser(OtherUserData);
+                    }
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
         };
         fetchChattingRoomData();
-    }, [userContext, roomId, tripPlanContext]);
+    });
     
 
     
     return(
         <>
         <Room>
+            {otherUser.map((other) => (
+                <div key={other.uid}>
+
+                
             {tripPlan.map((trip) => (
                 <div key={trip.id}>
                 <RoomHeader>
@@ -140,7 +180,25 @@ const ChattingRoom: React.FC<ChattingRoomProps> = ({ roomId }) => {
                 }
                 </div>
             ))}
-            
+
+            {messages?.map((messageData) => (
+                <ChatBubble key={messageData.id} isMine={messageData.uid === userContext?.uid} >
+                    {(messageData.uid === userContext?.uid) ? (
+                    <div>
+                        <Nickname>{userContext.nickname}</Nickname>
+                        <p>{messageData.message}</p>
+                    </div>
+                    ) : (
+                    <div>
+                        <Nickname>{other.nickname}</Nickname>
+                        <p>{messageData.message}</p>
+                    </div>
+                    )}
+                    
+                </ChatBubble>
+                ))}
+
+{/*             
             <ImgChat>
             <Img src="/User_Image/Profile_Blue.jpg"/>
                 <UserImg src = "/User_Image/Profile_Blue.jpg" />
@@ -153,16 +211,19 @@ const ChattingRoom: React.FC<ChattingRoomProps> = ({ roomId }) => {
                     </div>
                 </ChatBubble>
                 ))}
-            
+            */}
             <ChattingInput
                 type="text"
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
-                placeholder="메시지를 입력하세요."
+                placeholder="    메시지를 입력하세요."
             />
             <Send onClick={() => sendButtonClick(inputMessage)}>
                 <SendFont>전송</SendFont>
-            </Send>
+            </Send> 
+
+            </div>
+            ))}
         </Room>
         </>
     ); 
@@ -208,7 +269,10 @@ const ChattingTitle = styled.p`
     margin-left: 15px;
     font-size : 22px;
     font-weight: bold;
-    
+`;
+
+const Nickname = styled.p`
+    font-weight: bold;
 `;
 
 const ChatBubble = styled.div<{ isMine: boolean }>`
@@ -260,29 +324,30 @@ const Chatting = styled.div`
 
 const ChattingInput = styled.input.attrs({ type: 'text'})`
     position: fixed;
-    width: 300px;
+    width: 390px;
     height: 50px;
     word-break:break-all;
     bottom: 0;
-    margin : 0 0 30px 30px;
-    border-radius: 10px;
-    border : 1px solid #0160D6;
+    margin : 0 0 40px 0px;
+    border-radius: 0px;
+    border : 1px solid #E5E5E5;
 `
 
 const Send = styled.button`
     position : fixed;
     width: 45px;
-    height: 35px;
+    height: 30px;
     bottom: 0;
-    margin: 0 0 30px 330px;
-    border-radius: 5px;
-    background-color: #0160D6;
-    
+    margin: 0 0 10px 335px;
+    border-radius: 0px;
+    border-color: #FFFFFF; 
+    background-color: #E5E5E5;
+    box-shadow: none;
 `
 const SendFont = styled.p`
     font-size: 12px;
     font-weight: bold;
-    color: #ffffff;
+    color: #808080;
 `
 const Modal = styled.div`
     display: flex;

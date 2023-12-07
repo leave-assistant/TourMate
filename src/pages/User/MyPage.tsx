@@ -4,14 +4,14 @@ import { TripPlanProvider } from "./TripContext";
 import { RoomProvider } from "./ChattingRoomContext";
 import ChattingTwo from "./ChattingTwo";
 import ChattingRoom from "./ChattingRoom";
+import SignUp from "./SignUp";
 
 const MyPage = () => {
     return (
         <UserProvider>
         <TripPlanProvider>
         <RoomProvider>
-            <ChattingTwo roomId={"pYj0onqSKwlc7QFyBK14"} />
-            {/* <ChattingRoom roomId={"pYj0onqSKwlc7QFyBK14"}/> */}
+            <SignUp></SignUp>
         </RoomProvider>
         </TripPlanProvider>
         </UserProvider>
