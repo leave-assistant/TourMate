@@ -15,7 +15,7 @@ function Use() {
 
 const History = styled.div`
   width: 100%;
-  margin-top: 35px;
+  margin-top: 50px;
 `;
 
 const UseHistory = styled.div`

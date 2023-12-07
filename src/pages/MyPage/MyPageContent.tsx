@@ -94,7 +94,7 @@ const Profile = styled.div`
 
 const Introduce = styled.div`
   width: 350px;
-  margin: 50px auto;
+  margin: 80px auto 0px;
   padding-bottom: 40px;
   border-bottom: 1px solid #000000;
 `;

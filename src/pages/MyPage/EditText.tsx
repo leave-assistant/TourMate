@@ -55,6 +55,11 @@ function EditText() {
   return (
     <div>
       {isEditing ? (
+        <SaveButton><Save type="button" onClick={handleSaveClick}><SaveImage><img src="/MyPage_Image/save.png"/></SaveImage></Save></SaveButton>
+      ) : (
+        <Edit type="button" onClick={handleEditClick}><EditImage><img src="/MyPage_Image/edit.png"/></EditImage></Edit>
+      )}
+      {isEditing ? (
         <div>
           <Question>여행스타일</Question> 
           <EditAnswer><input type="text" value={texts.TourStyle} onChange={(e) => handleTextChange('TourStyle', e)} /></EditAnswer>
@@ -72,11 +77,6 @@ function EditText() {
           <Question>소개글</Question>
           <SaveAnswer><p>{user?.Info}</p></SaveAnswer>
         </div>
-      )}
-      {isEditing ? (
-        <SaveButton><Save type="button" onClick={handleSaveClick}><SaveImage><img src="/MyPage_Image/save.png"/></SaveImage></Save></SaveButton>
-      ) : (
-        <Edit type="button" onClick={handleEditClick}><EditImage><img src="/MyPage_Image/edit.png"/></EditImage></Edit>
       )}
     </div>
   );
