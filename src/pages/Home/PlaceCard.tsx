@@ -93,7 +93,7 @@ const CheckPointAdd = styled.div`
     background-color: pink;
     color: white;
     border-radius: 8px;
-    width: 70px;
+    width: 73px;
     height: 30px;
     margin-left: 4px;
     cursor: pointer;
@@ -106,14 +106,14 @@ const CourseAdd = styled.div`
     background-color: #0160D6;
     color: white;
     border-radius: 8px;
-    width: 70px;
+    width: 73px;
     height: 30px;
     margin-left: 4px;
     cursor: pointer;
 `;
 
 const PlaceName = styled.div`
-    width: 182px;
+    width: 176px;
     font-size: 28px;
     font-weight: bold;
     margin-right: 5px;
