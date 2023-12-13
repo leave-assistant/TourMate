@@ -55,6 +55,11 @@ function EditProfile() {
   return (
     <div>
       {isEditing ? (
+        <Save type="button" onClick={handleSaveClick}><SaveImage><img src="/MyPage_Image/save.png"/></SaveImage></Save>
+      ) : (
+        <Edit type="button" onClick={handleEditClick}><EditImage><img src="/MyPage_Image/edit.png"/></EditImage></Edit>
+      )}
+      {isEditing ? (
         <div>
           <Profile><Question>이름</Question> 
           <EditAnswer><input type="text" value={texts.nickname} onChange={(e) => handleTextChange('nickname', e)} /></EditAnswer></Profile>
@@ -70,18 +75,39 @@ function EditProfile() {
           <SaveAnswer><p>{user?.gender}</p></SaveAnswer>
         </div>
       )}
-      {isEditing ? (
-        <SaveButton><Save type="button" onClick={handleSaveClick}><SaveImage><img src="/MyPage_Image/save.png"/></SaveImage></Save></SaveButton>
-      ) : (
-        <Edit type="button" onClick={handleEditClick}><EditImage><img src="/MyPage_Image/edit.png"/></EditImage></Edit>
-      )}
     </div>
   );
 }
 
+const Save = styled.button`
+  margin-left: 300px;
+  border:none;
+`;
+
+const SaveImage = styled.div`
+  width: 15px;
+  height: 15px;
+  padding-right: 20px;
+  display: flex;
+  background-color: white;
+`;
+
+const Edit = styled.button`
+  margin-left: 300px;
+  border:none;
+`;
+
+const EditImage = styled.div`
+  width: 15px;
+  height: 15px;
+  padding-right: 20px;
+  display: flex;
+  background-color: white;
+`;
+
 const Profile = styled.div`
   display: flex;
-  margin: 10px auto;
+  margin: 5px auto;
 `;
 
 const Question = styled.div`
@@ -92,9 +118,7 @@ const Question = styled.div`
 `;
 
 const EditAnswer = styled.button`
-  font-size: 18px;
-  font-weight: normal; 
-  margin: 0 auto;
+  margin: 1px auto;
   border: none;
 `;
 
@@ -103,35 +127,6 @@ const SaveAnswer = styled.div`
   font-weight: normal; 
   margin-top: 5px;
   border: none;
-`;
-
-const SaveButton = styled.div`
-  float: right;
-`;
-
-const Save = styled.button`
-  border:none;
-`;
-
-const SaveImage = styled.div`
-  width: 15px;
-  height: 15px;
-  padding-right: 50px;
-  display: flex;
-  background-color: white;
-`;
-
-const Edit = styled.button`
-  float: right;
-  border:none;
-`;
-
-const EditImage = styled.div`
-  width: 15px;
-  height: 15px;
-  padding-right: 80px;
-  display: flex;
-  background-color: white;
 `;
 
 export default EditProfile;
