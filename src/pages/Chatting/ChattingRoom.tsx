@@ -111,19 +111,14 @@ const ChattingRoom: React.FC<ChattingRoomProps> = ({ roomId }) => {
                     // 채팅메세지
                     const MessagesQuery = query(
                         collection(firestore, 'Message'),
-                        where('roomId', '==', roomId)
+                        where('roomId', '==', roomId),
+                        orderBy("created_at", "asc")
                     );
                     const messagesSnapshot = await getDocs(MessagesQuery);
                     const messagesData: MessageData[] = messagesSnapshot.docs.map(doc => ({
                         id: doc.id,
                         ...doc.data()
                     } as MessageData));
-                    // created_at 기준 정렬
-                    messagesData.sort((a, b) => {
-                        const timeA = new Date(a.created_at).getTime();
-                        const timeB = new Date(b.created_at).getTime();
-                        return timeA - timeB;
-                    })
                     setMessages(messagesData);
                     // 다른 유저 정보
                     if(targetRoom.reqUid == userContext?.uid){
