@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { useState, useEffect, useRef } from "react"
-import ChattingRoom from "../User/ChattingRoom";
-import { QuerySnapshot, Timestamp, collection, getDocs, query, where } from "firebase/firestore";
+import ChattingRoom from "./ChattingRoom";
+import { Timestamp, collection, getDocs, query, where } from "firebase/firestore";
 import { useUser } from "../User/UserContext";
 import { firestore } from "../User/firebase";
 import { useRoom } from "../User/ChattingRoomContext";
@@ -33,7 +33,6 @@ const UserProfile = () => {
     const chattingRooms = useRoom();
     const tripPlan = useTripPlan();
     const [userRooms, setUserRooms] = useState<UserRoomsData[]>([]);
-    const [userTrips, setUserTrips] = useState<TripData[]>([]);
     const [selectedRoomId, setSelectedRoomId] = useState<string | undefined>(undefined);
 
 

@@ -83,7 +83,7 @@ const SignUpContent = () => {
     return (
         <div>
         <Button type="button" onClick={closePopup}><Text>회원이 아니신가요?</Text></Button>
-        <Popup visible={isPopupVisible} onClose={openPopup}>
+        
         <SignUpContainer>
             <Title>MY 투어메이트</Title>
             <Introduce>
@@ -121,7 +121,6 @@ const SignUpContent = () => {
                 </SignUpForm>
             </History>
         </SignUpContainer>
-        </Popup>
         </div>
     );
 };

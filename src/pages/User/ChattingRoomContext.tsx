@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth, firestore } from './firebase';
-import { DocumentReference, doc, getDoc } from 'firebase/firestore';
+import { DocumentReference, collection, doc, getDoc, query, where } from 'firebase/firestore';
 
 interface RoomData {
 	created_at: string;
@@ -46,4 +46,4 @@ interface RoomContextType {
 		throw new Error('useUser must be used within a UserProvider');
 	}
 	return context.room;
-}
+	}

@@ -94,7 +94,7 @@ const SignIn = () => {
             .then(() => {
                 alert("로그인 성공");
                 // 로그인 성공 시 MyPage로 이동
-                router.push("./MyPage");
+                router.push("./");
             })
             .catch((error) => {
                 console.log("로그인 실패 : ", error.message);
@@ -150,7 +150,6 @@ const SignIn = () => {
                         <br/>
                     </SignInForm>
             </History>
-            <SignUpContent/>
             </SignInContainer>
         </>
     );
